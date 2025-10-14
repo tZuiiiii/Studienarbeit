@@ -1,0 +1,16 @@
+# Latex temporäre Dateien
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.for
+*.idx
+*.ist
+*.lof
+*.log
+*.lot
+*.lol
+*.toc
+*.tdo
+*.gz
+*.run.xml
