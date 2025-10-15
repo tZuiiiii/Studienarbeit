@@ -1,18 +1,18 @@
 # Fdb version 4
-["biber bericht"] 0 "bericht.bcf" "bericht.bbl" "bericht" 1760530814.36346 0
+["biber bericht"] 0 "bericht.bcf" "bericht.bbl" "bericht" 1760531626.05526 0
   "bericht.bcf" 0 -1 0 "pdflatex"
   "literatur_Studienarbeit.bib" 0 -1 0 ""
   (generated)
   "bericht.bbl"
   "bericht.blg"
   (rewritten before read)
-["makeindex bericht.idx"] 1760530150.4845 "bericht.idx" "bericht.ind" "bericht" 1760530814.36245 0
-  "bericht.idx" 1760530812.49586 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+["makeindex bericht.idx"] 1760530150.4845 "bericht.idx" "bericht.ind" "bericht" 1760531626.0547 0
+  "bericht.idx" 1760531624.09411 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
   (generated)
   "bericht.ilg"
   "bericht.ind"
   (rewritten before read)
-["pdflatex"] 1760530810.65837 "/workspace/docs/Projektmanagment/Protokolle/2_09.10.2025/bericht.tex" "bericht.pdf" "bericht" 1760530814.3654 0
+["pdflatex"] 1760531622.10452 "/workspace/docs/Projektmanagment/Protokolle/2_09.10.2025/bericht.tex" "bericht.pdf" "bericht" 1760531626.05664 0
   "/opt/texlive/texdir/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc" 1254269338 2375 baa924870cfb487815765f9094cf3728 ""
   "/opt/texlive/texdir/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc" 1254269338 3031 6c4d3515bf7115d8518af1c9ab97ca44 ""
   "/opt/texlive/texdir/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -276,15 +276,15 @@
   "/workspace/docs/Projektmanagment/Protokolle/2_09.10.2025/bericht.tex" 1760530355.66505 7827 5f1823b86d413e70e95c71aa455d17e8 ""
   "Images/dhbw-logo.png" 1760526863.70752 66959 c9e9f8bcdf209df339ef3c7d21b8c44f ""
   "abk.tex" 1760526863.70952 1027 66aa12453b2de05125943e01b296f0ad ""
-  "bericht.aux" 1760530813.99186 2408 391ddb6cc0181de7bf79e167dd0edd58 "pdflatex"
+  "bericht.aux" 1760531625.66812 2408 391ddb6cc0181de7bf79e167dd0edd58 "pdflatex"
   "bericht.bbl" 0 -1 0 "biber bericht"
   "bericht.ind" 1760530150.59933 0 d41d8cd98f00b204e9800998ecf8427e "makeindex bericht.idx"
-  "bericht.run.xml" 1760530814.00986 2419 7deef37ef023b2502864273ad39c82c3 "pdflatex"
+  "bericht.run.xml" 1760531625.68812 2419 7deef37ef023b2502864273ad39c82c3 "pdflatex"
   "bericht.sty" 1760526863.71752 14805 5332300232e086bf116662a88165fa16 ""
   "bericht.tex" 1760530355.66505 7827 5f1823b86d413e70e95c71aa455d17e8 ""
-  "bericht.toc" 1760530814.00986 516 5080c764462180d8638471604ce9daf6 "pdflatex"
-  "kapitel1.aux" 1760530813.98886 4920 81c48eedbe6ec0211df297e14f3d2544 "pdflatex"
-  "kapitel1.tex" 1760530806.29085 1699 16cc1f20bf7d2df9290225731fc3baa3 ""
+  "bericht.toc" 1760531625.68912 516 5080c764462180d8638471604ce9daf6 "pdflatex"
+  "kapitel1.aux" 1760531625.66467 4920 81c48eedbe6ec0211df297e14f3d2544 "pdflatex"
+  "kapitel1.tex" 1760531621.37511 1679 89240f57acaf3e0c3acaf4511618757c ""
   (generated)
   "bericht.aux"
   "bericht.bcf"
