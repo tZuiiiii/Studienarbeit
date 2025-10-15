@@ -1,1 +1,55 @@
-\chapter{Rahmenbedingungen des Projekts}
+\chapter{Risiken}
+
+\begin{table}[h!]
+\centering
+% \small % verkleinert Schrift, damit sie besser auf die Seite passt
+\begin{tabular}{|l|p{7cm}|c|c|c|}
+\hline
+\textbf{Risiko} & \textbf{Risikobeschreibung} & \textbf{\%\textsuperscript{1}} & \textbf{Einfluss (1–10)} & \textbf{Risikofaktor\textsuperscript{2}} \\
+\hline
+R1 & KI liefert keine zuverlässigen Ergebnisse & 30 & 8 & 240 \\
+\hline
+R2 & Industriekamera ist nicht kompatibel oder hat mangelhafte Qualität & 20 & 6 & 120 \\
+\hline
+R3 & Datenschutzprobleme oder Compliance-Verstoß & 10 & 10 & 100 \\
+\hline  
+R4 & Zeitverzögerungen bei KI-Training oder Entwicklungsmeilensteinen & 25 & 7 & 175 \\
+\hline
+R5 & Personalausfall im Team (Krankheit, Abwesenheit) & 15 & 5 & 75 \\
+\hline
+R6 & Anzeige funktioniert unter schwierigen Licht- oder Spiegelbedingungen nicht korrekt & 20 & 8 & 160 \\
+\hline
+\end{tabular}
+
+\vspace{3pt}
+\begin{flushleft}
+\footnotesize\textsuperscript{1}\,Eintrittswahrscheinlichkeit in Prozent.
+\footnotesize\textsuperscript{2}\,Eintrittswahrscheinlichkeit * Einfluss.
+\end{flushleft}
+
+\end{table}
+
+\begin{table}[h!]
+\centering
+% \small % verkleinert Schrift, damit sie besser auf die Seite passt
+\begin{tabular}{|l|p{7cm}|c|c|c|}
+\hline
+\textbf{Risiko} & \textbf{Risiko-Minderung} & \textbf{Zuständig} \\
+\hline
+R1 & Alternative KI-Ansätze prüfen, Validierung mit realen Datensätzen durchführen & Entwicklungsteam \\
+\hline
+R2 & Vorab Hardwaretests, Backup-Kameramodelle vorsehen & Entwicklungsteam \\
+\hline
+R3 & Datenschutzkonzept erstellen, Edge-Verarbeitung & Projektleiter, Entwicklungsteam \\
+\hline
+R4 & Zeitpuffer einplanen, Tasks parallelisieren & Projektleiter \\
+\hline
+R5 & Übergaberegeln, regelmäßige Teammeetings & Entwicklungsteam \\
+\hline
+R6 & Umfangreiche Tests, Kalibrierung & Entwicklungsteam \\
+\hline
+\end{tabular}
+
+
+
+\end{table}
