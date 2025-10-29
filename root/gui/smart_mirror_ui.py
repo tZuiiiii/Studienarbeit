@@ -2,7 +2,9 @@ import tkinter as tk
 from PIL import Image, ImageTk
 import os
 import sys
-from heart_rate_simulator import start_simulation
+from heart_rate_simulator import start_simulation as simulate_heart_rate
+from moods import Mood
+from mood_change_simulator import start_simulation as simulate_mood_change
 
 # --- CONST ---
 WIDTH = 1200
@@ -12,10 +14,9 @@ HEART_COLOR = "white"
 HEART_WIDTH = 6
 BASE_RADIUS = 100
 NUM_POINTS = 100
+HEART_PNG = "assets/heart.png"
 
-HEART_PNG = "heart.png"
-
-# --- PULSE KONSTANTEN ---
+# --- PULSE CONST ---
 BASE_IMG_SIZE = 200
 MAX_SCALE_FACTOR = 1.15
 STEP_DURATION_MS = 25
@@ -24,7 +25,7 @@ NUM_STEPS = 6
 
 def _calculate_pulse_period(bpm):
     if bpm <= 0:
-        return int(60_000 / 60)  # Fallback auf 60 BPM
+        return int(60_000 / 60)
     return int(60_000 / bpm)
 
 
@@ -41,7 +42,7 @@ class SmartMirrorUI(tk.Tk):
 
         self.original_img_pil = None
         self.heart_img_tk = None
-        self.png_canvas_id = None
+        self.heart_png_canvas_id = None
         self.bpm_display_id = None
 
         self.bpm = 80
@@ -56,11 +57,40 @@ class SmartMirrorUI(tk.Tk):
         self.canvas = tk.Canvas(self, bg=BACKGROUND_COLOR, highlightthickness=0)
         self.canvas.pack(fill="both", expand=True)
 
+        self.current_mood = None
+        self.mood_simulation_job_id = None
+        self.image_label = tk.Label(self)
+        self.image_label.pack(pady=20)
+        self.mood_png_canvas_id = None
+
+        for mood in Mood:
+            tk.Button(self,
+                      text=f"{mood.name}",
+                      command=lambda m=mood: self.update_mood_image(m)
+                      ).pack(side=tk.RIGHT, padx=5)
+
         self.canvas.after(50, self.setup_ui)
 
     def toggle_fullscreen(self, event=None):
         self.is_fullscreen = not self.is_fullscreen
         self.attributes('-fullscreen', self.is_fullscreen)
+
+    def update_mood_image(self, mood: Mood):
+        img = Image.open(mood.value).resize((BASE_IMG_SIZE, BASE_IMG_SIZE), Image.LANCZOS)
+        mood = ImageTk.PhotoImage(img)
+
+        self.current_mood = mood
+
+        width = self.canvas.winfo_width()
+        height = self.canvas.winfo_height()
+
+        self.mood_png_canvas_id = self.canvas.create_image(
+            width - (width / 8),
+            height / 4,
+            image=self.current_mood,
+            anchor="center"
+        )
+        self.image_label.image = self.current_mood
 
     def set_bpm(self, new_bpm):
         if self.bpm == new_bpm or new_bpm <= 0:
@@ -115,7 +145,7 @@ class SmartMirrorUI(tk.Tk):
         resized_img = self.original_img_pil.resize((new_size, new_size), Image.LANCZOS)
 
         self.heart_img_tk = ImageTk.PhotoImage(resized_img)
-        self.canvas.itemconfig(self.png_canvas_id, image=self.heart_img_tk)
+        self.canvas.itemconfig(self.heart_png_canvas_id, image=self.heart_img_tk)
 
         if self.current_step < NUM_STEPS:
             self.current_step += 1
@@ -140,8 +170,8 @@ class SmartMirrorUI(tk.Tk):
         width = self.canvas.winfo_width()
         height = self.canvas.winfo_height()
 
-        self.pulse_center_x = width / 8
-        self.pulse_center_y = height / 8
+        self.pulse_center_x = width / 6
+        self.pulse_center_y = height / 4
 
         if not self.load_base_image():
             self.canvas.create_text(
@@ -153,7 +183,7 @@ class SmartMirrorUI(tk.Tk):
 
         self.heart_img_tk = ImageTk.PhotoImage(self.original_img_pil)
 
-        self.png_canvas_id = self.canvas.create_image(
+        self.heart_png_canvas_id = self.canvas.create_image(
             self.pulse_center_x,
             self.pulse_center_y,
             image=self.heart_img_tk,
@@ -171,9 +201,12 @@ class SmartMirrorUI(tk.Tk):
 
         self.start_pulse()
 
+        self.update_mood_image(Mood.SMILE)
+
 if __name__ == '__main__':
     app = SmartMirrorUI()
 
-    app.after(1000, lambda: start_simulation(app))
+    app.after(100, lambda: simulate_heart_rate(app))
+    app.after(100, lambda: simulate_mood_change(app))
 
     app.mainloop()
