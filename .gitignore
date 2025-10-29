@@ -14,3 +14,10 @@
 *.tdo
 *.gz
 *.run.xml
+
+.devcontainer
+*out/
+
+root/.idea
+root/.venv
+root/gui/__pycache__/*
