@@ -1,0 +1,57 @@
+\begin{landscape}
+\chapter{Projektablaufplan}
+\begin{ganttchart}[
+    expand chart=1.6\textwidth, % größer ziehen!
+    hgrid,
+    vgrid,
+    y unit title=0.6cm,
+    y unit chart=0.6cm,
+    bar height=0.7
+  ]{1}{32}
+
+  \gantttitlelist{40,41,42,43,44,45,46,47,48,49,50,51,52,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18}{1} \\
+
+
+  \ganttgroup{Projektvorbereitung}{1}{5} \\
+  \ganttbar[bar/.style={fill=yellow!60}]{QS-Maßnahmen: Besprechung mit Betreuer}{2}{3} \\
+  \ganttmilestone{Meilenstein: Themenmitteilung}{2} \\
+  \ganttbar{Hardware bestellen}{2}{4} \\
+  \ganttmilestone{Meilenstein: Kickoff Besprechung}{4} \\
+  \ganttgroup{Konzeptentwicklung}{5}{10} \\
+  \ganttbar{Spezifikation der Funktionen}{5}{6} \\
+  \ganttbar{Recherche zu Algorithmen}{6}{8} \\
+  \ganttmilestone{Meilenstein: Erstes Konzept}{10}\\
+  \ganttgroup{Prototyping}{10}{20} \\
+  \ganttbar{Implementierung eines SW Prototyps}{10}{13} \\
+  \ganttbar{Implementierung eines HW Prototyps}{13}{17} \\
+  \ganttbar{Integrtation bestehenden Codes}{17}{20} \\
+  \ganttbar[bar/.style={fill=yellow!60}]{QS-Maßnahmen: Besprechung mit Betreuer/Testen der Kamera}{18}{20} \\
+  \ganttmilestone{Meilenstein: Erster Prototyp}{20}\\
+  \ganttgroup{Testing}{20}{25} \\
+  \ganttbar[bar/.style={fill=yellow!60}]{QS-Maßnahmen: Feldtests}{20}{25} \\
+  \ganttbar[bar/.style={fill=gray!60}]{Abschlussbericht vorbereiten}{25}{32} \\
+  \ganttmilestone{Meilenstein: Abschluss}{32}
+\end{ganttchart}
+\end{landscape}
+\newpage
+\begin{itemize}
+    \item \textbf{Projektvorbereitung} (~01.10.25-31.10.25): Infrastruktur und Organisation für das Projekt aufbauen, z.B. Team bilden und Aufgaben verteilen.
+    \item \textbf{QS-Maßnahmen: Besprechung mit Betreuer} (~06.10.25-10.10.25): Frühzeitig Rücksprache mit Betreuer zu Ziele, Anforderungen und Planung halten.
+    \item \textbf{Meilenstein: Themenmitteilung} (10.10.25): Offizielle Anmeldung und Mitteilung des Projektthemas an die DHBW.
+    \item \textbf{Hardware bestellen} (~10.10.25-26.10.25): Beschaffung der für den Prototyp erforderlichen Hardware-Komponenten.
+    \item \textbf{Meilenstein: Kickoff Besprechung} (20.10.25): Erstes offizielles Projekttreffen mit Betreuer und Team.
+    \item \textbf{Konzeptentwicklung} (~26.10.25-05.12.25): Funktionen und Systemarchitektur konzipieren, technische Herausforderungen klären.
+    \item \textbf{Spezifikation der Funktionen} (~27.10.26-07.11.25): Pflichtenheft, Anforderungen und Systemziele detailliert ausarbeiten.
+    \item \textbf{Recherche zu Algorithmen} (~30.10.25-22.11.25): Recherche und Auswahl geeigneter Methoden für Vitalwertmessung und Mood Detection.
+    \item \textbf{Meilenstein: Erstes Konzept} (05.11.25): Das erste Architektur- und Funktionskonzept steht und ist abgestimmt.
+    \item \textbf{Prototyping} (~24.11.25-13.02.26): Erste Hard- und Softwareteile werden implementiert und getestet.
+    \item \textbf{Implementierung eines SW Prototyps} (~24.11.25-26.12.25): Erste Version der Software (z.B. Messung via Kamera, Basismodule) entwickeln.
+    \item \textbf{Implementierung eines HW Prototyps} (~15.12.25-23.01.26): Aufbau und erste Inbetriebnahme der Hardware (Spiegel, Display, Kamera).
+    \item \textbf{Integration bestehenden Codes} (~05.01.26-13.02.26): Bestehende Komponenten und Programme werden integriert.
+    \item \textbf{QS-Maßnahmen: Besprechung mit Betreuer\/Testen der Kamera} (~19.01.26-13.02.26): Intensive Überprüfung der neuen Komponenten, Rücksprache mit Betreuer.
+    \item \textbf{Meilenstein: Erster Prototyp} (16.02.26): Der erste lauffähige Smartmirror-Prototyp ist fertig.
+    \item \textbf{Testing} (~13.02.26-20.03.26): System- und Feldtests durchführen, Qualität prüfen und Schwächen identifizieren.
+    \item \textbf{QS-Maßnahmen: Feldtests} (~13.02.26-20.03.26): Testeinsatz im realen Umfeld zur Überprüfung von Vitalparametern und Mood Detection.
+    \item \textbf{Abschlussbericht vorbereiten} (~20.03.26-04.05.26): Projektdokumentation, Reflektion und Ergebnissicherung.
+    \item \textbf{Meilenstein: Abschluss} (04.05.26): Projektende mit finaler Abgabe und Präsentation.
+\end{itemize}
