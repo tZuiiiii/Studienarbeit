@@ -1,0 +1,437 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Descr:       LaTeX Style für Vorlage für Berichte der DHBW-Karlsruhe
+%% Author:      Prof. Dr. Jürgen Vollmer, juergen.vollmer@dhbw-karlsruhe.de
+%% $Id: bericht.sty,v 1.25 2020/03/13 15:38:13 vollmer Exp $
+%% -*- coding: utf-8 -*-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% ACHTUNG, wenn man eine eigene Format-Datei benutzt dann werden Änderungen an bericht.sty
+%% erst wirksam, wenn die Format-Datei neu erzeugt wurde!!!
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{bericht}[2017/10/06 v1.2]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% needed packages
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+\usepackage[table]{xcolor}    % Zeilen einfärben
+
+\usepackage[utf8]{inputenc}   % UTF8-Codierung
+\usepackage{babel}      % Sprachanpassungen für generierte Texte wie "Inhaltsverzeichnis" etc
+\usepackage[T1]{fontenc}% Interne LaTeX Codierungen
+\usepackage[dvipsnames,table]{xcolor} % Extending L A TEX’s color facilities
+\usepackage[babel, german=guillemets]{csquotes}   % Context sensitive quotation facilities.
+\usepackage{xspace}     % http://www.ctan.org/tex-archive/help/Catalogue/entries/xspace.html
+\usepackage{array}      % http://www.ctan.org/tex-archive/help/Catalogue/entries/array.html
+\usepackage{tabularx}   % http://www.ctan.org/tex-archive/help/Catalogue/entries/tabularx.html
+\usepackage{eurosym}    % \euro
+\usepackage{pdfpages}   % http://www.ctan.org/tex-archive/help/Catalogue/entries/pdfpages.html
+\usepackage{needspace}  % http://www.tex.ac.uk/cgi-bin/texfaq2html?label=nopagebrk
+\usepackage[bookmarksopen,bookmarksnumbered,hidelinks]{hyperref}
+\usepackage{bookmark}   % Bookmarks for hyperref
+\usepackage{graphicx}
+\usepackage[headings]{fullpage}
+\usepackage{fancyhdr}
+\usepackage{url}
+\usepackage{microtype}  % http://tug.ctan.org/tex-archive/macros/latex/contrib/microtype/
+\usepackage{lmodern}    % Computern-Modern Schriftfamilie
+\usepackage{amssymb}    % Symbole
+\usepackage{framed}     % Framed or shaded regions that can break across pages.
+		        % http://dante.ctan.org/tex-archive/help/Catalogue/entries/framed.html
+			% Benutzung siehe erklaerung.tex
+
+\usepackage{wrapfig}    % Bilder von textumfliessen lassen
+%\usepackage{showframe}
+
+\usepackage[colorinlistoftodos]{todonotes}
+                        % Einfache Verwaltung und Erstellung von TODO's Markierungen
+			% http://tug.ctan.org/tex-archive/macros/latex/contrib/todonotes/
+			% wichtige Paket-Optionen: disable
+
+\usepackage{makeidx}    % Erstellung eines Indexes
+\usepackage{parskip}  % Fügt Abstand zwischen Absätzen hinzu und entfernt den Einzug
+
+\usepackage{enumitem}
+% Optional: Anpassung des Abstands nach Absätzen
+\setlength{\parskip}{0.5em}  % Abstand zwischen Absätzen (z.B. 0.5em)
+\setlength{\parindent}{0pt}  % Kein Einzug am Anfang eines neuen Absatzes
+\usepackage{setspace}    % Für Zeilenabstand
+%\onehalfspacing          % Setzt 1,5-zeiligen Abstand
+\setstretch{1.5}
+% \usepackage{uarial}
+% \renewcommand{\familydefault}{\sfdefault}
+\pagestyle{fancy}  % Setzt den Seitenstil auf "fancy"
+\fancyhf{}  % Löscht alle vorherigen Kopf- und Fußzeilen
+\renewcommand{\thetable}{\arabic{table}}
+
+% Fußzeile für arabische Seitenzahlen (1, 2, 3, ...)
+%\fancyfoot[R]{Seite \thepage}
+
+% Entfernt die horizontale Linie in Kopf- und Fußzeile
+\renewcommand{\headrulewidth}{0pt}  
+
+% Kapitelstartseiten anpassen (damit sie "Seite X" behalten)
+% \fancypagestyle{plain}{%
+%   \fancyhf{}
+%   \fancyfoot[R]{Seite \thepage}  % Seitenzahl unten rechts mit "Seite"
+% }
+
+% Stil für römische Seitenzahlen (i, ii, iii, ...) OHNE "Seite"
+\fancypagestyle{Romanstyle}{%
+  \fancyhf{}
+  \fancyfoot[C]{\thepage}  % Nur Zahl unten rechts
+}
+
+% Entfernen des Wortes "Kapitel"
+\renewcommand{\chaptername}{}
+
+% Damit Kapitelüberschriften direkt als "1. Einleitung" angezeigt werden
+\usepackage{titlesec}
+\titleformat{\chapter}[hang]{\normalfont\huge\bfseries}{\thechapter.}{1em}{}
+\titleformat{\section}[hang]{\normalfont\fontsize{14}{16}\bfseries}{\thesection}{1em}{}
+\titlespacing*{\chapter}{0pt}{-2.5cm}{1cm}
+\makeindex
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% eigene Macros
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\email}[1]{\href{mailto:#1}{\textless#1\textgreater}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% citation, bibliography, BIBLATEX
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Wer etwas mehr "Kontrolle" über das Aussehen der Referenzen haben möchte, kann
+% auch das "biblatex"-Paket benutzen.
+\usepackage{etoolbox}  % http://dante.ctan.org/tex-archive/help/Catalogue/entries/etoolbox.html
+\usepackage[
+	hyperref=true,          % Klickbare Referenzen in der PDF-Datei
+        backref=false,           % In der Literaturref. die Seiten angeben, wo ein \cite dazu steht
+        bibencoding=inputenc,   % s. inputenc-Paket
+	style=authoryear-comp,
+        backend=biber,
+	sorting=nty]{biblatex}  % http://dante.ctan.org/tex-archive/help/Catalogue/entries/biblatex.html
+\renewcommand{\mkbibnamelast}[1]{\textsc{#1}}
+
+\DeclareNameAlias{author}{family-given}
+
+
+% \renewcommand{\mkbibnamefamily}[1]{#1} % Nachname normal formatieren
+% \renewcommand{\mkbibnamegiven}[1]{\mkbibnameabbrv{#1}} % Vornamen abgekürzt
+
+% Abstand der einzelnen Einträge in der Literaturangaben
+\renewcommand{\bibitemsep}{1ex}
+
+% Welche Klammern soll \parencite{..} benutzen?
+\renewcommand{\bibleftparen}{{}}
+\renewcommand{\bibrightparen}{{}}
+\addtolength{\skip\footins}{20pt}
+\setlength{\footnotesep}{10pt}
+% biblatex's \cite{..} gibt "normalerweise" keine Klammern um die Referenz aus
+% \parencite{..} gibt Klammern aus (die oben definiert sind)
+% Damit das "normale" Verhalten andere BibTeX-Stile realisiert wird, d.h. \cite{..}
+% gibt Klammen aus, wird folgendes definiert:
+% "Merke" ursprünliche Definition unter neuem Namen
+\let\citeNoParen\cite
+% "Redefiniere" \cite:
+\let\cite\parencite
+\newcommand{\found}[2][]{%
+  Gefunden in: \test{#2} 
+  (\citeyear{#2}),
+  \IfStrEq{#1}{}{}{S. #1} % Falls Seitenzahl vorhanden ist
+
+}
+
+\newcommand{\foundurl}[3][]{%
+  Gefunden in: \test{#2}: 
+  \IfStrEq{#3}{}{}{\url{#3}},
+  \citeyear{#2},
+  Einsichtnahme: {#1}
+}
+
+
+
+\renewcommand*{\mkbibnamegiven}[1]{\namepartgiveni}
+% Meine speziellen \cite-Kommandos:
+% Ausgabe des Untertitels (SUBTITLE) Feldes einer Referenz
+\DeclareCiteCommand{\citesubtitle}
+  {\boolfalse{citetracker}%
+   \boolfalse{pagetracker}%
+   \usebibmacro{prenote}}
+  {\indexfield{indextitle}%
+   \printfield[citetitle]{subtitle}}
+  {\multicitedelim}
+  {\usebibmacro{postnote}}
+
+% Ausgabe des Titels (TITLE) Feldes und der Referenz
+\DeclareCiteCommand{\citetitleref}
+  {\booltrue{citetracker}%
+   \booltrue{pagetracker}%
+   \usebibmacro{prenote}}
+  {\indexfield{indextitle}%
+   \printfield[citetitle]{title} \cite{\thefield{entrykey}}}
+  {\multicitedelim}
+  {\usebibmacro{postnote}}
+
+% wie citetitleref, nur als Fussnote
+\DeclareCiteCommand{\citetitlerefFootnote}
+  {}
+  {\footnote{\citetitleref{\thefield{entrykey}}}}
+  {}
+  {}
+
+\renewcommand*{\mkbibnamegiven}[1]{\namepartgiveni} % sorgt fürs initial
+
+% Customizing the name format for multiple authors
+\renewcommand*{\multinamedelim}{\addslash\space} % Semicolon between authors
+\renewcommand*{\finalnamedelim}{\addslash\space} % Semicolon before the last author
+\DeclareCiteCommand{\footcitecustom} % Neue Fußnotenzitierweise
+  {}
+  {\footnote{
+    Vgl. \printnames[family-given]{author} % Gibt Vorname + Nachname aus
+    \iffieldundef{year}{}{(\printfield{year}),} % Gibt das Jahr aus
+    \printfield{postnote} % Gibt die Seitenzahl aus, falls vorhanden
+  }}
+  {}
+  {}  
+
+\DeclareCiteCommand{\footcitecustomlink}
+{}
+{\footnote{%
+  \hangindent=1.8em\hangafter=1%
+  Vgl. \printnames{author}: \printfield{title}, 
+  \printfield{shorttitle},%
+  \iffieldundef{year}{}{ \printfield{year}, }%%
+  Einsichtnahme: \printfield{annotation}%
+}}
+{}
+{}
+
+
+
+  \DeclareCiteCommand{\test} % Neue Fußnotenzitierweise
+  {}
+  {
+    \printnames[family-given]{author} % Gibt Vorname + Nachname aus
+  }
+  {}
+  {}  
+
+
+%Englisches Zitat
+\DeclareCiteCommand{\footcitecustomenglisch} % Neue Fußnotenzitierweise
+  {}
+  {\footnote{
+    Vgl. \printnames[family-given]{author} % Gibt Vorname + Nachname aus
+    \iffieldundef{year}{}{(\printfield{year}),} % Gibt das Jahr aus
+    \printfield{postnote} % Gibt die Seitenzahl aus, falls vorhanden
+    (Vom Autor übersetzt)
+  }}
+  {}
+  {}  
+
+\DeclareCiteCommand{\footcitecustomebenda} % Neue Fußnotenzitierweise
+  {}
+  {\footnote{
+    Vgl. ebenda % Gibt Vorname + Nachname aus
+    \printfield{postnote} % Gibt die Seitenzahl aus, falls vorhanden
+
+  }}
+  {}
+  {}  
+% Ausgabe der URL im HOWPUBLISHED Feld
+% Referenzieren von URL's, Format in der *.bib-Datei
+%@MISC{key,
+%  AUTHOR	= "....",
+%  TITLE	= "Webseite....",
+%  HOWPUBLISHED = "\url{http://www.domain.tld}",
+%  YEAR		= YYYY,    % Jahr  der Einsichtname, YYYY = Jahreszahl 4 Stellog
+%  MONTH	= ABC      % Monat der Einsichtnahme (jan, feb, mar, apr, may, jun, jul, aug, sep, oct, nov. dec
+%}
+\DeclareCiteCommand{\citeurl}
+  {\booltrue{citetracker}%
+   \booltrue{pagetracker}%
+   \usebibmacro{prenote}}
+  {\indexfield{indextitle}%
+   \printfield[citetitle]{howpublished}}
+  {\multicitedelim}
+  {\usebibmacro{postnote}}
+
+% Ausgabe der URL im HOWPUBLISHED Feld und Referenz
+\DeclareCiteCommand{\citeurlref}
+  {\booltrue{citetracker}%
+   \booltrue{pagetracker}%
+   \usebibmacro{prenote}}
+  {\indexfield{indextitle}%
+   \printfield[citetitle]{howpublished} \cite{\thefield{entrykey}}}
+  {\multicitedelim}
+  {\usebibmacro{postnote}}
+
+% Augabe: Vorname Nachname des Autors
+\DeclareCiteCommand{\citefullauthor}
+  {\booltrue{citetracker}%
+   \booltrue{pagetracker}%
+   \usebibmacro{prenote}}
+  {\indexfield{indextitle}%
+    \textsc{\printnames[byeditor]{author}}}
+  {\multicitedelim}
+  {\usebibmacro{postnote}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Programmlistings setzen
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{listings}   % http://www.ctan.org/tex-archive/macros/latex/contrib/listings/
+
+% Wie sollen die Überschriften benannt werden:
+\renewcommand{\lstlistingname}{Code}
+
+% Wie die Liste der Listings, s. \lstlistoflistings in bericht.tex
+\renewcommand{\lstlistlistingname}{Liste der Algorithmen}
+
+% So kann man einen Stil für alle  Algorithmen definieren
+\lstdefinestyle{algoBericht}{
+  numbers=left,              % Zeilennummern einfügen
+  numberstyle=\tiny,         % wie werden sie gesetzt
+  numbersep=5pt,             % Abstand der Nummern zum Text
+  numberblanklines=false,    % bei Leerzeilen keine Nummer ausgeben (aber zählen)
+  basicstyle=\sffamily\small,         % Wie soll der Algorithmus gesetzt werden
+}
+
+\lstdefinestyle{SQL}{
+    language=SQL,
+    basicstyle=\ttfamily\small,
+    keywordstyle=[1]\color{blue},
+    keywordstyle=[2]\color{black},
+    commentstyle=\color{gray},
+    stringstyle=\color{red},
+    morekeywords=[1]{SELECT, FROM, WHERE, JOIN, ON, INSERT, INTO, VALUES, UPDATE, SET, DELETE},
+    morekeywords=[2]{timestamp, date},
+    breaklines=true,
+    frame=single,
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    stepnumber=1,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    tabsize=2,
+    captionpos=b,
+    rulecolor=\color{black}
+}
+\usepackage{xcolor}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Abkürzungen, http://www.ctan.org/tex-archive/macros/latex/contrib/acronym/
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[withpage]{acronym} %printonlyused,
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Formelverzeichnis, Dank an Andy Nöltner <ANoeltner@lstelcom.com>
+% Leider versursacht float zusammen mit Hyperref Warnungen
+% siehe http://www.tex.ac.uk/cgi-bin/texfaq2html?label=hyperdupdest
+% Wenn also das Formelverzeichnis nicht benötigt, dann das folgende
+% auskommentieren
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{float}
+\newfloat{eq}{H}{for}[chapter]
+\newcommand{\forname}{Formelverzeichnis}
+\newcommand{\listofequations}{\listof{eq}{\forname}}
+
+\newcommand{\eqlabel}[2]{
+        \label{#1}
+        \addcontentsline{for}{eq}{(\ref{#1}) #2}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Definitionen mit Ausgabe im Index
+% gibt #2 aus und fügt #1 bzw. #2 (wenn #1 nicht angegeben) in den Index ein
+\newcommand{\Def}[2][]{%
+   \def\OPTARG{#1}%
+   \def\EMPTY{}%
+   \ifx\OPTARG\EMPTY\index{#2}\else\index{#1}\fi%
+   \textbf{#2}\xspace%
+}
+
+% Entfernen von ISBN, DOI und Zugriffsdatum
+\AtEveryBibitem{%
+  \clearfield{isbn}%
+  \clearfield{doi}%
+  %\clearfield{url}%
+  \clearfield{urldate}%
+}
+\renewbibmacro*{publisher+location+date}{%
+  \printnames{author}% Ausgabe der Autoren
+  \setunit{\addcolon\space}% Doppelpunkt und Leerzeichen hinter Autoren
+  \printfield{title},%
+  \newunit\newblock
+  \printlist{publisher}%
+  % Komma nach Publisher, wenn edition oder annotation existieren
+  \iffieldundef{edition}{%
+    \iffieldundef{annotation}{%
+      \addcomma % beide fehlen → trotzdem Komma vor Jahr
+    }{%
+      \addcomma\space\printfield{annotation}%
+    }%
+  }{%
+    \addcomma\space\printfield{edition}%
+    \iffieldundef{annotation}{}{%
+      \addcomma\space\printfield{annotation}%
+    }%
+  }%
+  \space\printfield{year}%
+}
+
+
+\DeclareBibliographyDriver{book}{%
+  \usebibmacro{publisher+location+date}%
+  \finentry
+}
+\DeclareFieldFormat{url}{\url{#1}}
+
+\renewbibmacro*{links}{
+  \printnames{author}
+  \setunit{\addcolon\space}
+  \printfield{title},
+  \printfield{url}
+  \iffieldundef{year}{
+    \addcomma\space o.J.,
+  }{
+    \addcomma\space\printfield{year},
+  }
+  Einsichtnahme: \printfield{annotation}
+  \newunit\newblock
+}
+\DeclareBibliographyDriver{misc}{
+  \usebibmacro{links}
+  \finentry
+}
+\renewbibmacro*{dissertation}{
+  \printfield{author}
+  \setunit{\addcolon\space}
+  \printfield{title},
+  Diss.,
+  \printfield{school}
+  \printfield{year}
+}
+\DeclareBibliographyDriver{phdthesis}{
+  \usebibmacro{dissertation}
+  \finentry
+}
+\defbibheading{bibliography}{\chapter*{Literaturverzeichnis}}
+\defbibheading{internet}{\chapter*{Liste der Internetquellen}}
+% Sicherstellen, dass alle Autoren wie der erste angezeigt werden (Nachname, Vorname)
+\DeclareNameFormat[family-given]{author}{
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\endinput
+%%
+%% End of file `bericht.sty'.
