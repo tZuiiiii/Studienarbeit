@@ -1,9 +1,10 @@
-from mne.preprocessing.ecg import qrs_detector
+#from mne.preprocessing.ecg import qrs_detector
+qrs_detector = None 
 from pulse_publisher import PulsePublisher
 
 import matplotlib.pyplot as plt
 import numpy as np
-import pyedflib
+#import pyedflib
 import rospy
 
 
