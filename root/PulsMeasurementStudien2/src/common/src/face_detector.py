@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 from video_input import VideoInput
 
 import cv2
@@ -44,7 +44,8 @@ class FaceDetector:
         # Because input frames can be of different sizes, this is calculated dynamically on the first image callback
         if not self.min_face_size or not self.max_face_size:
             height = np.size(cv_image, 0)
-            self.min_face_size = (height / 3, height / 3)
+            # FIX: Use integer division //
+            self.min_face_size = (height // 3, height // 3)
             self.max_face_size = (height, height)
 
         # Detect faces in the image
@@ -57,7 +58,8 @@ class FaceDetector:
         )
 
         # Show original image, if no faces are detected
-        if len(faces) is 0:
+        # FIX: 'is 0' works in Python 2 but is a warning in Python 3. Use '== 0'
+        if len(faces) == 0:
             rospy.loginfo("[FaceDetector] No faces detected!")
 
             if self.show_image_frame is True:
@@ -81,10 +83,11 @@ class FaceDetector:
             self.face_callback(face, timestamp)
 
         # Define region of forehead
-        forehead_x = face_x + face_w / 3
-        forehead_y = face_y + face_h / 16
-        forehead_w = face_w / 3
-        forehead_h = int(face_h / 5)
+        # FIX: Changed all / to // for integer division
+        forehead_x = face_x + face_w // 3
+        forehead_y = face_y + face_h // 16
+        forehead_w = face_w // 3
+        forehead_h = int(face_h // 5)
 
         # Crop image to forehead
         forehead = cv_image[forehead_y: forehead_y + forehead_h, forehead_x: forehead_x + forehead_w]
@@ -94,10 +97,11 @@ class FaceDetector:
             self.forehead_callback(forehead, timestamp)
 
         # Define bottom region
-        bottom_x = face_x + face_w / 4
-        bottom_y = face_y + face_h / 2
-        bottom_w = face_w / 2
-        bottom_h = face_h / 2
+        # FIX: Changed all / to // for integer division
+        bottom_x = face_x + face_w // 4
+        bottom_y = face_y + face_h // 2
+        bottom_w = face_w // 2
+        bottom_h = face_h // 2
 
         # Crop image to bottom region
         bottom_face = cv_image[bottom_y: bottom_y + bottom_h, bottom_x: bottom_x + bottom_w]
@@ -154,7 +158,8 @@ class FaceDetector:
         :param faces: Rectangles of the detected faces
         :return: The biggest face found, if one exists
         """
-        if len(faces) is 1:
+        # FIX: 'is 1' replaced with '== 1'
+        if len(faces) == 1:
             return faces[0]
 
         biggest_face = None

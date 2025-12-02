@@ -1,5 +1,5 @@
 #from mne.preprocessing.ecg import qrs_detector
-qrs_detector = None 
+qrs_detector = None
 from pulse_publisher import PulsePublisher
 
 import matplotlib.pyplot as plt
