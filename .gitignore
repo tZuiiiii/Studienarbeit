@@ -23,3 +23,5 @@
 root/.idea
 root/.venv
 root/gui/__pycache__/*
+
+docs/Studienarbeit/LaTeX_Vorlage_Studienarbeit/literatur_Studienarbeit.bib
