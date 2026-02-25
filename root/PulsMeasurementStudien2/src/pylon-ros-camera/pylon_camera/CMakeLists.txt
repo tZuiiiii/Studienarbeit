@@ -17,10 +17,22 @@ set(
      sensor_msgs
 )
 
-find_package(Pylon QUIET)
-if (NOT ${Pylon_FOUND})
-    include("${CMAKE_CURRENT_SOURCE_DIR}/cmake/FindPylon.cmake")
-endif()
+set(PYLON_ROOT "/opt/pylon" CACHE PATH "Pylon SDK root directory")
+
+set(Pylon_INCLUDE_DIRS "${PYLON_ROOT}/include")
+
+set(PYLON_LIB_NAMES pylonbase pylonutility GenApi_gcc_v3_1_Basler_pylon GCBase_gcc_v3_1_Basler_pylon)
+
+foreach(lib ${PYLON_LIB_NAMES})
+    find_library(LIB_PATH_${lib} NAMES ${lib} PATHS "${PYLON_ROOT}/lib" NO_DEFAULT_PATH)
+    if(LIB_PATH_${lib})
+        list(APPEND Pylon_LIBRARIES ${LIB_PATH_${lib}})
+    else()
+        message(FATAL_ERROR "Could not find Pylon library: ${lib} in ${PYLON_ROOT}/lib")
+    endif()
+endforeach()
+
+set(Pylon_FOUND TRUE)
 find_package(
     catkin REQUIRED
     COMPONENTS

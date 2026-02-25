@@ -51,6 +51,19 @@
 #include <mutex>
 #include <video_stream_opencv/VideoStreamConfig.h>
 
+#if CV_MAJOR_VERSION >= 4
+#define CV_CAP_PROP_FRAME_COUNT    cv::CAP_PROP_FRAME_COUNT
+#define CV_CAP_PROP_FPS            cv::CAP_PROP_FPS
+#define CV_CAP_PROP_FRAME_WIDTH    cv::CAP_PROP_FRAME_WIDTH
+#define CV_CAP_PROP_FRAME_HEIGHT   cv::CAP_PROP_FRAME_HEIGHT
+#define CV_CAP_PROP_BRIGHTNESS     cv::CAP_PROP_BRIGHTNESS
+#define CV_CAP_PROP_CONTRAST       cv::CAP_PROP_CONTRAST
+#define CV_CAP_PROP_HUE            cv::CAP_PROP_HUE
+#define CV_CAP_PROP_SATURATION     cv::CAP_PROP_SATURATION
+#define CV_CAP_PROP_AUTO_EXPOSURE  cv::CAP_PROP_AUTO_EXPOSURE
+#define CV_CAP_PROP_EXPOSURE       cv::CAP_PROP_EXPOSURE
+#endif
+
 namespace fs = boost::filesystem;
 
 namespace video_stream_opencv {
