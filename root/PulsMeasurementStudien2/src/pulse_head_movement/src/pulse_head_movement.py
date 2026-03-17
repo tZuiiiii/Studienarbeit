@@ -18,6 +18,7 @@ import matplotlib.pyplot as plt
 from face_detector import FaceDetector
 from pulse_publisher import PulsePublisher
 from common.msg import Pulse
+from std_msgs.msg import Float32
 
 def butter_bandpass(lowcut, highcut, fs, order=5):
     nyq = 0.5 * fs
@@ -78,6 +79,7 @@ class PulseHeadMovement:
         #   ...]
         self.buffered_y_tracking_signal = []
         self.fps = 0
+        self.pulse_web_pub = rospy.Publisher('/heart_rate', Float32, queue_size=10)
 
     def pulse_callback(self, original_image, forehead_mask, bottom_mask, time):
         """
@@ -410,6 +412,7 @@ class PulseHeadMovement:
         # plt.plot(xs, signal, label="S")
         # plt.plot(xs[peaks], signal[peaks], "x")
         # plt.savefig(filename)
+        self.pulse_web_pub.publish(float(pulse))
         return pulse
 
     def publish_pulse(self, pulse_value, publish_time):
