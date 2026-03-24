@@ -9,7 +9,7 @@ import numpy as np
 import time
 import rospy
 import matplotlib.pyplot as plt
-
+from std_msgs.msg import Float32
 
 class LegacyMeasurement(object):
 
@@ -31,6 +31,8 @@ class LegacyMeasurement(object):
         self.pulse_sequence = 0
         self.publisher = PulsePublisher("legacy_measurement")
         self.publish_count = 0
+        self.pulse_web_pub = rospy.Publisher('/heart_rate', Float32, queue_size=10)
+        
 
     def on_image_frame(self, roi, timestamp):
         self.publish_count += 1
@@ -104,6 +106,7 @@ class LegacyMeasurement(object):
                 self.bpms.append(self.bpm)
                 self.publisher.publish(self.bpm, timestamp)
                 rospy.loginfo("[LegacyMeasurement] BPM: " + str(self.bpm))
+                self.pulse_web_pub.publish(float(self.bpm))
 
         self.samples = processed
 

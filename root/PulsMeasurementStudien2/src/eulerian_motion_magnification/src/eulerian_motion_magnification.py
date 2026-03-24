@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- encoding: utf-8 -*-
 
 import numpy as np
@@ -11,7 +11,7 @@ import scipy.fftpack as fftpack
 from scipy.signal import find_peaks
 from face_detector import FaceDetector
 from pulse_publisher import PulsePublisher
-
+from std_msgs.msg import Float32
 
 def build_gaussian_pyramid(frame, level=3):
     """
@@ -166,6 +166,7 @@ class PulseMeasurement:
         self.recording_time = 10
         self.isFirst = True
         self.arrayLength = 0
+        self.pulse_web_pub = rospy.Publisher('/heart_rate', Float32, queue_size=10)
 
     def calculate_fps(self):
         """
@@ -218,6 +219,7 @@ class PulseMeasurement:
                     copy_video_array = amplify_video(copy_video_array, amplify=self.amplification)
                 pulse, red_values = calculate_pulse(copy_video_array, self.recording_time, self.show_processed_image)
                 self.publisher.publish(pulse, timestamp)
+                self.pulse_web_pub.publish(float(pulse))
                 self.calculating_at = 0
                 self.isFirst = False
 
