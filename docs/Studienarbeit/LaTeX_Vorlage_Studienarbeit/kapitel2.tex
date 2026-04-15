@@ -19,7 +19,7 @@ Ein Smart Mirror setzt sich aus einem Spionspiegel zusammen, der mit einem Displ
 Industriekameras sind speziell für den Dauerbetrieb in industriellen Umgebungen ausgelegte Kamerasysteme, die sich durch robuste Mechanik, hohe Bildqualität und eine lange Lebensdauer auszeichnen.\footcitecustomlink{o.aIndustrialCameraso.J.}
 Typische Einsatzgebiete von Industriekameras sind die Qualitätskontrolle in Produktionsprozessen, die Robotik sowie die Überwachung und Steuerung von Fertigungsanlagen.\footcitecustomenglisch[1-3]{javaidExploringImpactFeatures2022} Im Rahmen von Industrie 4.0 kommt ihnen eine zentrale Bedeutung zu, da sie visuelle Daten für automatisierte Entscheidungsprozesse bereitstellen.\footcitecustomebenda[1-3]{javaidExploringImpactFeatures2022}
 
-Eine Industriekamera besteht aus mehreren zentralen Komponenten, die gemeinsam die Bildaufnahme und -verarbeitung ermmöglichen. Dazu gehören:\footcitecustomlink{zotero-item-46}
+Eine Industriekamera besteht aus mehreren zentralen Komponenten, die gemeinsam die Bildaufnahme und -verarbeitung ermöglichen. Dazu gehören:\footcitecustomlink{zotero-item-46}
 \begin{itemize}
     \item Die Linse
     \item Der Bildsensor
@@ -28,7 +28,7 @@ Eine Industriekamera besteht aus mehreren zentralen Komponenten, die gemeinsam d
 \end{itemize}
 
 \subsection*{Linse}
-Die Linse vergrößert die Szene indem sie das einfallende Licht bündelt und auf den Bildensensor fokusiert. Wenn die Kanten scharf sind, gilt das bild als fokussiert, andernfalls unfokussiert. Wichtige Parameter der Linse sind der Bildwinkel, das Sichtfeld, die Objektentfernung, die Brennweite und die Blende wie in Abbildung \ref{fig:linse}.\footcitecustomlink{zotero-item-46}
+Die Linse bildet die Szene auf den Bildsensor ab, indem sie das einfallende Licht bündelt und fokussiert. Wenn die Kanten scharf sind, gilt das Bild als fokussiert, andernfalls unfokussiert. Wichtige Parameter der Linse sind der Bildwinkel, das Sichtfeld, die Objektentfernung, die Brennweite und die Blende wie in Abbildung \ref{fig:linse}.\footcitecustomlink{zotero-item-46}
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.5\textwidth]{Images/Lens.png}
@@ -36,7 +36,33 @@ Die Linse vergrößert die Szene indem sie das einfallende Licht bündelt und au
     \label{fig:linse}
 \end{figure}
 \footnotetext{\found[]{zotero-item-46}}
-Der Bildwinkel beschreibt den Winkel, unter dem die Kamera die Szene erfasst, während das Sichtfeld den tatsächlichen Bereich angibt, der von der Kamera abgedeckt wird. Die Objektentfernung ist die Distanz zwischen der Linse und dem fokussierten Objekt, während die Brennweite die Entfernung zwischen der Linse und dem Brennpunkt angibt. Befindet sich der brennpunkt auf dem Sensor, ist die Kamera auf das Objekt fokussiert. Die Blende steuert die Menge des einfallenden Lichts.\footcitecustomebenda{zotero-item-46}
+Der Bildwinkel beschreibt den Winkel, unter dem die Kamera die Szene erfasst, während das Sichtfeld den abbildbaren Bereich angibt, der von der Kamera abgedeckt wird.\footcitecustomlink{zotero-item-47} Die Objektentfernung ist die Distanz zwischen der Linse und dem fokussierten Objekt, während die Brennweite die Entfernung zwischen der Linse und dem Brennpunkt angibt. Befindet sich der Brennpunkt auf dem Sensor, ist die Kamera auf das Objekt fokussiert. Die Blende steuert die Menge des einfallenden Lichts.\footcitecustomlink{zotero-item-46}
 \subsection*{Bildsensor}
+Ein Bildsensor wandelt Photonen in elektrische Signale (Elektronen) um.\footcitecustomlink{zotero-item-48} In der industriellen Bildverarbeitung dominieren zwei Sensortypen: CCD (Charge-Coupled Device) und CMOS (Complementary Metal-Oxide-Semiconductor).\footcitecustomebenda{zotero-item-48}
+Der grundlegende technische Unterschied zwischen CCD- und CMOS-Sensoren liegt im Ausleseprinzip: Bei CCD-Sensoren wird die Ladung pixelweise weitergeschoben, während CMOS-Sensoren die Pixel direkt auslesen.\footcitecustomebenda{zotero-item-48}
+Durch die unterschiedliche Art und Weise der Auslesung weisen die Sensoren auch Unterschiedliche Probleme auf. CCD-Sensoren können unter anderem mit Blooming (Überlauf von Ladung in benachbarte Pixel) und Smearing (Lichtstreuung während der Auslesung) zu kämpfen haben, während CMOS-Sensoren anfälliger für Rauschen und Rolling-Shutter-Effekte sind.\todo{Folien zitieren}
+In Abbildung \ref{fig:fehler} sind typische Bildfehler bei Kamerasensoren dargestellt.
+\begin{figure}[H]
+    \centering
+    
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{Images/Blooming_Smearing.png}
+        \caption{Blooming und Smearing}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{Images/RollingShutter.png}
+        \caption{Rolling-Shutter-Effekt}
+    \end{subfigure}
+    
+    \caption{Typische Bildfehler bei Kamerasensoren}
+    \label{fig:fehler}
+\end{figure}
+\subsection*{Elektronik für die Signalverarbeitung}
+nötig?
+\subsection*{Schnittstellen für die Datenübertragung}
+nötig?
 \subsection{Spionspiegel}
 \section{3D Druck} 
