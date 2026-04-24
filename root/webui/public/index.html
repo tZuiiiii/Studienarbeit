@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Mirror - Puls Analyse</title>
+    <title>Smart Mirror - Pulse & Mood</title>
     
     <script src="https://cdn.jsdelivr.net/npm/roslib@1/build/roslib.min.js"></script>
     
@@ -13,6 +13,7 @@
             --accent-color: #ff3b30;
             --bg-color: #000000;
             --success-color: #34c759;
+            --mood-color: #007aff;
         }
 
         body {
@@ -28,9 +29,16 @@
             overflow: hidden;
         }
 
-        #pulse-container {
-            text-align: center;
+        #display-wrapper {
+            display: flex;
+            gap: 100px;
             margin-bottom: 60px;
+            align-items: center;
+        }
+
+        .data-container {
+            text-align: center;
+            min-width: 250px;
         }
 
         #heart {
@@ -41,10 +49,24 @@
         }
 
         #bpm-value {
-            font-size: 160px;
+            font-size: 100px;
             font-weight: bold;
             display: block;
             margin-top: -10px;
+        }
+
+        #mood-emoji {
+            font-size: 120px;
+            display: inline-block;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        #mood-text {
+            font-size: 50px;
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+            text-transform: capitalize;
         }
 
         .unit {
@@ -55,7 +77,10 @@
 
         .controls {
             display: flex;
-            gap: 25px;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 900px;
         }
 
         button {
@@ -77,6 +102,11 @@
             background: var(--success-color); 
             border-color: var(--success-color); 
         }
+
+        .btn-mood:hover {
+            background: var(--mood-color);
+            border-color: var(--mood-color);
+        }
         
         .btn-stop:hover { 
             background: var(--accent-color); 
@@ -93,16 +123,25 @@
 </head>
 <body>
 
-    <div id="pulse-container">
-        <div id="heart">❤</div>
-        <span id="bpm-value">--</span>
-        <span class="unit">BPM</span>
+    <div id="display-wrapper">
+        <div class="data-container">
+            <div id="heart">❤</div>
+            <span id="bpm-value">--</span>
+            <span class="unit">BPM</span>
+        </div>
+
+        <div class="data-container">
+            <div id="mood-emoji">🤖</div>
+            <span id="mood-text">--</span>
+            <span class="unit">MOOD</span>
+        </div>
     </div>
 
     <div class="controls">
         <button class="btn-start" onclick="controlSystem('startHeadMovement')">Start (HeadMovement)</button>
         <button class="btn-start" onclick="controlSystem('startEulerianMotion')">Start (EulerianMotion)</button>
         <button class="btn-start" onclick="controlSystem('startLegacyMeasurement')">Start (LegacyMeasurement)</button>
+        <button class="btn-mood" onclick="controlSystem('startMoodDetection')">Start (Mood Detection)</button>
         <button class="btn-stop" onclick="controlSystem('stop')">Stop</button>
     </div>
 
@@ -112,6 +151,8 @@
         const statusEl = document.getElementById('status');
         const bpmEl = document.getElementById('bpm-value');
         const heartEl = document.getElementById('heart');
+        const moodEmojiEl = document.getElementById('mood-emoji');
+        const moodTextEl = document.getElementById('mood-text');
 
         var ros = new ROSLIB.Ros();
 
@@ -153,6 +194,33 @@
             }, 100);
         });
 
+        var moodListener = new ROSLIB.Topic({
+            ros : ros,
+            name : '/mood', 
+            messageType : 'std_msgs/String'
+        });
+
+        moodListener.subscribe((message) => {
+            const mood = message.data.toLowerCase();
+            let emoji = "🤖";
+            
+            if (mood.includes('happy') || mood.includes('joy')) emoji = "😊";
+            else if (mood.includes('sad')) emoji = "😢";
+            else if (mood.includes('angry') || mood.includes('mad')) emoji = "😠";
+            else if (mood.includes('surprise')) emoji = "😲";
+            else if (mood.includes('neutral')) emoji = "😐";
+            else if (mood.includes('fear') || mood.includes('scared')) emoji = "😨";
+            else if (mood.includes('disgust')) emoji = "🤢";
+
+            moodEmojiEl.innerText = emoji;
+            moodTextEl.innerText = message.data;
+
+            moodEmojiEl.style.transform = "scale(1.2)";
+            setTimeout(() => {
+                moodEmojiEl.style.transform = "scale(1.0)";
+            }, 200);
+        });
+
         function controlSystem(action) {
             statusEl.innerText = 'COMMAND: ' + action.toUpperCase() + '...';
             
@@ -163,6 +231,8 @@
                     statusEl.innerText = 'SERVER: ' + data.status;
                     if(action === 'stop') {
                         bpmEl.innerText = '--';
+                        moodTextEl.innerText = '--';
+                        moodEmojiEl.innerText = '🤖';
                     }
                 })
                 .catch(err => {

@@ -102,10 +102,10 @@ def extract_red_values(gaussian_frame, show_processed_image):
     if show_processed_image:
         red_values = []
         for i in range(0, gaussian_frame.shape[0]):
-            red_value = gaussian_frame[i, :, 2]
+            red_value = gaussian_frame[i, :, 1]
             red_values.append(red_value)
     else:
-        red_values = gaussian_frame[:, :, 2]
+        red_values = gaussian_frame[:, :, 1]
     return red_values
 
 
@@ -163,7 +163,7 @@ class PulseMeasurement:
         self.time_array = []
         self.calculating_at = 0
         self.calculating_boarder = 50
-        self.recording_time = 10
+        self.recording_time = 30
         self.isFirst = True
         self.arrayLength = 0
         self.pulse_web_pub = rospy.Publisher('/heart_rate', Float32, queue_size=10)
