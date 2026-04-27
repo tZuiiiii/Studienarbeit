@@ -1,0 +1,17 @@
+[Unit]
+Description=Smart Mirror Kiosk WebUI
+After=graphical-session.target network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/pi/PulsMeasurementStudien/root/kiosk-webui
+Environment=PORT=3001
+Environment=KIOSK=1
+Environment=BROWSER=firefox
+ExecStart=/usr/bin/npm start
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target

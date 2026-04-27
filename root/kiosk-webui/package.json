@@ -1,0 +1,15 @@
+{
+  "name": "smart-mirror-kiosk-webui",
+  "version": "1.0.0",
+  "description": "Autostart Kiosk WebUI fuer Puls und Mood mit ROS",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "roslib": "^1.4.1"
+  },
+  "author": "Studienarbeit",
+  "license": "ISC"
+}
