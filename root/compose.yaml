@@ -1,0 +1,22 @@
+services:
+  smartmirror:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: smartmirror-kiosk-noetic:local
+    container_name: smartmirror-kiosk
+    network_mode: host
+    privileged: true
+    environment:
+      PORT: "3001"
+      OPEN_BROWSER: "0"
+      KIOSK: "0"
+      ROS_MASTER_URI: http://127.0.0.1:11311
+      ROS_IP: 127.0.0.1
+      PYLON_ROOT: /opt/pylon
+      LD_LIBRARY_PATH: /opt/pylon/lib
+    devices:
+      - /dev/video0:/dev/video0
+    volumes:
+      - /dev/bus/usb:/dev/bus/usb
+    restart: unless-stopped
