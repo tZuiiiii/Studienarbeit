@@ -12,6 +12,31 @@ else
     exit 1
 fi
 
+CAMERA_MODE="${CAMERA_MODE:-webcam}"
+CAMERA_MODE="${CAMERA_MODE,,}"
+
+case "$CAMERA_MODE" in
+    webcam)
+        CAMERA_LABEL="Webcam"
+        CAMERA_PROCESS_PATTERN="eulerian_motion_magnification webcam.launch"
+        CAMERA_CMD=(roslaunch eulerian_motion_magnification webcam.launch)
+        MOOD_CMD=(python3 src/mood_detection/src/mood_cv2.py)
+        ;;
+    pylon|basler|industry|industry_camera)
+        CAMERA_MODE="pylon"
+        CAMERA_LABEL="Pylon camera"
+        CAMERA_PROCESS_PATTERN="eulerian_motion_magnification industry_camera.launch"
+        CAMERA_CMD=(roslaunch eulerian_motion_magnification industry_camera.launch show_image_frame:=false show_processed_image:=false)
+        MOOD_CMD=(python3 src/mood_detection/src/mood_industry_camera.py)
+        ;;
+    *)
+        echo "Error: Unsupported CAMERA_MODE '$CAMERA_MODE'. Use 'webcam' or 'pylon'."
+        exit 1
+        ;;
+esac
+
+echo "Camera mode: $CAMERA_MODE"
+
 if ! pgrep -f "rosbridge_websocket" > /dev/null; then
     echo "Start Rosbridge..."
     roslaunch rosbridge_server rosbridge_websocket.launch &
@@ -22,19 +47,19 @@ else
     BRIDGE_PID=""
 fi
 
-if ! pgrep -f "webcam.launch" > /dev/null; then
-    echo "Start Camera..."
-    roslaunch eulerian_motion_magnification webcam.launch &
+if ! pgrep -f "$CAMERA_PROCESS_PATTERN" > /dev/null; then
+    echo "Start $CAMERA_LABEL..."
+    "${CAMERA_CMD[@]}" &
     CAMERA_PID=$!
     sleep 3
 else
-    echo "Camera already running. Skip start..."
+    echo "$CAMERA_LABEL already running. Skip start..."
     CAMERA_PID=""
 fi
 
 echo "Start Mood Detection..."
 
-python3 src/mood_detection/src/mood_cv2.py &
+"${MOOD_CMD[@]}" &
 MOOD_PID=$!
 
 echo "System running. PIDs: $BRIDGE_PID (Rosbridge), $CAMERA_PID (Camera), $MOOD_PID (Mood)"

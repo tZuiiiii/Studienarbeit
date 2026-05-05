@@ -9,7 +9,7 @@
         <!-- node name and ros graph name -->
         <arg name="camera_name" value="webcam" />
         <!-- means video device 0, /dev/video0 -->
-        <arg name="video_stream_provider" value="0)" />
+        <arg name="video_stream_provider" value="0" />
         <!-- set camera fps to (if the device allows) -->
         <arg name="set_camera_fps" value="$(arg fps)"/>
         <!-- set buffer queue size of frame capturing to (1 means we want the latest frame only) -->

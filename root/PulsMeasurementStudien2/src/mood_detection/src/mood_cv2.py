@@ -1,8 +1,28 @@
 import rospy
 import cv2
+from pathlib import Path
 from std_msgs.msg import String
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge, CvBridgeError
+
+def load_cascade(filename, fallback_repo_path=None):
+    candidates = []
+    if hasattr(cv2, 'data') and hasattr(cv2.data, 'haarcascades'):
+        candidates.append(Path(cv2.data.haarcascades) / filename)
+    if fallback_repo_path:
+        candidates.append(Path(fallback_repo_path))
+    candidates.extend([
+        Path('/usr/share/opencv4/haarcascades') / filename,
+        Path('/usr/share/opencv/haarcascades') / filename,
+    ])
+
+    for candidate in candidates:
+        if candidate.exists():
+            cascade = cv2.CascadeClassifier(str(candidate))
+            if not cascade.empty():
+                return cascade
+
+    raise RuntimeError(f'Could not load cascade: {filename}')
 
 class MoodDetector:
     def __init__(self):
@@ -12,8 +32,9 @@ class MoodDetector:
         
         self.bridge = CvBridge()
         
-        self.face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
-        self.smile_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_smile.xml')
+        repo_cascade = Path(__file__).resolve().parents[2] / 'common' / 'config' / 'cascade.xml'
+        self.face_cascade = load_cascade('haarcascade_frontalface_default.xml', repo_cascade)
+        self.smile_cascade = load_cascade('haarcascade_smile.xml')
 
         self.image_sub = rospy.Subscriber("/webcam/image_raw", Image, self.image_callback)
         
