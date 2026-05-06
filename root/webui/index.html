@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Mirror Kiosk</title>
+    <script src="/vendor/roslib/roslib.min.js"></script>
+    <style>
+        :root {
+            color-scheme: dark;
+            --bg: #050608;
+            --text: #f8fafc;
+            --muted: #9aa4b2;
+            --pulse: #ff3b30;
+            --mood: #4fc3f7;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            overflow: hidden;
+            background: var(--bg);
+            color: var(--text);
+            font-family: "Segoe UI", Roboto, Arial, sans-serif;
+        }
+
+        main {
+            min-height: 100vh;
+            display: grid;
+            grid-template-rows: auto 1fr;
+            padding: clamp(22px, 4vw, 56px);
+        }
+
+        #clock {
+            justify-self: start;
+            color: var(--muted);
+            font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+            font-size: clamp(18px, 2vw, 32px);
+            line-height: 1;
+        }
+
+        .dashboard {
+            width: min(1500px, 100%);
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+            align-items: center;
+            gap: clamp(36px, 8vw, 140px);
+        }
+
+        .metric {
+            min-width: 0;
+            text-align: center;
+        }
+
+        .symbol {
+            height: clamp(96px, 15vw, 210px);
+            display: grid;
+            place-items: center;
+            font-size: clamp(76px, 12vw, 170px);
+            line-height: 1;
+        }
+
+        #heart {
+            color: var(--pulse);
+            text-shadow: 0 0 42px rgba(255, 59, 48, 0.32);
+        }
+
+        #mood-emoji {
+            text-shadow: 0 0 42px rgba(79, 195, 247, 0.22);
+        }
+
+        .value {
+            display: block;
+            margin-top: 18px;
+            font-size: clamp(88px, 14vw, 190px);
+            line-height: 0.95;
+            font-weight: 800;
+            letter-spacing: 0;
+            overflow-wrap: anywhere;
+        }
+
+        #bpm-value {
+            color: var(--pulse);
+        }
+
+        #mood-text {
+            color: var(--mood);
+            text-transform: capitalize;
+            font-size: clamp(64px, 10vw, 138px);
+        }
+
+        .label {
+            display: block;
+            margin-top: 20px;
+            color: var(--muted);
+            font-size: clamp(20px, 2.4vw, 36px);
+            font-weight: 600;
+            letter-spacing: 0;
+            text-transform: uppercase;
+        }
+
+        @media (max-width: 800px) {
+            main {
+                padding: 22px;
+            }
+
+            .dashboard {
+                grid-template-columns: 1fr;
+                align-content: center;
+                gap: 42px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div id="clock">--:--:--</div>
+
+        <section class="dashboard" aria-live="polite">
+            <div class="metric">
+                <div id="heart" class="symbol">❤</div>
+                <span id="bpm-value" class="value">--</span>
+                <span class="label">BPM</span>
+            </div>
+
+            <div class="metric">
+                <div id="mood-emoji" class="symbol">🤖</div>
+                <span id="mood-text" class="value">--</span>
+                <span class="label">Mood</span>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const clockEl = document.getElementById('clock');
+        const bpmEl = document.getElementById('bpm-value');
+        const moodEmojiEl = document.getElementById('mood-emoji');
+        const moodTextEl = document.getElementById('mood-text');
+
+        let ros;
+        let reconnectTimer;
+
+        function updateClock() {
+            clockEl.innerText = new Date().toLocaleTimeString('de-DE', {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+        }
+
+        function moodToEmoji(mood) {
+            const normalized = mood.toLowerCase();
+            if (normalized === 'smiling') return '😊';
+            if (normalized === 'neutral') return '😐';
+            return '🤖';
+        }
+
+        function subscribeTopics() {
+            const pulseListener = new ROSLIB.Topic({
+                ros,
+                name: '/heart_rate',
+                messageType: 'std_msgs/Float32'
+            });
+
+            pulseListener.subscribe((message) => {
+                const bpm = Math.round(Number(message.data));
+                bpmEl.innerText = Number.isFinite(bpm) ? bpm : '--';
+            });
+
+            const moodListener = new ROSLIB.Topic({
+                ros,
+                name: '/mood',
+                messageType: 'std_msgs/String'
+            });
+
+            moodListener.subscribe((message) => {
+                const mood = String(message.data || '--');
+                moodEmojiEl.innerText = moodToEmoji(mood);
+                moodTextEl.innerText = mood;
+            });
+        }
+
+        function connectROS() {
+            clearTimeout(reconnectTimer);
+            ros = new ROSLIB.Ros();
+            const rosUrl = `ws://${window.location.hostname}:9090`;
+
+            ros.on('connection', () => {
+                subscribeTopics();
+            });
+
+            ros.on('error', () => {
+                reconnectTimer = setTimeout(connectROS, 3000);
+            });
+
+            ros.on('close', () => {
+                reconnectTimer = setTimeout(connectROS, 3000);
+            });
+
+            ros.connect(rosUrl);
+        }
+
+        updateClock();
+        setInterval(updateClock, 1000);
+
+        if (window.ROSLIB) {
+            connectROS();
+        }
+    </script>
+</body>
+</html>

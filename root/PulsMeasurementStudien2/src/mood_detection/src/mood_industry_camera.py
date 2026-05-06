@@ -51,7 +51,7 @@ class MoodDetectorIndustryCamera:
             roi_gray = gray[y:y+h, x:x+w]
             smiles = self.smile_cascade.detectMultiScale(roi_gray, 1.8, 20)
             if len(smiles) > 0:
-                current_mood = "Happy"
+                current_mood = "Smiling"
         
         self.mood_pub.publish(current_mood)
 

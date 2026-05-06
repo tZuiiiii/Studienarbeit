@@ -1,7 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Smart Mirror Kiosk
-Comment=Start Smart Mirror WebUI, ROS stack and browser kiosk
-Exec=bash -lc 'cd /home/pi/PulsMeasurementStudien/root/kiosk-webui && BROWSER=firefox KIOSK=1 npm start'
-Terminal=false
-X-GNOME-Autostart-enabled=true
