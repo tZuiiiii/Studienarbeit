@@ -9,9 +9,8 @@ services:
     privileged: true
     environment:
       PORT: "3001"
-      OPEN_BROWSER: "0"
-      KIOSK: "0"
-      CAMERA_MODE: ${CAMERA_MODE:-webcam}
+      # Use "pylon" instead of "webcam" for the Basler/Pylon camera.
+      CAMERA_MODE: webcam
       ROS_MASTER_URI: http://127.0.0.1:11311
       ROS_IP: 127.0.0.1
       PYLON_ROOT: /opt/pylon
