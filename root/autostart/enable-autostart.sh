@@ -55,7 +55,7 @@ awk '
 ' "$autostart_file" > "$tmp_autostart"
 cat >> "$tmp_autostart" <<AUTOSTART
 # BEGIN smartmirror kiosk
-sh -c 'until curl -fsS --max-time 2 http://127.0.0.1:3001 >/dev/null 2>&1; do sleep 2; done; chromium-browser --kiosk --noerrdialogs --disable-infobars --no-first-run --start-maximized --disable-session-crashed-bubble http://127.0.0.1:3001' &
+sh -c 'until curl -fsS --max-time 2 http://127.0.0.1:3001 >/dev/null 2>&1; do sleep 2; done; browser="$(command -v chromium-browser || command -v chromium)"; exec "$browser" --kiosk --noerrdialogs --disable-infobars --no-first-run --start-maximized --disable-session-crashed-bubble http://127.0.0.1:3001' &
 # END smartmirror kiosk
 AUTOSTART
 mv "$tmp_autostart" "$autostart_file"
