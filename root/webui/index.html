@@ -10,7 +10,6 @@
             color-scheme: dark;
             --bg: #050608;
             --text: #f8fafc;
-            --muted: #9aa4b2;
             --pulse: #ff3b30;
             --mood: #4fc3f7;
         }
@@ -37,7 +36,7 @@
 
         #clock {
             justify-self: start;
-            color: var(--muted);
+            color: var(--text);
             font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
             font-size: clamp(18px, 2vw, 32px);
             line-height: 1;
@@ -85,11 +84,11 @@
         }
 
         #bpm-value {
-            color: var(--pulse);
+            color: var(--text);
         }
 
         #mood-text {
-            color: var(--mood);
+            color: var(--text);
             text-transform: capitalize;
             font-size: clamp(64px, 10vw, 138px);
         }
@@ -97,7 +96,7 @@
         .label {
             display: block;
             margin-top: 20px;
-            color: var(--muted);
+            color: var(--text);
             font-size: clamp(20px, 2.4vw, 36px);
             font-weight: 600;
             letter-spacing: 0;
