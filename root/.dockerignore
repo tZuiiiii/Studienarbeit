@@ -1,0 +1,17 @@
+.git
+**/.git
+PulsMeasurementStudien2/devel
+PulsMeasurementStudien2/build
+PulsMeasurementStudien2/install
+**/.catkin_tools
+**/__pycache__
+**/*.pyc
+**/.pytest_cache
+docs
+install/*.deb
+install/*.tar
+install/*.tar.gz
+!docker/pylon.deb
+smartmirror-kiosk-noetic*.tar
+smartmirror-kiosk-noetic*.tar.gz
+.DS_Store

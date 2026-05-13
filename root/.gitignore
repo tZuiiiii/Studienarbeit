@@ -1,0 +1,15 @@
+**/__pycache__/
+**/*.pyc
+
+PulsMeasurementStudien2/build/
+PulsMeasurementStudien2/devel/
+PulsMeasurementStudien2/install/
+
+install/*.deb
+install/*.tar
+install/*.tar.gz
+docker/pylon.deb
+
+smartmirror-kiosk-noetic*.tar
+smartmirror-kiosk-noetic*.tar.gz
+.DS_Store
