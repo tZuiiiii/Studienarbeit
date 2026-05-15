@@ -15,7 +15,7 @@
 %  ,11pt
   ,12pt
   ,pdftex
-   ,disable         % Todo-Markierungen auschalten
+  % ,disable         % Todo-Markierungen auschalten
 ]{report}
 \usepackage{xurl}
 % Bitte die Codierung Ihrer Dateien auswählen:
@@ -29,7 +29,8 @@
 \usepackage{chngcntr}  % Paket zur Manipulation von Zählern
 \usepackage{subcaption}
 \usepackage{tabularx} % in der Präambel
-
+\usepackage{amsmath}
+\usepackage{cleveref}
 \counterwithout{footnote}{chapter}  % Entfernt die Abhängigkeit der Fußnotennummer vom Kapitel
 \counterwithout{figure}{chapter}
 \counterwithout{table}{chapter} % Tabellen nicht nach Kapitel zählen
@@ -179,6 +180,7 @@ abstract
 \include{abk} 
 \fancyhf{}  
 \fancyfoot[R]{Seite \thepage}          % Abkürzungsverzeichnis
+\cleardoublepage
 \pagenumbering{arabic}
 \setcounter{page}{1}
 \fancypagestyle{plain}{%
