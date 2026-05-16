@@ -2,10 +2,35 @@
 
 \section{Testmethodik}
 
-\section{Messgenauigkeit rPPG}
+Die Evaluation des Systems erfolgte anhand mehrerer Testdurchläufe unter kontrollierten, aber praxisnahen Bedingungen. Dabei wurden drei Aspekte untersucht: die Genauigkeit der kontaktlosen Pulsmessung, die Zuverlässigkeit der Emotionserkennung sowie die Performance des Gesamtsystems auf dem Raspberry Pi 4B.
+
+Für die Pulsmessung wurde der vom System berechnete BPM-Wert mit einem Referenzwert verglichen. Als Referenz diente eine Smartwatch. Jede Messung wurde über einen Zeitraum von 60 Sekunden durchgeführt.
+
+Die Tests wurden unter verschiedenen Beleuchtungsbedingungen durchgeführt. Dabei wurde das System zunächst in einem hell ausgeleuchteten Raum getestet. Anschließend erfolgten weitere Messungen bei geringerer Raumhelligkeit sowie unter veränderter Beleuchtungsfarbe mit blauem Licht. Dadurch sollte untersucht werden, wie empfindlich die Pulsmessung und die Emotionserkennung gegenüber Änderungen der Umgebungsbeleuchtung reagieren.
+
+Das System wurde sowohl mit einer Basler-Industriekamera als auch mit einer herkömmlichen Webcam betrieben. In den verfügbaren Vergleichstests zeigten sich keine wesentlichen Unterschiede zwischen beiden Kameras. Der deutlichere Einflussfaktor war die jeweilige Beleuchtungssituation. Aufgrund der eingeschränkten Verfügbarkeit der Basler-Kamera außerhalb der DHBW konnten die ausführlicheren Tests jedoch nur mit einer am Raspberry Pi angeschlossenen Webcam durchgeführt werden. Die Ergebnisse beziehen sich daher primär auf diesen Versuchsaufbau.
+
+Die Emotionserkennung wurde getrennt von der Pulsmessung bewertet. Hierbei wurden die beiden implementierten Zustände \glqq Neutral\grqq\ und \glqq Smiling\grqq\ getestet. Für jeden Zustand wurde geprüft, ob das System den erwarteten Wert korrekt in der WebUI darstellt.
+
+Zusätzlich wurde die Performance des Gesamtsystems betrachtet. Dabei wurde beobachtet, ob die parallele Ausführung von Kameraanbindung, EVM-Pulsmessung, Emotionserkennung, \texttt{rosbridge} und WebUI auf dem Zielsystem stabil möglich ist. Als Kriterien dienten die subjektive Reaktionszeit der WebUI sowie die Auslastung des Systems.
+
+\section{Messgenauigkeit EVM}
 
 \section{Leistung der Emotionserkennung}
 
+Die Emotionserkennung wurde qualitativ bewertet. Dabei wurden keine quantitativen Messwerte wie Erkennungsrate oder Latenz erfasst. Stattdessen wurde beobachtet, ob das System die beiden implementierten Zustände \glqq Neutral\grqq\ und \glqq Smiling\grqq\ im laufenden Betrieb korrekt erkennt und ob die Ausgabe in der WebUI ohne merkliche Verzögerung aktualisiert wird.
+
+In den Testdurchläufen reagierte die Emotionserkennung bei guter Beleuchtung schnell auf sichtbare Änderungen des Gesichtsausdrucks. Ein Lächeln wurde in der Regel zeitnah als \glqq Smiling\grqq\ erkannt, während bei ausbleibendem Lächeln der Zustand \glqq Neutral\grqq\ angezeigt wurde. Die Erkennung war dabei stark von der Qualität der Gesichtserkennung abhängig. Bei schlechterer Beleuchtung konnte die Erkennung weniger stabil ausfallen.
+
+Da keine systematische Messreihe mit dokumentierten Einzelwerten durchgeführt wurde, kann aus dieser Bewertung keine genaue Erkennungsrate abgeleitet werden. Die Ergebnisse zeigen daher vor allem, dass die implementierte Emotionserkennung grundsätzlich funktionsfähig ist und für eine einfache Smart-Mirror-Demonstration ausreichend schnell reagiert.
+
 \section{Performance des Gesamtsystems}
 
+Die Performance des Gesamtsystems wurde qualitativ im laufenden Betrieb bewertet. Dabei zeigte sich, dass die parallele Ausführung von Kameraanbindung, EVM-Pulsmessung, Emotionserkennung, \texttt{rosbridge} und WebUI auf dem Raspberry Pi 4B grundsätzlich möglich war. Gleichzeitig wurde deutlich, dass die Bildverarbeitung eine hohe Belastung für den Raspberry Pi 4B darstellt.
+
+Auffällig war besonders die starke Erwärmung des Raspberry Pi während des Betriebs. Nach wenigen Minuten kam es erkennbar zu einer Reduzierung der Systemleistung, was auf eine thermisch bedingte Reduzierung der Taktfrequenz des Prozessors hindeutet. Dieses Verhalten wirkte sich sowohl auf die Stabilität der Pulsmessung als auch auf die Emotionserkennung aus. Während die Pulswerte zu Beginn der Testdurchläufe noch plausibel waren, traten nach längerer Laufzeit teilweise unrealistische Werte von deutlich über 200 BPM auf. Auch die Emotionserkennung reagierte nach längerer Laufzeit verzögerter und weniger stabil. Dabei wechselte der erkannte Zustand teilweise zwischen \glqq Neutral\grqq\ und \glqq Smiling\grqq, obwohl der Gesichtsausdruck der Testperson unverändert blieb.
+
+Da keine systematische Aufzeichnung von Temperatur, CPU-Takt oder Auslastung durchgeführt wurde, kann der genaue Zusammenhang zwischen Erwärmung, Reduzierung der Taktfrequenz und fehlerhaften Pulswerten nicht quantitativ nachgewiesen werden. Die Beobachtungen legen jedoch nahe, dass die begrenzte Rechenleistung und Kühlung des Raspberry Pi 4B einen wesentlichen Einfluss auf die Praxistauglichkeit des Systems haben.
+
 \section{Diskussion}
+
