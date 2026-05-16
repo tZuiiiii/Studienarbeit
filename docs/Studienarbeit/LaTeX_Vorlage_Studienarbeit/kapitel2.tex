@@ -6,6 +6,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \chapter{Grundlagen}
+\label{chap:grundlagen}
 \section{Smart Mirrors \& Ambient Intelligence}
 \section{Raspberry Pi / Embedded Systems}
 \section{Kontaktlose Pulsfrequenzmessung mittels Videoanalyse}
@@ -27,7 +28,7 @@ Beim rPPG-Verfahren werden die optischen Eigenschaften des menschlichen Blutes g
     \centering
     \includegraphics[width=0.55\textwidth]{Images/skin_reflection_model.png}
     \caption{Optisches Hautreflexionsmodell bei rPPG. Die Kamera erfasst eine Mischung aus spekulärer Reflexion, diffuser Reflexion und pulssynchronen Farbänderungen.\footcitecustom[2]{wangAlgorithmicPrinciplesRemote2017}}
-    \label{fig:haar_features}
+    \label{fig:skin_reflection_model}
 \end{figure}
 
 Mit jedem Herzschlag verändert sich das Blutvolumen und damit auch die optische Absorption in den Blutgefäßen der oberen Hautschicht. Da Blut Licht stärker absorbiert als das umliegende Gewebe, führt diese pulssynchrone Volumenänderung zu geringen Änderungen der reflektierten Lichtintensität. Diese Intensitätsschwankungen sind für das menschliche Auge kaum wahrnehmbar, können jedoch von einer Kamera erfasst und anschließend als plethysmographisches Pulssignal, also als optisch gemessene Darstellung der pulssynchronen Blutvolumenänderung, extrahiert werden.\footcitecustomebenda[44700]{leeReviewRemoteHeart2023} Besonders deutlich treten diese Signalanteile im grünen Farbkanal hervor, da dieser mit einem Absorptionsmaximum von Hämoglobin zusammenhängt und in den Untersuchungen von Verkruysse et al. das stärkste plethysmographische Signal lieferte.\footcitecustomebenda[21434]{verkruysseRemotePlethysmographicImaging2008}
@@ -179,13 +180,11 @@ Die daraus resultierenden Bewegungen sind sehr klein. Balakrishnan et al. beschr
 
 \subsubsection{Bildverarbeitungsansatz}
 
-Im Unterschied zur EVM, bei der zeitliche Änderungen an festen Bildpositionen verstärkt werden, wertet die vBCG die Bewegung konkreter Bildmerkmale am Kopf aus. Dazu werden zunächst markante Punkte im Kopf- oder Gesichtsbereich detektiert und anschließend über mehrere Frames hinweg verfolgt. Aus den entstehenden Trajektorien wird ein zeitliches Bewegungssignal abgeleitet, das pulssynchrone Bewegungsanteile enthalten kann.\footcitecustom[3430]{balakrishnanDetectingPulseHead2013}
+Im Unterschied zur EVM, bei der zeitliche Änderungen an festen Bildpositionen verstärkt werden, wertet die vBCG die Bewegung konkreter Bildmerkmale am Kopf aus. Dazu werden zunächst markante Punkte im Kopf- oder Gesichtsbereich lokalisiert und anschließend über mehrere Frames hinweg verfolgt. Aus den entstehenden Trajektorien wird ein zeitliches Bewegungssignal abgeleitet, das pulssynchrone Bewegungsanteile enthalten kann.\footcitecustom[3430]{balakrishnanDetectingPulseHead2013}
 
 Für die Pulsmessung ist insbesondere die vertikale Bewegungskomponente relevant. Balakrishnan et al. beschreiben, dass horizontale Bewegungen stärker durch Gleichgewichts- und Haltungsschwankungen beeinflusst werden, während die vertikale Komponente besser geeignet ist, um pulssynchrone Kopfbewegungen zu erfassen.\footcitecustom[3431]{balakrishnanDetectingPulseHead2013}
 
 \subsubsection{Die vBCG-Verarbeitungspipeline}
-Die von Balakrishnan et al. vorgestellte Pipeline zur Extraktion dieser Bewegung lässt sich in folgende Schritte unterteilen:\footcitecustom[]{balakrishnanDetectingPulseHead2013}
-
 Die von Balakrishnan et al. vorgestellte Pipeline zur pulsbasierten Auswertung von Kopfbewegungen besteht aus mehreren Verarbeitungsschritten:\footcitecustom[3432-3433]{balakrishnanDetectingPulseHead2013}
 
 \begin{enumerate}
