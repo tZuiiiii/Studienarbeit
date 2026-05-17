@@ -161,7 +161,9 @@ Gutachter der Studienakademie	  & \BetreuerDHBW     \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{abstract}
-abstract
+Diese wissenschaftliche Arbeit behandelt die Entwicklung und Evaluation eines Smart Mirrors zur kameragestützten Erfassung biometrischer Daten. Ziel war die Umsetzung eines Prototyps, der neben klassischen Informationsanzeigen auch eine kontaktlose Pulsmessung sowie eine einfache Gesichtsausdruckserkennung ermöglicht. Dafür wurden ein Spionspiegel, ein Display, eine Kamera, ein Raspberry Pi 4B sowie eine containerisierte Softwarearchitektur auf Basis von ROS kombiniert. Die Pulsmessung wurde mithilfe eines EVM-basierten rPPG-Verfahrens umgesetzt, während die Emotionserkennung mit OpenCV zwischen den Zuständen \glqq Neutral\grqq\ und \glqq Smiling\grqq\ unterscheidet.
+
+Die Evaluation zeigt, dass der Prototyp grundsätzlich funktionsfähig ist. Im Vergleich mit einer Smartwatch erreichte der rote Farbkanal bei der Pulsmessung mit einer mittleren absoluten Abweichung von \(6{,}00\, \mathrm{BPM}\) das beste Ergebnis, während der grüne Farbkanal bei \(9{,}83\, \mathrm{BPM}\) lag. In verschiedenen Beleuchtungssituationen lagen die Abweichungen zwischen \(8{,}17\, \mathrm{BPM}\) und \(8{,}85\, \mathrm{BPM}\). Einzelne Ausreißer von bis zu \(42\, \mathrm{BPM}\) zeigen jedoch, dass die Messung noch nicht durchgehend stabil ist. Als wichtigste Einflussfaktoren wurden Beleuchtung, Bewegungen, Gesichtserkennung und die begrenzte Leistung des Raspberry Pi identifiziert. Insgesamt eignet sich der entwickelte Smart Mirror als funktionsfähiger Prototyp und Demonstrator, jedoch noch nicht als verlässliches medizinisches Messsystem.
 \end{abstract}
 
 \newpage
