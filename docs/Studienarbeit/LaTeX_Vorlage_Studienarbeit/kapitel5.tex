@@ -24,7 +24,7 @@ Für jeden Messpunkt wurde die Abweichung zwischen rPPG-Messung und Referenzwert
 e_i = P_{\mathrm{rPPG},i} - P_{\mathrm{Watch},i}
 \]
 
-Ein negativer Wert bedeutet, dass die rPPG-Messung unterhalb des Watch-Wertes liegt. Ein positiver Wert bedeutet, dass die rPPG-Messung oberhalb des Watch-Wertes liegt. Zusätzlich wurden die mittlere absolute Abweichung (MAE) und die quadratische mittlere Abweichung (RMSE) berechnet. Der MAE beschreibt die durchschnittliche absolute Abweichung in BPM, während der RMSE größere Einzelabweichungen stärker gewichtet.
+Ein negativer Wert bedeutet, dass die rPPG-Messung unterhalb des Watch-Wertes liegt. Ein positiver Wert bedeutet, dass die rPPG-Messung oberhalb des Watch-Wertes liegt. Zusätzlich wurden die \ac{mae} also die mittlere absolute Abweichung und \ac{rmse} also die quadratische mittlere Abweichung berechnet. Der MAE beschreibt die durchschnittliche absolute Abweichung in BPM, während der RMSE größere Einzelabweichungen stärker gewichtet.
 
 \subsection{Vergleich mit Referenzgerät}
 
@@ -117,7 +117,7 @@ Die Performance des Gesamtsystems wurde qualitativ im laufenden Betrieb bewertet
 
 Auffällig war besonders die starke Erwärmung des Raspberry Pi während des Betriebs. Nach wenigen Minuten kam es erkennbar zu einer Reduzierung der Systemleistung, was auf eine thermisch bedingte Reduzierung der Taktfrequenz des Prozessors hindeutet. Dieses Verhalten wirkte sich sowohl auf die Stabilität der Pulsmessung als auch auf die Emotionserkennung aus. Während die Pulswerte zu Beginn der Testdurchläufe noch plausibel waren, traten nach längerer Laufzeit teilweise unrealistische Werte von deutlich über 200 BPM auf. Auch die Emotionserkennung reagierte nach längerer Laufzeit verzögerter und weniger stabil. Dabei wechselte der erkannte Zustand teilweise zwischen \glqq Neutral\grqq\ und \glqq Smiling\grqq, obwohl der Gesichtsausdruck der Testperson unverändert blieb.
 
-Da keine systematische Aufzeichnung von Temperatur, CPU-Takt oder Auslastung durchgeführt wurde, kann der genaue Zusammenhang zwischen Erwärmung, Reduzierung der Taktfrequenz und fehlerhaften Pulswerten nicht quantitativ nachgewiesen werden. Die Beobachtungen legen jedoch nahe, dass die begrenzte Rechenleistung und Kühlung des Raspberry Pi 4B einen wesentlichen Einfluss auf die Praxistauglichkeit des Systems haben.
+Da keine systematische Aufzeichnung von Temperatur, \ac{cpu}-Takt oder Auslastung durchgeführt wurde, kann der genaue Zusammenhang zwischen Erwärmung, Reduzierung der Taktfrequenz und fehlerhaften Pulswerten nicht quantitativ nachgewiesen werden. Die Beobachtungen legen jedoch nahe, dass die begrenzte Rechenleistung und Kühlung des Raspberry Pi 4B einen wesentlichen Einfluss auf die Praxistauglichkeit des Systems haben.
 
 \section{Diskussion}
 

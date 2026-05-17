@@ -8,7 +8,7 @@ Bei der Konzeption des Gehäuses war es erforderlich, eine Vielzahl von Anforder
 
 Nach der Konstruktion in Solid Edge wurde das Gehäuse unter Verwendung des 3D-Druckverfahrens gefertigt. Der 3D-Druck erwies sich in diesem Anwendungsfall als besonders geeignet, da das Gehäuse präzise an die Maße des Spiegels und des Displays angepasst werden konnte. Darüber hinaus bestand die Möglichkeit, die später verwendeten Befestigungshaken selbst zu konstruieren und zu drucken. Dies ermöglichte eine präzise Abstimmung der mechanischen Komponenten auf den spezifischen Aufbau, ohne die Verwendung fertiger Standardgehäuse.
 
-Während des Montagevorgangs sind jedoch Inkonsistenzen in der Planung offenbart worden. Die Befestigungsstreben, welche dazu dienten, das Display fest zu verankern, stellten eine Barriere für das LAN-Kabel dar. Des Weiteren wiesen die Löcher eine spiegelverkehrte Position auf. Daher war es erforderlich, die Streben manuell zu kürzen und zwei Bohrungen zu setzen. Die vorliegende Nachbearbeitung wurde als notwendig erachtet, um eine korrekte Nutzung des Gehäuses zu gewährleisten. Ein erneuter Druck war daher nicht erforderlich.
+Während des Montagevorgangs sind jedoch Inkonsistenzen in der Planung offenbart worden. Die Befestigungsstreben, welche dazu dienten, das Display fest zu verankern, stellten eine Barriere für das \ac{lan}-Kabel dar. Des Weiteren wiesen die Löcher eine spiegelverkehrte Position auf. Daher war es erforderlich, die Streben manuell zu kürzen und zwei Bohrungen zu setzen. Die vorliegende Nachbearbeitung wurde als notwendig erachtet, um eine korrekte Nutzung des Gehäuses zu gewährleisten. Ein erneuter Druck war daher nicht erforderlich.
 
 Für die Verschraubung werden Gewindeeinsätze zum Eindrücken verwendet. Diese werden in das 3D-gedruckte Gehäuse eingesetzt und ermöglichen eine stabile Verbindung mit Schrauben. Im Vergleich zu direkt in den Kunststoff gedrehten Schrauben bieten solche Gewindeeinsätze den Vorteil, dass die Verbindung belastbarer ist und bei wiederholtem Öffnen und Schließen weniger schnell ausleiert. Dies ist von besonderer Relevanz, da der Deckel und einzelne Bauteile im Rahmen von Wartungsarbeiten oder Anpassungen erneut gelöst werden müssen. Darüber hinaus weisen diese Gewindeeinsätze eine höhere Qualität auf als gedruckte Gewinde, die direkt im Bauteil integriert sind. Nach dem Einsetzen der Gewinde erfolgte die Befestigung der Komponenten sowie die Montage des Deckels.
 
@@ -22,7 +22,7 @@ Insgesamt entstand durch die Kombination aus selbst konstruiertem 3D-Druckgehäu
 
 \section{Softwareimplementierung}
 
-Dieser Abschnitt beschreibt die praktische Umsetzung der Pulsmessung und der Emotionserkennung im Smart-Mirror-Prototyp. Die Pulsmessung basiert auf einem bestehenden Projekt einer vorherigen Studienarbeit der DHBW. Dieses wurde nicht grundlegend neu entwickelt, sondern in die Smart-Mirror-Umgebung eingebunden, containerisiert und um eine einfache Schnittstelle zur Darstellung im Frontend erweitert. Ergänzend wurde eine ressourcenschonende Emotionserkennung umgesetzt, die den Gesichtsausdruck zwischen \glqq Neutral\grqq\ und \glqq Smiling\grqq\ unterscheidet.
+Dieser Abschnitt beschreibt die praktische Umsetzung der Pulsmessung und der Emotionserkennung im Smart-Mirror-Prototyp. Die Pulsmessung basiert auf einem bestehenden Projekt einer vorherigen Studienarbeit der \ac{dhbw}. Dieses wurde nicht grundlegend neu entwickelt, sondern in die Smart-Mirror-Umgebung eingebunden, containerisiert und um eine einfache Schnittstelle zur Darstellung im Frontend erweitert. Ergänzend wurde eine ressourcenschonende Emotionserkennung umgesetzt, die den Gesichtsausdruck zwischen \glqq Neutral\grqq\ und \glqq Smiling\grqq\ unterscheidet.
 
 \subsection{Softwarearchitektur}
 
@@ -71,7 +71,7 @@ self.publisher.publish(pulse, timestamp)
 self.pulse_web_pub.publish(float(pulse))
 \end{lstlisting}
 
-Neben der ursprünglichen Veröffentlichung über \texttt{PulsePublisher} wurde damit eine zweite, einfachere Ausgabe erstellt. Der ursprüngliche Publisher schreibt den Messwert in eine projektspezifische \ac{ros}-Nachricht und zusätzlich in eine CSV-Datei. Für die WebUI ist dagegen das Topic \texttt{/heart\_rate} ausreichend, da dort nur der aktuelle \ac{bpm}-Wert angezeigt werden muss.
+Neben der ursprünglichen Veröffentlichung über \texttt{PulsePublisher} wurde damit eine zweite, einfachere Ausgabe erstellt. Der ursprüngliche Publisher schreibt den Messwert in eine projektspezifische \ac{ros}-Nachricht und zusätzlich in eine \ac{csv}-Datei. Für die WebUI ist dagegen das Topic \texttt{/heart\_rate} ausreichend, da dort nur der aktuelle \ac{bpm}-Wert angezeigt werden muss.
 
 Die Wahl von \ac{evm} ist für den Smart-Mirror besonders relevant, da der Ansatz im Vergleich zur \ac{vbcg} weniger direkt von der präzisen Erfassung pulssynchroner Kopfbewegungen abhängt. Während \ac{vbcg} die sehr kleinen mechanischen Bewegungen des Kopfes auswertet und daher durch zusätzliche Kopf- oder Körperbewegungen leicht gestört werden kann, verstärkt \ac{evm} zeitliche Farb- und Intensitätsänderungen innerhalb der Gesichtsregion. Für den Smart-Mirror-Einsatz, bei dem eine Person nicht komplett ruhig vor dem Spiegel steht, ist dieser Ansatz daher besser geeignet. Stärkere Bewegungen können die Messung dennoch beeinträchtigen.
 
