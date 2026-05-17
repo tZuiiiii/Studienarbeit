@@ -268,10 +268,10 @@ Die Smile-Detection stellt damit eine binäre Form der Gesichtsausdruckserkennun
 
 \section{Hardwarekomponenten}
 \subsection{Industriekamera}
-Industriekameras sind speziell für den Dauerbetrieb in industriellen Umgebungen ausgelegte Kamerasysteme, die sich durch robuste Mechanik, hohe Bildqualität und eine lange Lebensdauer auszeichnen.\footcitecustomlink{o.aIndustrialCameraso.J.}
+Industriekameras sind speziell für den Dauerbetrieb in industriellen Umgebungen ausgelegte Kamerasysteme, die sich durch robuste Mechanik, hohe Bildqualität und eine lange Lebensdauer auszeichnen.\footcitecustomlink{balluffIndustrialCameraso.J.}
 Typische Einsatzgebiete von Industriekameras sind die Qualitätskontrolle in Produktionsprozessen, die Robotik sowie die Überwachung und Steuerung von Fertigungsanlagen.\footcitecustomenglisch[1-3]{javaidExploringImpactFeatures2022} Im Rahmen von Industrie 4.0 kommt ihnen eine zentrale Bedeutung zu, da sie visuelle Daten für automatisierte Entscheidungsprozesse bereitstellen.\footcitecustomebenda[1-3]{javaidExploringImpactFeatures2022}
 
-Eine Industriekamera besteht aus mehreren zentralen Komponenten, die gemeinsam die Bildaufnahme und -verarbeitung ermöglichen. Dazu gehören:\footcitecustomlink{o.a.AnatomyMachineVisiono.J.}
+Eine Industriekamera besteht aus mehreren zentralen Komponenten, die gemeinsam die Bildaufnahme und -verarbeitung ermöglichen. Dazu gehören:\footcitecustomlink{emergentAnatomyMachineVisiono.J.}
 \begin{itemize}
     \item Die Linse
     \item Der Bildsensor
@@ -280,18 +280,18 @@ Eine Industriekamera besteht aus mehreren zentralen Komponenten, die gemeinsam d
 \end{itemize}
 
 \subsection*{Linse}
-Die Linse bildet die Szene auf den Bildsensor ab, indem sie das einfallende Licht bündelt und fokussiert. Wenn die Kanten scharf sind, gilt das Bild als fokussiert, andernfalls unfokussiert. Wichtige Parameter der Linse sind der Bildwinkel, das Sichtfeld, die Objektentfernung, die Brennweite und die Blende wie in Abbildung \ref{fig:linse}.\footcitecustomlink{o.a.AnatomyMachineVisiono.J.}
+Die Linse bildet die Szene auf den Bildsensor ab, indem sie das einfallende Licht bündelt und fokussiert. Wenn die Kanten scharf sind, gilt das Bild als fokussiert, andernfalls unfokussiert. Wichtige Parameter der Linse sind der Bildwinkel, das Sichtfeld, die Objektentfernung, die Brennweite und die Blende wie in Abbildung \ref{fig:linse}.\footcitecustomlink{emergentAnatomyMachineVisiono.J.}
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.5\textwidth]{Images/Lens.png}
     \caption{Schematische Darstellung einer Linse mit den wichtigsten Parametern.\protect\footnotemark}
     \label{fig:linse}
 \end{figure}
-\footnotetext{\found[]{o.a.AnatomyMachineVisiono.J.}}
-Der Bildwinkel beschreibt den Winkel, unter dem die Kamera die Szene erfasst, während das Sichtfeld den abbildbaren Bereich angibt, der von der Kamera abgedeckt wird.\footcitecustomlink{hollowsImagingFundamentals} Die Objektentfernung ist die Distanz zwischen der Linse und dem fokussierten Objekt, während die Brennweite die Entfernung zwischen der Linse und dem Brennpunkt angibt. Befindet sich der Brennpunkt auf dem Sensor, ist die Kamera auf das Objekt fokussiert. Die Blende steuert die Menge des einfallenden Lichts.\footcitecustomlink{o.a.AnatomyMachineVisiono.J.}
+\footnotetext{\found[]{emergentAnatomyMachineVisiono.J.}}
+Der Bildwinkel beschreibt den Winkel, unter dem die Kamera die Szene erfasst, während das Sichtfeld den abbildbaren Bereich angibt, der von der Kamera abgedeckt wird.\footcitecustomlink{hollowsImagingFundamentals} Die Objektentfernung ist die Distanz zwischen der Linse und dem fokussierten Objekt, während die Brennweite die Entfernung zwischen der Linse und dem Brennpunkt angibt. Befindet sich der Brennpunkt auf dem Sensor, ist die Kamera auf das Objekt fokussiert. Die Blende steuert die Menge des einfallenden Lichts.\footcitecustomlink{emergentAnatomyMachineVisiono.J.}
 \subsection*{Bildsensor}
-Ein Bildsensor wandelt Photonen in elektrische Signale (Elektronen) um.\footcitecustomlink{o.a.CCDVsCMOSo.J} In der industriellen Bildverarbeitung dominieren zwei Sensortypen: \ac{ccd} und \ac{cmos}.\footcitecustomebenda{o.a.CCDVsCMOSo.J}
-Der grundlegende technische Unterschied zwischen CCD- und CMOS-Sensoren liegt im Ausleseprinzip: Bei CCD-Sensoren wird die Ladung pixelweise weitergeschoben, während CMOS-Sensoren die Pixel direkt auslesen.\footcitecustomebenda{o.a.CCDVsCMOSo.J}
+Ein Bildsensor wandelt Photonen in elektrische Signale (Elektronen) um.\footcitecustomlink{baslerCCDVsCMOSo.J} In der industriellen Bildverarbeitung dominieren zwei Sensortypen: \ac{ccd} und \ac{cmos}.\footcitecustomebenda{baslerCCDVsCMOSo.J}
+Der grundlegende technische Unterschied zwischen CCD- und CMOS-Sensoren liegt im Ausleseprinzip: Bei CCD-Sensoren wird die Ladung pixelweise weitergeschoben, während CMOS-Sensoren die Pixel direkt auslesen.\footcitecustomebenda{baslerCCDVsCMOSo.J}
 Durch die unterschiedliche Art und Weise der Auslesung weisen die Sensoren auch unterschiedliche Probleme auf. CCD-Sensoren können unter anderem mit Blooming (Überlauf von Ladung in benachbarte Pixel) und Smearing (Lichtstreuung während der Auslesung) zu kämpfen haben, während CMOS-Sensoren anfälliger für Rauschen und Rolling-Shutter-Effekte sind.\todo{Folien zitieren}
 In Abbildung \ref{fig:fehler} sind typische Bildfehler bei Kamerasensoren dargestellt.
 \begin{figure}[H]
@@ -316,9 +316,9 @@ In Abbildung \ref{fig:fehler} sind typische Bildfehler bei Kamerasensoren darges
 
 \subsection{Spionspiegel}
 
-Ein Spionspiegel, auch Einwegspiegel oder halbtransparenter Spiegel genannt, ist eine Glasfläche mit teilreflektierender Beschichtung.\footcitecustomlink[]{o.a.Spiegelgeschichteo.J.} Im Gegensatz zu einem gewöhnlichen Spiegel reflektiert er nicht nahezu das gesamte einfallende Licht, sondern lässt einen Teil des Lichts durch die Glasfläche hindurch.\footcitecustomebenda[]{o.a.Spiegelgeschichteo.J.} Die optische Wirkung ergibt sich somit aus dem Verhältnis von Reflexion, Transmission und Absorption.\footcitecustomlink{o.a.18ReflectionTransmission2002}
+Ein Spionspiegel, auch Einwegspiegel oder halbtransparenter Spiegel genannt, ist eine Glasfläche mit teilreflektierender Beschichtung.\footcitecustomlink[]{leifiphysikSpiegelgeschichteo.J.} Im Gegensatz zu einem gewöhnlichen Spiegel reflektiert er nicht nahezu das gesamte einfallende Licht, sondern lässt einen Teil des Lichts durch die Glasfläche hindurch.\footcitecustomebenda[]{leifiphysikSpiegelgeschichteo.J.} Die optische Wirkung ergibt sich somit aus dem Verhältnis von Reflexion, Transmission und Absorption.\footcitecustomlink{gigahertz-optik18ReflectionTransmission2002}
 
-Die Bezeichnung Einwegspiegel ist dabei physikalisch nicht vollständig korrekt, da Licht grundsätzlich in beide Richtungen durch die beschichtete Glasfläche treten kann.\footcitecustomlink[]{o.a.Spiegelgeschichteo.J.} Der Eindruck einer einseitigen Durchsicht entsteht erst durch unterschiedliche Beleuchtungsstärken auf beiden Seiten des Spiegels.\footcitecustomebenda[]{o.a.Spiegelgeschichteo.J.} Befindet sich eine Person auf der hell beleuchteten Seite, dominiert das von der Beschichtung reflektierte Licht.\footcitecustomebenda[]{o.a.Spiegelgeschichteo.J.}  Die dahinterliegende dunklere Seite wird dadurch überstrahlt und ist kaum sichtbar.\footcitecustomebenda[]{o.a.Spiegelgeschichteo.J.}  Von der dunkleren Seite aus ist hingegen der transmittierte Lichtanteil der hellen Seite erkennbar, wodurch eine Beobachtung durch den Spiegel möglich wird.\footcitecustomlink{helmenstineHowTwoWay2021}
+Die Bezeichnung Einwegspiegel ist dabei physikalisch nicht vollständig korrekt, da Licht grundsätzlich in beide Richtungen durch die beschichtete Glasfläche treten kann.\footcitecustomlink[]{leifiphysikSpiegelgeschichteo.J.} Der Eindruck einer einseitigen Durchsicht entsteht erst durch unterschiedliche Beleuchtungsstärken auf beiden Seiten des Spiegels.\footcitecustomebenda[]{leifiphysikSpiegelgeschichteo.J.} Befindet sich eine Person auf der hell beleuchteten Seite, dominiert das von der Beschichtung reflektierte Licht.\footcitecustomebenda[]{leifiphysikSpiegelgeschichteo.J.}  Die dahinterliegende dunklere Seite wird dadurch überstrahlt und ist kaum sichtbar.\footcitecustomebenda[]{leifiphysikSpiegelgeschichteo.J.}  Von der dunkleren Seite aus ist hingegen der transmittierte Lichtanteil der hellen Seite erkennbar, wodurch eine Beobachtung durch den Spiegel möglich wird.\footcitecustomlink{helmenstineHowTwoWay2021}
 In Abbildung \ref{fig:spionspiegel_funktion} ist das Funktionsprinzip eines Spionspiegels schematisch dargestellt. Je nach Beleuchtungsverhältnis und Beschichtung kann die Wahrnehmung des Spionspiegels stark variieren.
 
 \begin{figure}[H]
@@ -329,7 +329,7 @@ In Abbildung \ref{fig:spionspiegel_funktion} ist das Funktionsprinzip eines Spio
     \caption{Funktionsprinzip eines Spionspiegels\protect\footnotemark}
     \label{fig:spionspiegel_funktion}
 \end{figure}
-\footnotetext{\found[]{o.a.Spiegelgeschichteo.J.}}
+\footnotetext{\found[]{leifiphysikSpiegelgeschichteo.J.}}
 
 Für die Wahrnehmung ist daher nicht allein die Beschichtung entscheidend, sondern auch die Lichtverteilung der Umgebung. British Glass beschreibt für beschichtete Spionspiegel beispielsweise ein notwendiges Beleuchtungsverhältnis von mindestens 1:10 zwischen heller und dunkler Seite, damit die Spiegelseite für den Betrachter als reflektierende Fläche erscheint.\footcitecustomenglisch{o.a.GlassCoatings4o.J.} 
 Je größer also dieser Helligkeitsunterschied zwischen der hellen und dunklen Seite ist, desto stärker wirkt die helle Seite wie ein normaler Spiegel. Werden beide Seiten ähnlich stark beleuchtet, wird der Spionspiegel von beiden Seiten leicht durchsichtig erscheinen.
