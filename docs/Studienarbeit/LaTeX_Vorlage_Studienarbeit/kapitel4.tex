@@ -79,11 +79,11 @@ Die Wahl von EVM ist für den Smart-Mirror besonders relevant, da der Ansatz im 
 
 \subsection{Implementierung der Emotionserkennung}
 
-Die Mood Detection wurde bewusst deutlich einfacher gehalten als die Pulsmessung. Statt ein neuronales Netz oder ein mehrklassiges Emotionserkennungsmodell einzusetzen, verwendet sie OpenCV Haar-Cascades. Diese Entscheidung folgt aus den begrenzten Ressourcen des Raspberry Pi 4B. Da die EVM-Pulsmessung bereits einen großen Teil der Rechenleistung beansprucht, sollte die Gesichtsausdruckserkennung möglichst wenig zusätzliche Last erzeugen.
+Die Emotionserkennung wurde bewusst deutlich einfacher gehalten als die Pulsmessung. Statt ein neuronales Netz oder ein mehrklassiges Emotionserkennungsmodell einzusetzen, verwendet sie OpenCV Haar-Cascades. Diese Entscheidung folgt aus den begrenzten Ressourcen des Raspberry Pi 4B. Da die EVM-Pulsmessung bereits einen großen Teil der Rechenleistung beansprucht, sollte die Gesichtsausdruckserkennung möglichst wenig zusätzliche Last erzeugen.
 
 Die Implementierung unterscheidet nur zwischen den Zuständen \glqq Neutral\grqq\ und \glqq Smiling\grqq\. Dazu abonniert der Mood-Detector den Kamerastream \texttt{/webcam/image\_raw}, wandelt die ROS-Bildnachricht mit \texttt{cv\_bridge} in ein OpenCV-Bild um und erstellt daraus ein Graustufenbild. Anschließend wird zunächst mit einer Face-Cascade nach Gesichtern gesucht. Für jede erkannte Gesichtsregion wird eine Smile-Cascade ausgeführt. Wird mindestens ein Lächeln erkannt, wird der Status auf \glqq Smiling\grqq\ gesetzt. Ansonsten bleibt der Status \glqq Neutral\grqq.
 
-\begin{lstlisting}[style=algoBericht,caption={Kernlogik der Mood Detection mit Haar-Cascades}]
+\begin{lstlisting}[style=algoBericht,caption={Kernlogik der Emotionserkennung mit Haar-Cascades}]
 gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 faces = self.face_cascade.detectMultiScale(gray, 1.3, 5)
 
