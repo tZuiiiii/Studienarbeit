@@ -26,33 +26,33 @@ Dieser Abschnitt beschreibt die praktische Umsetzung der Pulsmessung und der Emo
 
 \subsection{Softwarearchitektur}
 
-Die implementierte Softwarearchitektur besteht aus mehreren Komponenten, die über ROS-Topics miteinander kommunizieren. Die Kamera liefert fortlaufend Bilddaten in das ROS-System. Auf diesen Bilddaten arbeiten zwei Verarbeitungspipelines parallel. Einmal die Pulsmessung mittels Eulerian Video Magnification (EVM) und die Emotionserkennung auf Basis von OpenCV Haar-Cascades.
+Die implementierte Softwarearchitektur besteht aus mehreren Komponenten, die über Topics des \ac{ros} miteinander kommunizieren. Die Kamera liefert fortlaufend Bilddaten in das \ac{ros}-System. Auf diesen Bilddaten arbeiten zwei Verarbeitungspipelines parallel. Einmal die Pulsmessung mittels \ac{evm} und die Emotionserkennung auf Basis von OpenCV Haar-Cascades.
 
-Die Pulsmessung verarbeitet die erkannten Gesichtsbereiche und berechnet daraus in periodischen Abständen einen Pulswert. Dieser Wert wird über die ROS-Nachricht auf dem Topic \texttt{/heart\_rate} bereitgestellt. Diese zusätzliche Schnittstelle wurde eingeführt, damit die WebUI den Messwert anzeigen kann.
+Die Pulsmessung verarbeitet die erkannten Gesichtsbereiche und berechnet daraus in periodischen Abständen einen Pulswert. Dieser Wert wird über die \ac{ros}-Nachricht auf dem Topic \texttt{/heart\_rate} bereitgestellt. Diese zusätzliche Schnittstelle wurde eingeführt, damit die WebUI den Messwert anzeigen kann.
 
-Die Emotionserkennung wertet dieselben Bildaten aus, erkennt das Gesicht und sucht innerhalb der Gesichtsregion nach einem Lächeln. Das Ergebnis wird als String auf dem Topic \texttt{/mood} veröffentlicht. Die WebUI verbindet sich über die \texttt{rosbridge} mit dem ROS-System und abonniert die Topics \texttt{/heart\_rate} und \texttt{/mood}. Dadurch bleibt die Darstellung von der eigentlichen Bildverarbeitung getrennt.
+Die Emotionserkennung wertet dieselben Bildaten aus, erkennt das Gesicht und sucht innerhalb der Gesichtsregion nach einem Lächeln. Das Ergebnis wird als String auf dem Topic \texttt{/mood} veröffentlicht. Die WebUI verbindet sich über die \texttt{rosbridge} mit dem \ac{ros}-System und abonniert die Topics \texttt{/heart\_rate} und \texttt{/mood}. Dadurch bleibt die Darstellung von der eigentlichen Bildverarbeitung getrennt.
 
-\cref{chap:grundlagen} erläutert die verwendeten Verfahren wie EVM und Haar-Cascades theoretisch. Dieser Abschnitt beschreibt dagegen, wie diese Verfahren im konkreten System verbunden und auf dem Zielgerät ausführbar gemacht wurden.
+\cref{chap:grundlagen} erläutert die verwendeten Verfahren wie \ac{evm} und Haar-Cascades theoretisch. Dieser Abschnitt beschreibt dagegen, wie diese Verfahren im konkreten System verbunden und auf dem Zielgerät ausführbar gemacht wurden.
 
-\subsection{Containerisierung der ROS-Noetic-Umgebung}
+\subsection{Containerisierung der \acs{ros}-Noetic-Umgebung}
 
-Eine zentrale Implementierungsentscheidung war die Ausführung der Pulsmessung und Emotionserkennung in einem Docker-Container. Der Grund dafür liegt in der technischen Basis des übernommenen EVM-Projekts. Der Code ist für ROS Noetic ausgelegt, welches die letzte ROS-1-Distribution ist und Ubuntu 20.04 verwendet. Eine Portierung auf eine neuere ROS-Version hätte nicht nur Anpassungen an Launch-Dateien und Paketstruktur erfordert, sondern auch Änderungen an Abhängigkeiten wie \texttt{cv\_bridge}, \texttt{image\_transport}, Kameratreibern und projektspezifischen ROS-Nachrichten. Dieser Aufwand hätte den Fokus der Arbeit deutlich verschoben.
+Eine zentrale Implementierungsentscheidung war die Ausführung der Pulsmessung und Emotionserkennung in einem Docker-Container. Der Grund dafür liegt in der technischen Basis des übernommenen \ac{evm}-Projekts. Der Code ist für \ac{ros} Noetic ausgelegt, welches die letzte \ac{ros}-1-Distribution ist und Ubuntu 20.04 verwendet. Eine Portierung auf eine neuere \ac{ros}-Version hätte nicht nur Anpassungen an Launch-Dateien und Paketstruktur erfordert, sondern auch Änderungen an Abhängigkeiten wie \texttt{cv\_bridge}, \texttt{image\_transport}, Kameratreibern und projektspezifischen \ac{ros}-Nachrichten. Dieser Aufwand hätte den Fokus der Arbeit deutlich verschoben.
 
-Stattdessen kapselt das Dockerfile die benötigte Laufzeitumgebung. Als Basisimage wird \texttt{ros:noetic-ros-base-}\allowbreak\texttt{focal} verwendet. Darauf werden die benötigten ROS-Pakete, Python-Bibliotheken, OpenCV, SciPy sowie die Treiberunterstützung für Pylon-Kameras installiert. Anschließend wird das ROS-Workspace der Pulsmessung und Emotionserkennung in das Image kopiert und mit \texttt{catkin\_make} gebaut. Zusätzlich enthält das Image die statische WebUI und die JavaScript-Bibliothek \texttt{roslibjs}, über die die Verbindung zur \texttt{rosbridge} hergestellt wird.
+Stattdessen kapselt das Dockerfile die benötigte Laufzeitumgebung. Als Basisimage wird \texttt{ros:noetic-ros-base-}\allowbreak\texttt{focal} verwendet. Darauf werden die benötigten \ac{ros}-Pakete, Python-Bibliotheken, OpenCV, SciPy sowie die Treiberunterstützung für Pylon-Kameras installiert. Anschließend wird das \ac{ros}-Workspace der Pulsmessung und Emotionserkennung in das Image kopiert und mit \texttt{catkin\_make} gebaut. Zusätzlich enthält das Image die statische WebUI und die JavaScript-Bibliothek \texttt{roslibjs}, über die die Verbindung zur \texttt{rosbridge} hergestellt wird.
 
-Die Ausführung erfolgt über \texttt{compose.yaml}. Dort wird der Container mit \texttt{network\_mode: host} gestartet, sodass ROS-Master, \texttt{rosbridge} und WebUI ohne zusätzliche Portweiterleitungen über den Host erreichbar sind. Für Kameras, die über USB angebunden werden, wird außerdem \texttt{/dev/bus/usb} in den Container eingebunden. Über die Umgebungsvariable \texttt{CAMERA\_MODE} kann zwischen einer normalen Webcam und einer Pylon- beziehungsweise Basler-Industriekamera gewechselt werden. Die WebUI wird standardmäßig auf Port \texttt{3001} ausgeliefert.
+Die Ausführung erfolgt über \texttt{compose.yaml}. Dort wird der Container mit \texttt{network\_mode: host} gestartet, sodass \ac{ros}-Master, \texttt{rosbridge} und WebUI ohne zusätzliche Portweiterleitungen über den Host erreichbar sind. Für Kameras, die über USB angebunden werden, wird außerdem \texttt{/dev/bus/usb} in den Container eingebunden. Über die Umgebungsvariable \texttt{CAMERA\_MODE} kann zwischen einer normalen Webcam und einer Pylon- beziehungsweise Basler-Industriekamera gewechselt werden. Die WebUI wird standardmäßig auf Port \texttt{3001} ausgeliefert.
 
-Das Startverhalten ist im Skript \texttt{entrypoint.sh} festgelegt. Dort werden zunächst die ROS-Umgebung und das gebaute Workspace initialisiert. Anschließend werden abhängig vom Kameramodus die passende Kamera-Pipeline, die Pulsmessung, \texttt{rosbridge}, die Emotionserkennung und der Webserver gestartet. Dadurch lässt sich das System mit einem einzigen Containerstart ausführen.
+Das Startverhalten ist im Skript \texttt{entrypoint.sh} festgelegt. Dort werden zunächst die \ac{ros}-Umgebung und das gebaute Workspace initialisiert. Anschließend werden abhängig vom Kameramodus die passende Kamera-Pipeline, die Pulsmessung, \texttt{rosbridge}, die Emotionserkennung und der Webserver gestartet. Dadurch lässt sich das System mit einem einzigen Containerstart ausführen.
 
 \subsection{Implementierung der Pulsmessung}
 
-Die Pulsmessung basiert auf dem bestehenden ROS-Projekt \texttt{PulsMeasurementStudien2}.\footcitecustom{mobmonrobPulsMeasurementStudien22022} Innerhalb dieses Projekts übernimmt das Paket \texttt{eulerian\_motion\_magnification} die eigentliche Verarbeitung. Die Kamera veröffentlicht ihre Bilder auf einem ROS-Topic, beispielsweise \texttt{/webcam/image\_raw}. Der \texttt{FaceDetector} liest diese Bilder, wandelt sie in Graustufen um und erkennt mit einer Haar-Cascade das größte Gesicht im Bild. Aus diesem Bereich wird eine \ac{roi} extrahiert und an die Pulsmessung übergeben.
+Die Pulsmessung basiert auf dem bestehenden \ac{ros}-Projekt \texttt{PulsMeasurementStudien2}.\footcitecustom{PulsMeasurementStudien2} Innerhalb dieses Projekts übernimmt das Paket \texttt{eulerian\_motion\_magnification} die eigentliche Verarbeitung. Die Kamera veröffentlicht ihre Bilder auf einem \ac{ros}-Topic, beispielsweise \texttt{/webcam/image\_raw}. Der \texttt{FaceDetector} liest diese Bilder, wandelt sie in Graustufen um und erkennt mit einer Haar-Cascade das größte Gesicht im Bild. Aus diesem Bereich wird eine \ac{roi} extrahiert und an die Pulsmessung übergeben.
 
 Die \ac{roi} wird zunächst normalisiert und auf 200x200 Pixel skaliert. Anschließend wird eine Gauß-Pyramide erstellt und verwendet die unterste Pyramidenstufe als Darstellung der Gesichtsregion. Für jedes Frame wird daraus ein zeitlicher Signalverlauf aufgebaut. Sobald ein Messfenster von 30 Sekunden erreicht ist, wird der Puffer weitergeführt und jeweils nach 50 Frames ausgewertet.
 
 Im implementierten System ist der Frequenzbereich für die Verstärkung auf \texttt{0.9} bis \texttt{1.7} Hz gesetzt. Das entspricht ungefähr 54 bis 102 Schlägen pro Minute und deckt damit vor allem den erwarteten Ruhepulsbereich ab. Höhere ausgegebene Pulswerte können dennoch auftreten, da die anschließende Peak-Zählung durch Rauschen, Bewegungsartefakte oder Mehrfachmaxima beeinflusst werden kann.
 
-\begin{lstlisting}[style=algoBericht,caption={Zentrale Parameter und WebUI-Publish der EVM-Pulsmessung}]
+\begin{lstlisting}[style=algoBericht,caption={Zentrale Parameter und WebUI-Publish der \acs{evm}-Pulsmessung}]
 self.levels = 2
 self.low = 0.9
 self.high = 1.7
@@ -71,17 +71,17 @@ self.publisher.publish(pulse, timestamp)
 self.pulse_web_pub.publish(float(pulse))
 \end{lstlisting}
 
-Neben der ursprünglichen Veröffentlichung über \texttt{PulsePublisher} wurde damit eine zweite, einfachere Ausgabe erstellt. Der ursprüngliche Publisher schreibt den Messwert in eine projektspezifische ROS-Nachricht und zusätzlich in eine CSV-Datei. Für die WebUI ist dagegen das Topic \texttt{/heart\_rate} ausreichend, da dort nur der aktuelle BPM-Wert angezeigt werden muss.
+Neben der ursprünglichen Veröffentlichung über \texttt{PulsePublisher} wurde damit eine zweite, einfachere Ausgabe erstellt. Der ursprüngliche Publisher schreibt den Messwert in eine projektspezifische \ac{ros}-Nachricht und zusätzlich in eine CSV-Datei. Für die WebUI ist dagegen das Topic \texttt{/heart\_rate} ausreichend, da dort nur der aktuelle \ac{bpm}-Wert angezeigt werden muss.
 
-Die Wahl von EVM ist für den Smart-Mirror besonders relevant, da der Ansatz im Vergleich zur vBCG weniger direkt von der präzisen Erfassung pulssynchroner Kopfbewegungen abhängt. Während vBCG die sehr kleinen mechanischen Bewegungen des Kopfes auswertet und daher durch zusätzliche Kopf- oder Körperbewegungen leicht gestört werden kann, verstärkt EVM zeitliche Farb- und Intensitätsänderungen innerhalb der Gesichtsregion. Für den Smart-Mirror-Einsatz, bei dem eine Person nicht komplett ruhig vor dem Spiegel steht, ist dieser Ansatz daher besser geeignet. Stärkere Bewegungen können die Messung dennoch beeinträchtigen.
+Die Wahl von \ac{evm} ist für den Smart-Mirror besonders relevant, da der Ansatz im Vergleich zur \ac{vbcg} weniger direkt von der präzisen Erfassung pulssynchroner Kopfbewegungen abhängt. Während \ac{vbcg} die sehr kleinen mechanischen Bewegungen des Kopfes auswertet und daher durch zusätzliche Kopf- oder Körperbewegungen leicht gestört werden kann, verstärkt \ac{evm} zeitliche Farb- und Intensitätsänderungen innerhalb der Gesichtsregion. Für den Smart-Mirror-Einsatz, bei dem eine Person nicht komplett ruhig vor dem Spiegel steht, ist dieser Ansatz daher besser geeignet. Stärkere Bewegungen können die Messung dennoch beeinträchtigen.
 
 \subsection{Implementierung der Emotionserkennung}
 
-Die Mood Detection wurde bewusst deutlich einfacher gehalten als die Pulsmessung. Statt ein neuronales Netz oder ein mehrklassiges Emotionserkennungsmodell einzusetzen, verwendet sie OpenCV Haar-Cascades. Diese Entscheidung folgt aus den begrenzten Ressourcen des Raspberry Pi 4B. Da die EVM-Pulsmessung bereits einen großen Teil der Rechenleistung beansprucht, sollte die Gesichtsausdruckserkennung möglichst wenig zusätzliche Last erzeugen.
+Die Emotionserkennung wurde bewusst deutlich einfacher gehalten als die Pulsmessung. Statt ein neuronales Netz oder ein mehrklassiges Emotionserkennungsmodell einzusetzen, verwendet sie OpenCV Haar-Cascades. Diese Entscheidung folgt aus den begrenzten Ressourcen des Raspberry Pi 4B. Da die \ac{evm}-Pulsmessung bereits einen großen Teil der Rechenleistung beansprucht, sollte die Gesichtsausdruckserkennung möglichst wenig zusätzliche Last erzeugen.
 
-Die Implementierung unterscheidet nur zwischen den Zuständen \glqq Neutral\grqq\ und \glqq Smiling\grqq\. Dazu abonniert der Mood-Detector den Kamerastream \texttt{/webcam/image\_raw}, wandelt die ROS-Bildnachricht mit \texttt{cv\_bridge} in ein OpenCV-Bild um und erstellt daraus ein Graustufenbild. Anschließend wird zunächst mit einer Face-Cascade nach Gesichtern gesucht. Für jede erkannte Gesichtsregion wird eine Smile-Cascade ausgeführt. Wird mindestens ein Lächeln erkannt, wird der Status auf \glqq Smiling\grqq\ gesetzt. Ansonsten bleibt der Status \glqq Neutral\grqq.
+Die Implementierung unterscheidet nur zwischen den Zuständen \glqq Neutral\grqq\ und \glqq Smiling\grqq\. Dazu abonniert der Mood-Detector den Kamerastream \texttt{/webcam/image\_raw}, wandelt die \ac{ros}-Bildnachricht mit \texttt{cv\_bridge} in ein OpenCV-Bild um und erstellt daraus ein Graustufenbild. Anschließend wird zunächst mit einer Face-Cascade nach Gesichtern gesucht. Für jede erkannte Gesichtsregion wird eine Smile-Cascade ausgeführt. Wird mindestens ein Lächeln erkannt, wird der Status auf \glqq Smiling\grqq\ gesetzt. Ansonsten bleibt der Status \glqq Neutral\grqq.
 
-\begin{lstlisting}[style=algoBericht,caption={Kernlogik der Mood Detection mit Haar-Cascades}]
+\begin{lstlisting}[style=algoBericht,caption={Kernlogik der Emotionserkennung mit Haar-Cascades}]
 gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 faces = self.face_cascade.detectMultiScale(gray, 1.3, 5)
 
@@ -103,7 +103,7 @@ Die Bezeichnung \grqq Emotionserkennung\glqq\ ist dabei im Rahmen dieser Arbeit 
 
 \subsection{Darstellung der Messergebnisse in der WebUI}
 
-Zur Darstellung der Ergebnisse wurde eine kleine WebUI entwickelt. Sie ist als statische HTML-Datei umgesetzt und wird im Container über den Python-HTTP-Server ausgeliefert. Dadurch ist kein zusätzliches Backend notwendig. Die Seite ist für den Smart-Mirror-Betrieb dunkel gestaltet und zeigt nur die für den Benutzer relevanten Informationen: die aktuelle Uhrzeit, den Pulswert in BPM und den erkannten Gesichtsausdruck.
+Zur Darstellung der Ergebnisse wurde eine kleine WebUI entwickelt. Sie ist als statische HTML-Datei umgesetzt und wird im Container über den Python-HTTP-Server ausgeliefert. Dadurch ist kein zusätzliches Backend notwendig. Die Seite ist für den Smart-Mirror-Betrieb dunkel gestaltet und zeigt nur die für den Benutzer relevanten Informationen: die aktuelle Uhrzeit, den Pulswert in \ac{bpm} und den erkannten Gesichtsausdruck.
 
 \begin{figure}[H]
     \centering
@@ -112,9 +112,9 @@ Zur Darstellung der Ergebnisse wurde eine kleine WebUI entwickelt. Sie ist als s
     \label{fig:webui}
 \end{figure}
 
-Die Verbindung zum ROS-System erfolgt im Browser über \texttt{roslibjs}. Die WebUI verbindet sich dazu mit \texttt{ws://<host>:9090}. Dieser WebSocket-Endpunkt wird von der \texttt{rosbridge} bereitgestellt. Nach erfolgreicher Verbindung abonniert die Oberfläche die Topics \texttt{/heart\_rate} und \texttt{/mood}. Der Pulswert wird gerundet und als Zahl angezeigt. Der Mood-String wird zusätzlich auf ein Emoji abgebildet.
+Die Verbindung zum \ac{ros}-System erfolgt im Browser über \texttt{roslibjs}. Die WebUI verbindet sich dazu mit \texttt{ws://<host>:9090}. Dieser WebSocket-Endpunkt wird von der \texttt{rosbridge} bereitgestellt. Nach erfolgreicher Verbindung abonniert die Oberfläche die Topics \texttt{/heart\_rate} und \texttt{/mood}. Der Pulswert wird gerundet und als Zahl angezeigt. Der Mood-String wird zusätzlich auf ein Emoji abgebildet.
 
-\begin{lstlisting}[style=algoBericht,caption={Abonnieren der ROS-Topics in der WebUI}]
+\begin{lstlisting}[style=algoBericht,caption={Abonnieren der \acs{ros}-Topics in der WebUI}]
 const pulseListener = new ROSLIB.Topic({
     ros,
     name: '/heart_rate',
@@ -139,13 +139,13 @@ moodListener.subscribe((message) => {
 });
 \end{lstlisting}
 
-Durch diese Umsetzung ist die WebUI unabhängig von der konkreten Bildverarbeitung. Sie muss weder OpenCV noch ROS-Python-Code kennen, sondern reagiert ausschließlich auf veröffentlichte ROS-Nachrichten. Gleichzeitig kann die Bildverarbeitung ausgetauscht oder erweitert werden, solange die Topics \texttt{/heart\_rate} und \texttt{/mood} erhalten bleiben.
+Durch diese Umsetzung ist die WebUI unabhängig von der konkreten Bildverarbeitung. Sie muss weder OpenCV noch \ac{ros}-Python-Code kennen, sondern reagiert ausschließlich auf veröffentlichte \ac{ros}-Nachrichten. Gleichzeitig kann die Bildverarbeitung ausgetauscht oder erweitert werden, solange die Topics \texttt{/heart\_rate} und \texttt{/mood} erhalten bleiben.
 
 \subsection{Integration und Ablauf}
 
-Beim Start des Containers wird zuerst die ROS-Noetic-Umgebung geladen und das gebaute Workspace eingebunden. Danach startet ein Entry-Point-Skript die einzelnen Prozesse in einer festen Reihenfolge. Zunächst wird die WebUI gestartet, danach \texttt{rosbridge}. Anschließend folgt die EVM-Pulsmessung. Nach einer kurzen Wartezeit wird schließlich die Emotionserkennung gestartet. Diese Reihenfolge stellt sicher, dass der WebSocket-Endpunkt vorhanden ist und die Bilddaten bereitstehen, bevor die auswertenden Komponenten darauf zugreifen.
+Beim Start des Containers wird zuerst die \ac{ros}-Noetic-Umgebung geladen und das gebaute Workspace eingebunden. Danach startet ein Entry-Point-Skript die einzelnen Prozesse in einer festen Reihenfolge. Zunächst wird die WebUI gestartet, danach \texttt{rosbridge}. Anschließend folgt die \ac{evm}-Pulsmessung. Nach einer kurzen Wartezeit wird schließlich die Emotionserkennung gestartet. Diese Reihenfolge stellt sicher, dass der WebSocket-Endpunkt vorhanden ist und die Bilddaten bereitstehen, bevor die auswertenden Komponenten darauf zugreifen.
 
-Im Webcam-Modus wird die Kamera über \texttt{video\_stream\_opencv} eingebunden und auf dem Topic \texttt{/webcam/image\_raw} veröffentlicht. Sowohl die EVM-Pulsmessung als auch die Emotionserkennung nutzen diesen Stream parallel. Für den Einsatz mit einer Industrie- beziehungsweise Pylon-Kamera ist im Entry-Point-Skript ein alternativer Startpfad vorgesehen. Der Kameramodus wird über die Umgebungsvariable \texttt{CAMERA\_MODE} in der \texttt{compose.yaml} gewählt.
+Im Webcam-Modus wird die Kamera über \texttt{video\_stream\_opencv} eingebunden und auf dem Topic \texttt{/webcam/image\_raw} veröffentlicht. Sowohl die \ac{evm}-Pulsmessung als auch die Emotionserkennung nutzen diesen Stream parallel. Für den Einsatz mit einer Industrie- beziehungsweise Pylon-Kamera ist im Entry-Point-Skript ein alternativer Startpfad vorgesehen. Der Kameramodus wird über die Umgebungsvariable \texttt{CAMERA\_MODE} in der \texttt{compose.yaml} gewählt.
 
 Das System ist für einen Kiosk-Betrieb, also im Vollbildmodus, ausgelegt. Die eigentliche Verarbeitung läuft im Container, während die Darstellung im Browser erfolgt. Dadurch eignet sich die Architektur für den Raspberry Pi 4B als Smart-Mirror-Zielplattform. Die Abhängigkeiten bleiben im Container isoliert und die WebUI übernimmt ausschließlich die Visualisierung der bereits ausgewerteten Daten.
 
