@@ -686,6 +686,11 @@ INPUT ./Images/Spionspiegel_Funktionsprinzip.png
 INPUT ./Images/Spionspiegel_Funktionsprinzip.png
 INPUT ./Images/Spionspiegel_Funktionsprinzip.png
 INPUT ./Images/Spionspiegel_Funktionsprinzip.png
+INPUT ./Images/3D-Druck_Aufbau.png
+INPUT ./Images/3D-Druck_Aufbau.png
+INPUT ./Images/3D-Druck_Aufbau.png
+INPUT ./Images/3D-Druck_Aufbau.png
+INPUT ./Images/3D-Druck_Aufbau.png
 INPUT ./kapitel3.tex
 INPUT ./kapitel3.tex
 OUTPUT kapitel3.aux
