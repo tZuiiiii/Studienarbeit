@@ -57,6 +57,9 @@
      3.2 Algorithmische Konzeption
    
      - Auswahl oder Training des Emotionserkennungsmodells
+     eulerian Puls
+     headmovement puls
+     openCv Emotionserkennung
   
 
 4. Implementierung

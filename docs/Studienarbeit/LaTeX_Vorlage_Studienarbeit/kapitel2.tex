@@ -9,9 +9,26 @@
 \section{Smart Mirros \& Ambient Intelligence}
 Ein smarter Spiegel ist ein interaktives System, das die Funktionalitäten eines alltäglichen Spiegels mit digitalen Anzeigen und Sensoren vereint.\footcitecustomenglisch[1]{m.v.vijayasaradhiSurveyIOTbasedSmart2022}
 Ein Smart Mirror setzt sich aus einem Spionspiegel zusammen, der mit einem Display sowie einem integrierten Mikrocontroller ausgestattet ist.\footcitecustomenglisch[11]{biancoSmartMirrorEmotion2021}
+Dadurch kann der Spiegel weiterhin als Alltagsgegenstand genutzt werden, gleichzeitig aber zusätzliche Informationen wie Uhrzeit, Wetter, Benachrichtigungen oder gesundheitsbezogene Daten anzeigen.\footcitecustomenglisch[1]{m.v.vijayasaradhiSurveyIOTbasedSmart2022} Smart Mirrors sind also Geräte, die Informationen darstellen und über Interaktionsformen wie Touch- oder Sprachsteuerung mit dem Nutzer kommunizieren können.\footcitecustomenglisch[2-3]{biancoSmartMirrorEmotion2021}
+
+Das Konzept steht in engem Zusammenhang mit Ambient Intelligence.\footcitecustomenglisch[589]{anwarhossainSmartMirrorAmbient2007} Darunter werden intelligente, adaptive elektronische Umgebungen verstanden, die auf Personen, Objekte und deren Handlungen reagieren und dadurch eine möglichst natürliche Unterstützung im Alltag ermöglichen.\footcitecustomebenda[589]{anwarhossainSmartMirrorAmbient2007} Grundlage dafür ist die Idee des Ubiquitous Computing, bei der Rechentechnik nicht mehr als separater Computer wahrgenommen wird, sondern unauffällig in Gegenstände und Umgebungen integriert ist.\footcitecustomenglisch[2]{wantUbiquitousComputingFundamentals2010} Ein Smart Mirror kann somit als konkrete Ausprägung dieses Ansatzes betrachtet werden, da die technische Funktionalität in ein vertrautes Objekt eingebettet wird.
+
+Im Unterschied zu klassischen Bildschirmen oder mobilen Endgeräten muss ein Smart Mirror vom Nutzer nicht aktiv mitgeführt oder bewusst gestartet werden.\footcitecustomenglisch[2]{gowthamiSmartMagicalMirror2022} Er befindet sich an einem Ort, an dem Menschen ohnehin regelmäßig mit ihm interagieren, beispielsweise im Badezimmer, Flur oder Schlafzimmer.\footcitecustomenglisch[3]{biancoSmartMirrorEmotion2021} Dadurch eignet er sich besonders für kurze, situationsbezogene Informationsanzeigen. Werden zusätzlich Kamera- oder Sensordaten verarbeitet, kann der Spiegel auch als Plattform für kontaktlose Gesundheits- oder Zustandsmessungen dienen.\footcitecustomenglisch[7]{biancoSmartMirrorEmotion2021}
+
+Für diese Arbeit ist der Smart Mirror daher nicht nur als Displayträger zu verstehen, sondern als eingebettetes Assistenzsystem. Die Anzeige der Uhrzeit, die kontaktlose Pulsmessung und die Emotionserkennung verbinden Informationsdarstellung mit sensorischer Wahrnehmung. Gleichzeitig entstehen dadurch besondere Anforderungen an Datenschutz, technische Zuverlässigkeit und Benutzerfreundlichkeit, da biometrische Daten verarbeitet werden und die Interaktion möglichst unaufdringlich erfolgen soll.
+
 
 % \includegraphics{}[width=\textwidth]{Images/SmartMirror.png}
 \section{Raspberry Pi / Embedded Systems}
+Embedded Systems sind informationsverarbeitende Systeme, die in ein übergeordnetes technisches Produkt eingebettet sind und dort eine spezifische Aufgabe übernehmen.\footcitecustomenglisch[2]{marwedelEingebetteteSystemeGrundlagen2021} Im Gegensatz zu universellen Desktop-Computern stehen bei eingebetteten Systemen häufig konkrete Funktionen, begrenzte Ressourcen, Energieeffizienz, Schnittstellenanbindung und eine enge Kopplung an physische Prozesse im Vordergrund.\footcitecustomebenda[3-4]{marwedelEingebetteteSystemeGrundlagen2021} Typische Anforderungen sind Echtzeitverhalten, Zuverlässigkeit und Effizienz, da eingebettete Systeme häufig direkt mit Sensoren, Aktoren oder anderen Hardwarekomponenten verbunden sind.\footcitecustomebenda[2]{marwedelEingebetteteSystemeGrundlagen2021}
+
+Der Raspberry Pi ist ein Einplatinencomputer, der sich für prototypische eingebettete Systeme eignet, weil Recheneinheit, Speicher, Grafik, Schnittstellen und Netzwerkfunktionen auf einer kompakten Platine integriert sind. Je nach Modell stehen Anschlüsse für Displays, Kameras, USB-Geräte und Netzwerkkommunikation zur Verfügung. Aktuelle Raspberry-Pi-Modelle nutzen ARM-basierte Mehrkernprozessoren; beim Raspberry Pi 5 kommt beispielsweise ein Broadcom BCM2712 mit vier Cortex-A76-Kernen zum Einsatz.\footcitecustomlink{raspberrypiProcessors2026} Der Produktbrief des Raspberry Pi 5 nennt außerdem unter anderem duale 4K-Displayausgabe, Kameraunterstützung und verbesserte I/O-Leistung als zentrale Merkmale.\footcitecustomlink{raspberrypi5ProductBrief2026}
+
+Für einen Smart Mirror ist ein solcher Einplatinencomputer besonders geeignet, da er mehrere Aufgaben gleichzeitig übernehmen kann. Dazu gehören die Ansteuerung des Displays, die Ausführung der Benutzeroberfläche, die Verarbeitung von Kameraaufnahmen, die Kommunikation mit externen Diensten und gegebenenfalls die lokale Ausführung von Algorithmen zur Signal- oder Bildverarbeitung. Durch die Unterstützung eines Linux-basierten Betriebssystems können zudem etablierte Bibliotheken und Frameworks eingesetzt werden, beispielsweise für Bildverarbeitung, Weboberflächen oder Netzwerkanbindungen.
+
+Gleichzeitig müssen bei der Verwendung eines Raspberry Pi die Grenzen eingebetteter Systeme berücksichtigt werden. Die verfügbare Rechenleistung, Speicherkapazität und thermische Belastbarkeit sind geringer als bei leistungsstarken Desktop-Systemen. Dies ist insbesondere relevant, wenn rechenintensive Verfahren wie kamerabasierte Pulsmessung oder Emotionserkennung eingesetzt werden. Für die Systemkonzeption bedeutet dies, dass Algorithmen effizient implementiert, unnötige Hintergrundprozesse vermieden und Hardwarekomponenten passend angebunden werden müssen. Der Raspberry Pi bildet damit die zentrale Recheneinheit des Systems, bleibt aber Teil eines ressourcenbegrenzten eingebetteten Gesamtsystems.
+
+
 \section{Kontaktlose Pulsmessung (rPPG)}
 \section{Emotionserkennung}
 \section{Hardwarekomponenten}
@@ -19,7 +36,7 @@ Ein Smart Mirror setzt sich aus einem Spionspiegel zusammen, der mit einem Displ
 Industriekameras sind speziell für den Dauerbetrieb in industriellen Umgebungen ausgelegte Kamerasysteme, die sich durch robuste Mechanik, hohe Bildqualität und eine lange Lebensdauer auszeichnen.\footcitecustomlink{o.aIndustrialCameraso.J.}
 Typische Einsatzgebiete von Industriekameras sind die Qualitätskontrolle in Produktionsprozessen, die Robotik sowie die Überwachung und Steuerung von Fertigungsanlagen.\footcitecustomenglisch[1-3]{javaidExploringImpactFeatures2022} Im Rahmen von Industrie 4.0 kommt ihnen eine zentrale Bedeutung zu, da sie visuelle Daten für automatisierte Entscheidungsprozesse bereitstellen.\footcitecustomebenda[1-3]{javaidExploringImpactFeatures2022}
 
-Eine Industriekamera besteht aus mehreren zentralen Komponenten, die gemeinsam die Bildaufnahme und -verarbeitung ermöglichen. Dazu gehören:\footcitecustomlink{zotero-item-46}
+Eine Industriekamera besteht aus mehreren zentralen Komponenten, die gemeinsam die Bildaufnahme und -verarbeitung ermöglichen. Dazu gehören:\footcitecustomlink{o.a.AnatomyMachineVisiono.J.}
 \begin{itemize}
     \item Die Linse
     \item Der Bildsensor
@@ -28,18 +45,18 @@ Eine Industriekamera besteht aus mehreren zentralen Komponenten, die gemeinsam d
 \end{itemize}
 
 \subsection*{Linse}
-Die Linse bildet die Szene auf den Bildsensor ab, indem sie das einfallende Licht bündelt und fokussiert. Wenn die Kanten scharf sind, gilt das Bild als fokussiert, andernfalls unfokussiert. Wichtige Parameter der Linse sind der Bildwinkel, das Sichtfeld, die Objektentfernung, die Brennweite und die Blende wie in Abbildung \ref{fig:linse}.\footcitecustomlink{zotero-item-46}
+Die Linse bildet die Szene auf den Bildsensor ab, indem sie das einfallende Licht bündelt und fokussiert. Wenn die Kanten scharf sind, gilt das Bild als fokussiert, andernfalls unfokussiert. Wichtige Parameter der Linse sind der Bildwinkel, das Sichtfeld, die Objektentfernung, die Brennweite und die Blende wie in Abbildung \ref{fig:linse}.\footcitecustomlink{o.a.AnatomyMachineVisiono.J.}
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.5\textwidth]{Images/Lens.png}
     \caption{Schematische Darstellung einer Linse mit den wichtigsten Parametern.\protect\footnotemark}
     \label{fig:linse}
 \end{figure}
-\footnotetext{\found[]{zotero-item-46}}
-Der Bildwinkel beschreibt den Winkel, unter dem die Kamera die Szene erfasst, während das Sichtfeld den abbildbaren Bereich angibt, der von der Kamera abgedeckt wird.\footcitecustomlink{zotero-item-47} Die Objektentfernung ist die Distanz zwischen der Linse und dem fokussierten Objekt, während die Brennweite die Entfernung zwischen der Linse und dem Brennpunkt angibt. Befindet sich der Brennpunkt auf dem Sensor, ist die Kamera auf das Objekt fokussiert. Die Blende steuert die Menge des einfallenden Lichts.\footcitecustomlink{zotero-item-46}
+\footnotetext{\found[]{o.a.AnatomyMachineVisiono.J.}}
+Der Bildwinkel beschreibt den Winkel, unter dem die Kamera die Szene erfasst, während das Sichtfeld den abbildbaren Bereich angibt, der von der Kamera abgedeckt wird.\footcitecustomlink{zotero-item-47} Die Objektentfernung ist die Distanz zwischen der Linse und dem fokussierten Objekt, während die Brennweite die Entfernung zwischen der Linse und dem Brennpunkt angibt. Befindet sich der Brennpunkt auf dem Sensor, ist die Kamera auf das Objekt fokussiert. Die Blende steuert die Menge des einfallenden Lichts.\footcitecustomlink{o.a.AnatomyMachineVisiono.J.}
 \subsection*{Bildsensor}
-Ein Bildsensor wandelt Photonen in elektrische Signale (Elektronen) um.\footcitecustomlink{zotero-item-48} In der industriellen Bildverarbeitung dominieren zwei Sensortypen: CCD (Charge-Coupled Device) und CMOS (Complementary Metal-Oxide-Semiconductor).\footcitecustomebenda{zotero-item-48}
-Der grundlegende technische Unterschied zwischen CCD- und CMOS-Sensoren liegt im Ausleseprinzip: Bei CCD-Sensoren wird die Ladung pixelweise weitergeschoben, während CMOS-Sensoren die Pixel direkt auslesen.\footcitecustomebenda{zotero-item-48}
+Ein Bildsensor wandelt Photonen in elektrische Signale (Elektronen) um.\footcitecustomlink{o.a.CCDVsCMOSo.J} In der industriellen Bildverarbeitung dominieren zwei Sensortypen: CCD (Charge-Coupled Device) und CMOS (Complementary Metal-Oxide-Semiconductor).\footcitecustomebenda{o.a.CCDVsCMOSo.J}
+Der grundlegende technische Unterschied zwischen CCD- und CMOS-Sensoren liegt im Ausleseprinzip: Bei CCD-Sensoren wird die Ladung pixelweise weitergeschoben, während CMOS-Sensoren die Pixel direkt auslesen.\footcitecustomebenda{o.a.CCDVsCMOSo.J}
 Durch die unterschiedliche Art und Weise der Auslesung weisen die Sensoren auch Unterschiedliche Probleme auf. CCD-Sensoren können unter anderem mit Blooming (Überlauf von Ladung in benachbarte Pixel) und Smearing (Lichtstreuung während der Auslesung) zu kämpfen haben, während CMOS-Sensoren anfälliger für Rauschen und Rolling-Shutter-Effekte sind.\todo{Folien zitieren}
 In Abbildung \ref{fig:fehler} sind typische Bildfehler bei Kamerasensoren dargestellt.
 \begin{figure}[H]
@@ -64,5 +81,41 @@ In Abbildung \ref{fig:fehler} sind typische Bildfehler bei Kamerasensoren darges
 nötig?
 \subsection*{Schnittstellen für die Datenübertragung}
 nötig?
+
+
 \subsection{Spionspiegel}
+
+Ein Spionspiegel, auch Einwegspiegel oder halbtransparenter Spiegel genannt, ist eine Glasfläche mit teilreflektierender Beschichtung.\footcitecustomlink[]{o.a.Spiegelgeschichteo.J.} Im Gegensatz zu einem gewöhnlichen Spiegel reflektiert er nicht nahezu das gesamte einfallende Licht, sondern lässt einen Teil des Lichts durch die Glasfläche hindurch.\footcitecustomebenda[]{o.a.Spiegelgeschichteo.J.} Die optische Wirkung ergibt sich somit aus dem Verhältnis von Reflexion, Transmission und Absorption.\footcitecustomlink{o.a.18ReflectionTransmission2002}
+
+Die Bezeichnung Einwegspiegel ist dabei physikalisch nicht vollständig korrekt, da Licht grundsätzlich in beide Richtungen durch die beschichtete Glasfläche treten kann.\footcitecustomlink[]{o.a.Spiegelgeschichteo.J.} Der Eindruck einer einseitigen Durchsicht entsteht erst durch unterschiedliche Beleuchtungsstärken auf beiden Seiten des Spiegels.\footcitecustomebenda[]{o.a.Spiegelgeschichteo.J.} Befindet sich eine Person auf der hell beleuchteten Seite, dominiert das von der Beschichtung reflektierte Licht.\footcitecustomebenda[]{o.a.Spiegelgeschichteo.J.}  Die dahinterliegende dunklere Seite wird dadurch überstrahlt und ist kaum sichtbar.\footcitecustomebenda[]{o.a.Spiegelgeschichteo.J.}  Von der dunkleren Seite aus ist hingegen der transmittierte Lichtanteil der hellen Seite erkennbar, wodurch eine Beobachtung durch den Spiegel möglich wird.\footcitecustomlink{helmenstineHowTwoWay2021}
+In Abbildung \ref{fig:spionspiegel_funktion} ist das Funktionsprinzip eines Spionspiegels schematisch dargestellt. Je nach Beleuchtungsverhältnis und Beschichtung kann die Wahrnehmung des Spionspiegels stark variieren.
+
+\begin{figure}[H]
+    \centering
+    % Abbildungsidee: links heller Raum/Nutzer, Mitte Spionspiegel, rechts dunkler Raum/Kamera oder Beobachter.
+    % Pfeile: einfallendes Licht, reflektierter Anteil, transmittierter Anteil.
+    \includegraphics[width=0.8\textwidth]{Images/Spionspiegel_Funktionsprinzip.png}
+    \caption{Funktionsprinzip eines Spionspiegels\protect\footnotemark}
+    \label{fig:spionspiegel_funktion}
+\end{figure}
+\footnotetext{\found[]{o.a.Spiegelgeschichteo.J.}}
+
+Für die Wahrnehmung ist daher nicht allein die Beschichtung entscheidend, sondern auch die Lichtverteilung der Umgebung. British Glass beschreibt für beschichtete Spionspiegel beispielsweise ein notwendiges Beleuchtungsverhältnis von mindestens 1:10 zwischen heller und dunkler Seite, damit die Spiegelseite für den Betrachter als reflektierende Fläche erscheint.\footcitecustomenglisch{o.a.GlassCoatings4o.J.} 
+Desto größer also dieser Helligkeitsunterschied zwischen der Hellen und Dunklen Seite ist, desto stärker wirkt die helle Seite wie ein normaler Spiegel. Werden beide Seiten ähnlich stark beleuchtet, wird der Spionspiegel von beiden Seiten leicht durchsichtig erscheinen.
+
+% Für technische Anwendungen sind insbesondere der Transmissionsgrad und der Reflexionsgrad relevant. Der Transmissionsgrad beschreibt den Anteil des sichtbaren Lichts, der durch die Glasfläche hindurchtritt. Der Reflexionsgrad beschreibt den Anteil, der an der beschichteten Oberfläche zurückgeworfen wird. Herstellerangaben zeigen, dass Spionspiegel je nach Anwendungsfall sehr unterschiedlich ausgelegt sein können. Für verdeckte Kamerasysteme werden beispielsweise Varianten mit etwa 3--4\,\% sichtbarer Transmission angeboten, während für Informationsdisplays auch Gläser mit höherer Lichtdurchlässigkeit eingesetzt werden.\footcitecustomlink{pgoSpyMirrors}\footcitecustomlink{britishGlassOneWayMirrors}
+
+Im Kontext eines Smart Mirrors übernimmt der Spionspiegel eine doppelte Funktion. Einerseits soll er die dahinterliegende Hardware, wie Display, Kamera und Rahmenkonstruktion, optisch verbergen. Andererseits muss er ausreichend Licht durchlassen, damit Anzeigeinhalte sichtbar werden und eine hinter dem Spiegel platzierte Kamera verwertbare Bilddaten aufnehmen kann. Dadurch entsteht ein Zielkonflikt: Ein hoher Reflexionsgrad verbessert die Spiegelwirkung, reduziert jedoch die Sichtbarkeit des Displays und die Lichtmenge für die Kamera. Eine höhere Transmission erleichtert dagegen Anzeige und Bildaufnahme, schwächt aber den Eindruck eines klassischen Spiegels.
+
+Für die Konstruktion bedeutet dies, dass Display und Kamera möglichst nah hinter der Glasfläche positioniert werden sollten. Nicht genutzte Bereiche hinter dem Spiegel sollten dunkel ausgeführt werden, um störendes Durchscheinen interner Komponenten zu vermeiden. Zudem muss die Displayhelligkeit an die Umgebungsbeleuchtung angepasst werden. Für kamerabasierte Verfahren wie rPPG ist eine ausreichende und möglichst konstante Beleuchtung besonders wichtig, da solche Verfahren auf feinen farblichen Änderungen der Haut beruhen und empfindlich gegenüber Beleuchtungsschwankungen sowie Bildrauschen sind.\footcitecustomenglisch{leeReviewRemoteHeart2023}
+
 \section{3D Druck} 
+Der Begriff 3D-Druck bezeichnet im technischen Kontext additive Fertigungsverfahren. Nach ISO/ASTM 52900 werden bei der additiven Fertigung dreidimensionale Geometrien durch das schrittweise Hinzufügen von Material aus digitalen Modelldaten hergestellt.\footcitecustomlink{isoastm52900} Im Gegensatz zu subtraktiven Verfahren, bei denen Material beispielsweise durch Fräsen entfernt wird, entsteht das Bauteil beim 3D-Druck schichtweise. Dadurch eignet sich das Verfahren besonders für individuelle Bauteile, Prototypen und Geometrien, die mit konventionellen Fertigungsmethoden nur schwer oder kostenintensiv herstellbar wären.
+
+Ein typischer 3D-Druck-Prozess beginnt mit der Konstruktion eines digitalen Modells in einem CAD-Programm. Anschließend wird das Modell in ein druckbares Dateiformat exportiert und in einer Slicing-Software vorbereitet. Der Slicer zerlegt das Modell in einzelne Schichten und erzeugt daraus maschinenlesbare Steuerbefehle, meist in Form von G-Code.\footcitecustomenglisch{roschliORNLSlicer2024} Dabei werden Parameter wie Schichthöhe, Fülldichte, Wandstärke, Drucktemperatur, Druckgeschwindigkeit und Stützstrukturen festgelegt. Diese Einstellungen beeinflussen sowohl die Druckdauer als auch die Maßhaltigkeit, Stabilität und Oberflächenqualität des fertigen Bauteils.
+
+Bei vielen Desktop-3D-Druckern kommt das Fused-Deposition-Modeling-Verfahren beziehungsweise Fused-Filament-Fabrication-Verfahren zum Einsatz. Dabei wird ein thermoplastisches Filament erhitzt, durch eine Düse extrudiert und schichtweise auf der Druckplattform abgelegt.\footcitecustomenglisch{aciernoFusedDepositionModelling2023} Nach dem Abkühlen verfestigt sich das Material und verbindet sich mit den darunterliegenden Schichten. Die mechanischen Eigenschaften eines gedruckten Bauteils hängen deshalb nicht nur vom verwendeten Material, sondern auch stark von der Druckrichtung, der Schichthaftung und den gewählten Druckparametern ab.
+
+Als Druckmaterial wird im Prototypenbau häufig PLA verwendet. PLA ist vergleichsweise einfach zu verarbeiten, weist nur geringe Verzugstendenzen auf und eignet sich daher gut für maßhaltige Gehäuse- und Halterungsteile.\footcitecustomlink{baselPLAMaterialoJ} Gleichzeitig besitzt PLA Einschränkungen hinsichtlich Temperaturbeständigkeit und mechanischer Belastbarkeit. Für Bauteile mit hoher Wärmebelastung oder starken mechanischen Kräften müssen diese Grenzen berücksichtigt oder alternative Materialien gewählt werden.
+
+Im Rahmen dieser Arbeit ist der 3D-Druck besonders relevant für die Konstruktion des Spiegelgehäuses und der Befestigungselemente. Das Verfahren ermöglicht eine schnelle Anpassung der Bauteile an die konkreten Maße von Spiegel, Display und Kamera. Außerdem können Halterungen, Aussparungen und Befestigungspunkte direkt in das Modell integriert werden. Kleine Abweichungen zwischen digitaler Planung und realem Aufbau lassen sich bei Prototypen zwar häufig durch Nachbearbeitung ausgleichen, zeigen aber gleichzeitig die Bedeutung präziser Messungen und geeigneter Toleranzen bei der Konstruktion.

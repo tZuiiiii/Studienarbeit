@@ -4,6 +4,92 @@
 
 \section{Messgenauigkeit rPPG}
 
+Zur Bewertung der Messgenauigkeit der rPPG-Auswertung wurden die berechneten Pulswerte mit den Messwerten einer Watch verglichen. Die Watch dient in diesem Versuchsaufbau als Referenzgerät. Dabei ist zu berücksichtigen, dass es sich nicht um ein medizinisches Goldstandard-Messgerät handelt, sondern um ein tragbares Vergleichssystem. Da es mit der Watch möglich ist, kontinuierlich die Pulswerte zu erfassen.
+
+Für jeden Messpunkt wurde die Abweichung zwischen rPPG-Messung und Referenzwert berechnet:
+
+\[
+e_i = P_{\mathrm{rPPG},i} - P_{\mathrm{Watch},i}
+\]
+
+Ein negativer Wert bedeutet, dass die rPPG-Messung unterhalb des Watch-Wertes liegt. Ein positiver Wert bedeutet, dass die rPPG-Messung oberhalb des Watch-Wertes liegt. Zusätzlich wurden die mittlere absolute Abweichung (MAE) und die quadratische mittlere Abweichung (RMSE) berechnet. Der MAE beschreibt die durchschnittliche absolute Abweichung in BPM, während der RMSE größere Einzelabweichungen stärker gewichtet.
+
+\subsection{Vergleich mit Referenzgerät}
+
+Abbildung \ref{fig:abweichung_watch} zeigt die Abweichung der EVM-basierten rPPG-Messungen zur Watch für den grünen und den roten Farbkanal. Beim grünen Kanal liegen alle Messwerte unterhalb der Referenzmessung. Die Abweichungen bewegen sich zwischen \(-16\,\mathrm{BPM}\) und \(-6\,\mathrm{BPM}\). Beim roten Kanal ist die Streuung geringer. Die Abweichungen liegen zwischen \(-13\,\mathrm{BPM}\) und \(+5\,\mathrm{BPM}\).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Images/02_abweichung_zur_watch.png}
+    \caption{Abweichung der EVM-Messungen zur Watch}
+    \label{fig:abweichung_watch}
+\end{figure}
+
+Der direkte Vergleich der mittleren absoluten Abweichung ist in Abbildung \ref{fig:mae_vergleich} dargestellt. Für den grünen Kanal ergibt sich ein MAE von \(9{,}83\,\mathrm{BPM}\). Für den roten Kanal beträgt der MAE \(6{,}00\,\mathrm{BPM}\). Bezogen auf diese Messreihe weist der rote Kanal damit eine geringere durchschnittliche absolute Abweichung zur Watch auf.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Images/05_mae_vergleich.png}
+    \caption{Mittlere absolute Abweichung zur Watch}
+    \label{fig:mae_vergleich}
+\end{figure}
+
+Zusätzlich wurden Messreihen unter verschiedenen Beleuchtungssituationen ausgewertet. In Abbildung \ref{fig:messverlauf_beleuchtung} sind die rPPG-Werte und die Watch-Werte für hellen Raum, mittelhellen Raum und blaues Licht im Raum gegenübergestellt. Die Anzahl der Messpunkte unterscheidet sich zwischen den Messreihen. Im hellen Raum liegen \(29\) Messpunkte vor, im mittelhellen Raum \(23\) und bei blauem Licht \(26\).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Images/06_messverlauf_beleuchtung.png}
+    \caption{rPPG- und Watch-Messwerte nach Beleuchtungssituation}
+    \label{fig:messverlauf_beleuchtung}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{lrrrrrrr}
+\hline
+Messreihe & $n$ & rPPG-Mittel & Watch-Mittel & Bias & MAE & RMSE & Max. Fehler \\
+\hline
+Heller Raum & 29 & 90{,}07 & 98{,}14 & -8{,}07 & 8{,}41 & 9{,}31 & 14{,}00 \\
+Mittelheller Raum & 23 & 92{,}87 & 89{,}04 & 3{,}83 & 8{,}17 & 11{,}89 & 42{,}00 \\
+Blaues Licht im Raum & 26 & 84{,}85 & 92{,}85 & -8{,}00 & 8{,}85 & 11{,}55 & 29{,}00 \\
+\hline
+\end{tabular}
+\caption{Fehlerkennwerte der rPPG-Messung im Vergleich zur Watch in BPM}
+\label{tab:rppg_fehlerkennwerte}
+\end{table}
+
+Die geringste mittlere absolute Abweichung innerhalb dieser drei Beleuchtungssituationen tritt im mittelhellen Raum mit \(8{,}17\,\mathrm{BPM}\) auf. Der helle Raum liegt mit \(8{,}41\,\mathrm{BPM}\) knapp darüber. Bei blauem Licht beträgt der MAE \(8{,}85\,\mathrm{BPM}\). Die Unterschiede im MAE sind damit vergleichsweise gering. Deutlichere Unterschiede zeigen sich beim maximalen absoluten Fehler. Im hellen Raum beträgt dieser \(14\,\mathrm{BPM}\), im mittelhellen Raum \(42\,\mathrm{BPM}\) und bei blauem Licht \(29\,\mathrm{BPM}\).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Images/08_fehlerkennwerte_beleuchtung.png}
+    \caption{MAE, RMSE und maximaler absoluter Fehler nach Beleuchtungssituation}
+    \label{fig:fehlerkennwerte_beleuchtung}
+\end{figure}
+
+\subsection{Analyse der Fehlerquellen}
+
+Die Abweichungen entstehen aus mehreren technisch nachvollziehbaren Einflussgrößen. Eine zentrale Größe ist die Beleuchtung. rPPG-Verfahren nutzen sehr kleine farbliche Änderungen der Haut, die durch die Durchblutung verursacht werden. Änderungen der Umgebungshelligkeit, farbiges Licht oder Schatten können diese Farbänderungen überlagern. In der Messreihe mit blauem Licht liegt der mittlere Fehler bei \(-8{,}00\,\mathrm{BPM}\), wodurch die rPPG-Werte im Mittel unterhalb der Watch-Werte liegen.
+
+Ein weiterer Einflussfaktor ist die stabile Erkennung des Gesichtsbereichs. Wenn das Gesicht nicht durchgehend erkannt wird, entstehen weniger gültige Messpunkte. Dies zeigt sich insbesondere an der mittelhellen Messreihe. Dort wurden \(23\) Messpunkte erfasst, während im hellen Raum \(29\) Messpunkte vorliegen. Gleichzeitig tritt in dieser Messreihe ein maximaler absoluter Fehler von \(42\,\mathrm{BPM}\) auf. Dieser Einzelwert beeinflusst auch den RMSE, der mit \(11{,}89\,\mathrm{BPM}\) höher ausfällt als der MAE.
+
+Auch Bewegungen der nutzenden Person können die Messung beeinflussen. Da rPPG auf der Analyse eines Bildbereichs im Gesicht basiert, verändern Kopfbewegungen, wechselnde Gesichtsausrichtung oder eine instabile Region of Interest das ausgewertete Signal. Dadurch können Signalanteile entstehen, die nicht durch den Puls, sondern durch Bewegung oder Änderung der aufgenommenen Bildregion verursacht werden.
+
+Zusätzlich ist die zeitliche Abtastung relevant. Die mittleren Abstände zwischen den gültigen Messpunkten unterscheiden sich zwischen den Messreihen. Im hellen Raum beträgt der mittlere Abstand etwa \(1{,}97\,\mathrm{s}\), im mittelhellen Raum \(3{,}08\,\mathrm{s}\) und bei blauem Licht \(3{,}07\,\mathrm{s}\). Größere Abstände zwischen Messpunkten reduzieren die zeitliche Auflösung des Vergleichs und können Abweichungen verstärken, wenn sich der Puls während der Messung verändert.
+
+Abbildung \ref{fig:abweichung_beleuchtung} zeigt die Vorzeichen und Verläufe der Abweichungen nach Beleuchtungssituation. Im hellen Raum liegen die Werte überwiegend unterhalb der Watch. Bei blauem Licht ist ebenfalls eine überwiegend negative Abweichung sichtbar. Im mittelhellen Raum treten sowohl negative als auch positive Abweichungen auf, einschließlich eines deutlichen positiven Einzelwertes gegen Ende der Messreihe.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Images/07_abweichung_beleuchtung.png}
+    \caption{Abweichung der rPPG-Messung zur Watch nach Beleuchtungssituation}
+    \label{fig:abweichung_beleuchtung}
+\end{figure}
+
+Zusammenfassend zeigen die Messwerte, dass die rPPG-Messung grundsätzlich einen vergleichbaren Wertebereich wie das Referenzgerät erfasst, jedoch abhängig von Farbkanal, Beleuchtungssituation, Gesichtserkennung und zeitlicher Stabilität deutliche Einzelabweichungen auftreten können. Die mittleren absoluten Abweichungen liegen in den betrachteten Beleuchtungssituationen zwischen \(8{,}17\,\mathrm{BPM}\) und \(8{,}85\,\mathrm{BPM}\). Einzelne Ausreißer erhöhen insbesondere den RMSE und den maximalen absoluten Fehler.
+
+
 \section{Leistung der Emotionserkennung}
 
 \section{Performance des Gesamtsystems}
