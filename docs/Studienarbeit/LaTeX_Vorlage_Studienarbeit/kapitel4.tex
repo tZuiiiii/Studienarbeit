@@ -46,7 +46,7 @@ Das Startverhalten ist im Skript \texttt{entrypoint.sh} festgelegt. Dort werden 
 
 \subsection{Implementierung der Pulsmessung}
 
-Die Pulsmessung basiert auf dem bestehenden \ac{ros}-Projekt \texttt{PulsMeasurementStudien2}.\footcitecustom{PulsMeasurementStudien2} Innerhalb dieses Projekts übernimmt das Paket \texttt{eulerian\_motion\_magnification} die eigentliche Verarbeitung. Die Kamera veröffentlicht ihre Bilder auf einem \ac{ros}-Topic, beispielsweise \texttt{/webcam/image\_raw}. Der \texttt{FaceDetector} liest diese Bilder, wandelt sie in Graustufen um und erkennt mit einer Haar-Cascade das größte Gesicht im Bild. Aus diesem Bereich wird eine \ac{roi} extrahiert und an die Pulsmessung übergeben.
+Die Pulsmessung basiert auf dem bestehenden \ac{ros}-Projekt \texttt{PulsMeasurementStudien2}.\footcitecustom{mobmonrobPulsMeasurementStudien22022} Innerhalb dieses Projekts übernimmt das Paket \texttt{eulerian\_motion\_magnification} die eigentliche Verarbeitung. Die Kamera veröffentlicht ihre Bilder auf einem \ac{ros}-Topic, beispielsweise \texttt{/webcam/image\_raw}. Der \texttt{FaceDetector} liest diese Bilder, wandelt sie in Graustufen um und erkennt mit einer Haar-Cascade das größte Gesicht im Bild. Aus diesem Bereich wird eine \ac{roi} extrahiert und an die Pulsmessung übergeben.
 
 Die \ac{roi} wird zunächst normalisiert und auf 200x200 Pixel skaliert. Anschließend wird eine Gauß-Pyramide erstellt und verwendet die unterste Pyramidenstufe als Darstellung der Gesichtsregion. Für jedes Frame wird daraus ein zeitlicher Signalverlauf aufgebaut. Sobald ein Messfenster von 30 Sekunden erreicht ist, wird der Puffer weitergeführt und jeweils nach 50 Frames ausgewertet.
 
