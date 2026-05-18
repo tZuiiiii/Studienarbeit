@@ -48,7 +48,7 @@ Beim \ac{rppg}-Verfahren werden die optischen Eigenschaften des menschlichen Blu
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.55\textwidth]{Images/skin_reflection_model.png}
-    \caption{Optisches Hautreflexionsmodell bei \ac{rppg}.\protect\footnotemark}
+    \caption[Optisches Hautreflexionsmodell bei \ac{rppg}.]{Optisches Hautreflexionsmodell bei \ac{rppg}.\protect\footnotemark}
     \label{fig:skin_reflection_model}
 \end{figure}
 \footnotetext{\found[2]{wangAlgorithmicPrinciplesRemote2017}}
@@ -286,7 +286,7 @@ Die Linse bildet die Szene auf den Bildsensor ab, indem sie das einfallende Lich
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.5\textwidth]{Images/Lens.png}
-    \caption{Schematische Darstellung einer Linse mit den wichtigsten Parametern.\protect\footnotemark}
+    \caption[Schematische Darstellung einer Linse mit den wichtigsten Parametern.]{Schematische Darstellung einer Linse mit den wichtigsten Parametern.\protect\footnotemark}
     \label{fig:linse}
 \end{figure}
 \footnotetext{\found[]{emergentAnatomyMachineVisiono.J.}}
@@ -295,27 +295,22 @@ Der Bildwinkel beschreibt den Winkel, unter dem die Kamera die Szene erfasst, w�
 Ein Bildsensor wandelt Photonen in elektrische Signale (Elektronen) um.\footcitecustomlink{baslerCCDVsCMOSo.J} In der industriellen Bildverarbeitung dominieren zwei Sensortypen: \ac{ccd} und \ac{cmos}.\footcitecustomebenda{baslerCCDVsCMOSo.J}
 Der grundlegende technische Unterschied zwischen CCD- und CMOS-Sensoren liegt im Ausleseprinzip: Bei CCD-Sensoren wird die Ladung pixelweise weitergeschoben, während CMOS-Sensoren die Pixel direkt auslesen.\footcitecustomebenda{baslerCCDVsCMOSo.J}
 Durch die unterschiedliche Art und Weise der Auslesung weisen die Sensoren auch unterschiedliche Probleme auf. CCD-Sensoren können unter anderem mit Blooming (Überlauf von Ladung in benachbarte Pixel) und Smearing (Lichtstreuung während der Auslesung) zu kämpfen haben, während CMOS-Sensoren anfälliger für Rauschen und Rolling-Shutter-Effekte sind.\todo{Folien zitieren}
-In Abbildung \ref{fig:fehler} sind typische Bildfehler bei Kamerasensoren dargestellt.
+In Abbildung \ref{fig:blooming-smearing} und \ref{fig:rolling-shutter} sind typische Bildfehler bei Kamerasensoren dargestellt.
 \begin{figure}[H]
     \centering
-    
-    \begin{subfigure}{0.48\textwidth}
-        \centering
-        \includegraphics[width=\linewidth]{Images/Blooming_Smearing.png}
-        \caption{Blooming und Smearing}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}{0.48\textwidth}
-        \centering
-        \includegraphics[width=\linewidth]{Images/RollingShutter.png}
-        \caption{Rolling-Shutter-Effekt}
-    \end{subfigure}
-    
-    \caption{Typische Bildfehler bei Kamerasensoren}
-    \label{fig:fehler}
+    \includegraphics[width=0.7\textwidth]{Images/Blooming_Smearing.png}
+    \caption[Blooming und Smearing]{Blooming und Smearing\protect\footnotemark}
+    \label{fig:blooming-smearing}
 \end{figure}
+\footnotetext{\found{gambheerCCDSensorBased2023}}
 
-
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Images/RollingShutter.png}
+    \caption[Rolling-Shutter-Effekt]{Rolling-Shutter-Effekt\protect\footnotemark}
+    \label{fig:rolling-shutter}
+\end{figure}
+\footnotetext{\found{adobeWasIstRollingShutterEffekto.J.}}
 \subsection{Spionspiegel}
 
 Ein Spionspiegel, auch Einwegspiegel oder halbtransparenter Spiegel genannt, ist eine Glasfläche mit teilreflektierender Beschichtung.\footcitecustomlink[]{leifiphysikSpiegelgeschichteo.J.} Im Gegensatz zu einem gewöhnlichen Spiegel reflektiert er nicht nahezu das gesamte einfallende Licht, sondern lässt einen Teil des Lichts durch die Glasfläche hindurch.\footcitecustomebenda[]{leifiphysikSpiegelgeschichteo.J.} Die optische Wirkung ergibt sich somit aus dem Verhältnis von Reflexion, Transmission und Absorption.\footcitecustomlink{gigahertz-optik18ReflectionTransmission2002}
@@ -328,7 +323,7 @@ In Abbildung \ref{fig:spionspiegel_funktion} ist das Funktionsprinzip eines Spio
     % Abbildungsidee: links heller Raum/Nutzer, Mitte Spionspiegel, rechts dunkler Raum/Kamera oder Beobachter.
     % Pfeile: einfallendes Licht, reflektierter Anteil, transmittierter Anteil.
     \includegraphics[width=0.8\textwidth]{Images/Spionspiegel_Funktionsprinzip.png}
-    \caption{Funktionsprinzip eines Spionspiegels\protect\footnotemark}
+    \caption[Funktionsprinzip eines Spionspiegels]{Funktionsprinzip eines Spionspiegels\protect\footnotemark}
     \label{fig:spionspiegel_funktion}
 \end{figure}
 \footnotetext{\found[]{leifiphysikSpiegelgeschichteo.J.}}
@@ -352,7 +347,7 @@ In Abbildung \ref{fig:3d_druck} ist der schematische Aufbau eines FDM-Druckers d
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{Images/3D-Druck_Aufbau.png}
-    \caption{Schematischer Aufbau eines FDM-3D-Druckers.\protect\footnotemark}
+    \caption[Schematischer Aufbau eines FDM-3D-Druckers.]{Schematischer Aufbau eines FDM-3D-Druckers.\protect\footnotemark}
     \label{fig:3d_druck}
 \end{figure}
 \footnotetext{\found[7]{junkOnshapeKurzUnd2024}}
