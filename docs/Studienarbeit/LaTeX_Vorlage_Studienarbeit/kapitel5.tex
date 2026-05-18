@@ -16,42 +16,42 @@ Zusätzlich wurde die Performance des Gesamtsystems betrachtet. Dabei wurde beob
 
 \section{Messgenauigkeit EVM}
 
-Zur Bewertung der Messgenauigkeit der rPPG-Auswertung wurden die berechneten Pulswerte mit den Messwerten einer Watch verglichen. Die Watch dient in diesem Versuchsaufbau als Referenzgerät. Dabei ist zu berücksichtigen, dass es sich nicht um ein medizinisches Goldstandard-Messgerät handelt, sondern um ein tragbares Vergleichssystem. Da es mit der Watch möglich ist, kontinuierlich die Pulswerte zu erfassen.
+Zur Bewertung der Messgenauigkeit der rPPG-Auswertung wurden die berechneten Pulswerte mit den Messwerten einer Smartwatch verglichen. Die Smartwatch dient in diesem Versuchsaufbau als Referenzgerät. Dabei ist zu berücksichtigen, dass es sich nicht um ein medizinisches Goldstandard-Messgerät handelt, sondern um ein tragbares Vergleichssystem. Da es mit der Smartwatch möglich ist, kontinuierlich die Pulswerte zu erfassen.
 
 Für jeden Messpunkt wurde die Abweichung zwischen rPPG-Messung und Referenzwert berechnet:
 
 \[
-e_i = P_{\mathrm{rPPG},i} - P_{\mathrm{Watch},i}
+e_i = P_{\mathrm{rPPG},i} - P_{\mathrm{Smartwatch},i}
 \]
 
-Ein negativer Wert bedeutet, dass die rPPG-Messung unterhalb des Watch-Wertes liegt. Ein positiver Wert bedeutet, dass die rPPG-Messung oberhalb des Watch-Wertes liegt. Zusätzlich wurden die \ac{mae} also die mittlere absolute Abweichung und \ac{rmse} also die quadratische mittlere Abweichung berechnet. Der MAE beschreibt die durchschnittliche absolute Abweichung in BPM, während der RMSE größere Einzelabweichungen stärker gewichtet.
+Ein negativer Wert bedeutet, dass die rPPG-Messung unterhalb des Smartwatch-Wertes liegt. Ein positiver Wert bedeutet, dass die rPPG-Messung oberhalb des Smartwatch-Wertes liegt. Zusätzlich wurden die \ac{mae} also die mittlere absolute Abweichung und \ac{rmse} also die quadratische mittlere Abweichung berechnet. Der MAE beschreibt die durchschnittliche absolute Abweichung in BPM, während der RMSE größere Einzelabweichungen stärker gewichtet.
 
 \subsection{Vergleich mit Referenzgerät}
 
-Abbildung \ref{fig:abweichung_watch} zeigt die Abweichung der EVM-basierten rPPG-Messungen zur Watch für den grünen und den roten Farbkanal. Beim grünen Kanal liegen alle Messwerte unterhalb der Referenzmessung. Die Abweichungen bewegen sich zwischen \(-16\,\mathrm{BPM}\) und \(-6\,\mathrm{BPM}\). Beim roten Kanal ist die Streuung geringer. Die Abweichungen liegen zwischen \(-13\,\mathrm{BPM}\) und \(+5\,\mathrm{BPM}\).
+Abbildung \ref{fig:abweichung_watch} zeigt die Abweichung der EVM-basierten rPPG-Messungen zur Smartwatch für den grünen und den roten Farbkanal. Beim grünen Kanal liegen alle Messwerte unterhalb der Referenzmessung. Die Abweichungen bewegen sich zwischen \(-16\,\mathrm{BPM}\) und \(-6\,\mathrm{BPM}\). Beim roten Kanal ist die Streuung geringer. Die Abweichungen liegen zwischen \(-13\,\mathrm{BPM}\) und \(+5\,\mathrm{BPM}\).
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{Images/02_abweichung_zur_watch.png}
-    \caption{Abweichung der EVM-Messungen zur Watch}
+    \caption{Abweichung der EVM-Messungen zur Smartwatch}
     \label{fig:abweichung_watch}
 \end{figure}
 
-Der direkte Vergleich der mittleren absoluten Abweichung ist in Abbildung \ref{fig:mae_vergleich} dargestellt. Für den grünen Kanal ergibt sich ein MAE von \(9{,}83\,\mathrm{BPM}\). Für den roten Kanal beträgt der MAE \(6{,}00\,\mathrm{BPM}\). Bezogen auf diese Messreihe weist der rote Kanal damit eine geringere durchschnittliche absolute Abweichung zur Watch auf.
+Der direkte Vergleich der mittleren absoluten Abweichung ist in Abbildung \ref{fig:mae_vergleich} dargestellt. Für den grünen Kanal ergibt sich ein MAE von \(9{,}83\,\mathrm{BPM}\). Für den roten Kanal beträgt der MAE \(6{,}00\,\mathrm{BPM}\). Bezogen auf diese Messreihe weist der rote Kanal damit eine geringere durchschnittliche absolute Abweichung zur Smartwatch auf.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{Images/05_mae_vergleich.png}
-    \caption{Mittlere absolute Abweichung zur Watch}
+    \caption{Mittlere absolute Abweichung zur Smartwatch}
     \label{fig:mae_vergleich}
 \end{figure}
 
-Im Rahmen der Analyse wurden nicht nur die Messreihen herangezogen, die der Vergleich der beiden Farbkanäle zum Ziel hatten, sondern es wurden ebenfalls Messreihen unter verschiedenen Beleuchtungssituationen ausgewertet. In Abbildung \ref{fig:messverlauf_beleuchtung} sind die rPPG-Werte und die Watch-Werte für hellen Raum, mittelhellen Raum und blaues Licht im Raum gegenübergestellt. Die Anzahl der Messpunkte unterscheidet sich zwischen den Messreihen. Im hellen Raum liegen \(29\) Messpunkte vor, im mittelhellen Raum \(23\) und bei blauem Licht \(26\).
+Im Rahmen der Analyse wurden nicht nur die Messreihen herangezogen, die der Vergleich der beiden Farbkanäle zum Ziel hatten, sondern es wurden ebenfalls Messreihen unter verschiedenen Beleuchtungssituationen ausgewertet. In Abbildung \ref{fig:messverlauf_beleuchtung} sind die rPPG-Werte und die Smartwatch-Werte für hellen Raum, mittelhellen Raum und blaues Licht im Raum gegenübergestellt. Die Anzahl der Messpunkte unterscheidet sich zwischen den Messreihen. Im hellen Raum liegen \(29\) Messpunkte vor, im mittelhellen Raum \(23\) und bei blauem Licht \(26\).
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{Images/06_messverlauf_beleuchtung.png}
-    \caption{rPPG- und Watch-Messwerte nach Beleuchtungssituation}
+    \caption{rPPG- und Smartwatch-Messwerte nach Beleuchtungssituation}
     \label{fig:messverlauf_beleuchtung}
 \end{figure}
 
@@ -60,14 +60,14 @@ Im Rahmen der Analyse wurden nicht nur die Messreihen herangezogen, die der Verg
 \small
 \begin{tabular}{lrrrrrrr}
 \hline
-Messreihe & $n$ & rPPG-Mittel & Watch-Mittel & Bias & MAE & RMSE & Max. Fehler \\
+Messreihe & $n$ & rPPG-Mittel & Smartwatch-Mittel & Bias & MAE & RMSE & Max. Fehler \\
 \hline
 Heller Raum & 29 & 90{,}07 & 98{,}14 & -8{,}07 & 8{,}41 & 9{,}31 & 14{,}00 \\
 Mittelheller Raum & 23 & 92{,}87 & 89{,}04 & 3{,}83 & 8{,}17 & 11{,}89 & 42{,}00 \\
 Blaues Licht im Raum & 26 & 84{,}85 & 92{,}85 & -8{,}00 & 8{,}85 & 11{,}55 & 29{,}00 \\
 \hline
 \end{tabular}
-\caption{Fehlerkennwerte der rPPG-Messung im Vergleich zur Watch in BPM}
+\caption{Fehlerkennwerte der rPPG-Messung im Vergleich zur Smartwatch in BPM}
 \label{tab:rppg_fehlerkennwerte}
 \end{table}
 
@@ -91,12 +91,12 @@ Auch Bewegungen der nutzenden Person können die Messung beeinflussen. Da rPPG a
 
 Zusätzlich ist die zeitliche Abtastung relevant. Die mittleren Abstände zwischen den gültigen Messpunkten unterscheiden sich zwischen den Messreihen. Im hellen Raum beträgt der mittlere Abstand etwa \(1{,}97\,\mathrm{s}\), im mittelhellen Raum \(3{,}08\,\mathrm{s}\) und bei blauem Licht \(3{,}07\,\mathrm{s}\). Größere Abstände zwischen Messpunkten reduzieren die zeitliche Auflösung des Vergleichs und können Abweichungen verstärken, wenn sich der Puls während der Messung verändert.
 
-Abbildung \ref{fig:abweichung_beleuchtung} zeigt die Vorzeichen und Verläufe der Abweichungen nach Beleuchtungssituation. Im hellen Raum liegen die Werte überwiegend unterhalb der Watch. Bei blauem Licht ist ebenfalls eine überwiegend negative Abweichung sichtbar. Im mittelhellen Raum treten sowohl negative als auch positive Abweichungen auf, einschließlich eines deutlichen positiven Einzelwertes gegen Ende der Messreihe.
+Abbildung \ref{fig:abweichung_beleuchtung} zeigt die Vorzeichen und Verläufe der Abweichungen nach Beleuchtungssituation. Im hellen Raum liegen die Werte überwiegend unterhalb der Smartwatch. Bei blauem Licht ist ebenfalls eine überwiegend negative Abweichung sichtbar. Im mittelhellen Raum treten sowohl negative als auch positive Abweichungen auf, einschließlich eines deutlichen positiven Einzelwertes gegen Ende der Messreihe.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{Images/07_abweichung_beleuchtung.png}
-    \caption{Abweichung der rPPG-Messung zur Watch nach Beleuchtungssituation}
+    \caption{Abweichung der rPPG-Messung zur Smartwatch nach Beleuchtungssituation}
     \label{fig:abweichung_beleuchtung}
 \end{figure}
 
@@ -123,7 +123,7 @@ Da keine systematische Aufzeichnung von Temperatur, \ac{cpu}-Takt oder Auslastun
 
 Die Ergebnisse zeigen, dass die Umsetzung eines Smart Mirrors mit kontaktloser Pulsmessung und einfacher Emotionserkennung grundsätzlich funktionsfähig ist. Gleichzeitig wird deutlich, dass die erreichte Messqualität stark von den Rahmenbedingungen abhängt und für eine verlässliche gesundheitsbezogene Bewertung noch nicht ausreicht.
 
-Bei der Pulsmessung zeigt der Vergleich mit der Watch, dass der rote Farbkanal mit einem MAE von \(6{,}00\,\mathrm{BPM}\) bessere Ergebnisse liefert als der grüne Farbkanal mit \(9{,}83\,\mathrm{BPM}\). Das zuvor definierte Ziel einer maximalen Abweichung von \(5\,\mathrm{BPM}\) wird damit knapp verfehlt. Subjektiv ist der Wert des roten Kanals dennoch als brauchbar für eine prototypische Demonstration einzuschätzen, da die Messwerte in einem nachvollziehbaren Bereich liegen. Für eine medizinische oder verlässliche gesundheitsbezogene Anwendung ist diese Genauigkeit jedoch nicht ausreichend.
+Bei der Pulsmessung zeigt der Vergleich mit der Smartwatch, dass der rote Farbkanal mit einem MAE von \(6{,}00\,\mathrm{BPM}\) bessere Ergebnisse liefert als der grüne Farbkanal mit \(9{,}83\,\mathrm{BPM}\). Das zuvor definierte Ziel einer maximalen Abweichung von \(5\,\mathrm{BPM}\) wird damit knapp verfehlt. Subjektiv ist der Wert des roten Kanals dennoch als brauchbar für eine prototypische Demonstration einzuschätzen, da die Messwerte in einem nachvollziehbaren Bereich liegen. Für eine medizinische oder verlässliche gesundheitsbezogene Anwendung ist diese Genauigkeit jedoch nicht ausreichend.
 
 Auch die Messungen unter verschiedenen Beleuchtungssituationen zeigen eine ähnliche Tendenz. Die MAE-Werte liegen zwischen \(8{,}17\,\mathrm{BPM}\) und \(8{,}85\,\mathrm{BPM}\). Damit unterscheiden sich die durchschnittlichen Abweichungen zwischen den Beleuchtungssituationen nur gering. Auffälliger sind jedoch die maximalen Fehlerwerte. Besonders im mittelhellen Raum tritt mit \(42\,\mathrm{BPM}\) ein deutlicher Ausreißer auf. Dieser Wert zeigt, dass einzelne Fehlmessungen das Ergebnis stark beeinflussen können. Die Messung ist daher nicht durchgehend stabil genug, um ohne Plausibilitätsprüfung oder Filterung verwendet zu werden.
 
