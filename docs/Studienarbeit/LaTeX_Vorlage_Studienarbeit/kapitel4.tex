@@ -30,7 +30,7 @@ Die implementierte Softwarearchitektur besteht aus mehreren Komponenten, die üb
 
 Die Pulsmessung verarbeitet die erkannten Gesichtsbereiche und berechnet daraus in periodischen Abständen einen Pulswert. Dieser Wert wird über die \ac{ros}-Nachricht auf dem Topic \texttt{/heart\_rate} bereitgestellt. Diese zusätzliche Schnittstelle wurde eingeführt, damit die WebUI den Messwert anzeigen kann.
 
-Die Emotionserkennung wertet dieselben Bildaten aus, erkennt das Gesicht und sucht innerhalb der Gesichtsregion nach einem Lächeln. Das Ergebnis wird als String auf dem Topic \texttt{/mood} veröffentlicht. Die WebUI verbindet sich über die \texttt{rosbridge} mit dem \ac{ros}-System und abonniert die Topics \texttt{/heart\_rate} und \texttt{/mood}. Dadurch bleibt die Darstellung von der eigentlichen Bildverarbeitung getrennt.
+Die Emotionserkennung wertet dieselben Bilddaten aus, erkennt das Gesicht und sucht innerhalb der Gesichtsregion nach einem Lächeln. Das Ergebnis wird als String auf dem Topic \texttt{/mood} veröffentlicht. Die WebUI verbindet sich über die \texttt{rosbridge} mit dem \ac{ros}-System und abonniert die Topics \texttt{/heart\_rate} und \texttt{/mood}. Dadurch bleibt die Darstellung von der eigentlichen Bildverarbeitung getrennt.
 
 \cref{chap:grundlagen} erläutert die verwendeten Verfahren wie \ac{evm} und Haar-Cascades theoretisch. Dieser Abschnitt beschreibt dagegen, wie diese Verfahren im konkreten System verbunden und auf dem Zielgerät ausführbar gemacht wurden.
 
@@ -79,7 +79,7 @@ Die Wahl von \ac{evm} ist für den Smart-Mirror besonders relevant, da der Ansat
 
 Die Emotionserkennung wurde bewusst deutlich einfacher gehalten als die Pulsmessung. Statt ein neuronales Netz oder ein mehrklassiges Emotionserkennungsmodell einzusetzen, verwendet sie OpenCV Haar-Cascades. Diese Entscheidung folgt aus den begrenzten Ressourcen des Raspberry Pi 4B. Da die \ac{evm}-Pulsmessung bereits einen großen Teil der Rechenleistung beansprucht, sollte die Gesichtsausdruckserkennung möglichst wenig zusätzliche Last erzeugen.
 
-Die Implementierung unterscheidet nur zwischen den Zuständen \glqq Neutral\grqq\ und \glqq Smiling\grqq\. Dazu abonniert der Mood-Detector den Kamerastream \texttt{/webcam/image\_raw}, wandelt die \ac{ros}-Bildnachricht mit \texttt{cv\_bridge} in ein OpenCV-Bild um und erstellt daraus ein Graustufenbild. Anschließend wird zunächst mit einer Face-Cascade nach Gesichtern gesucht. Für jede erkannte Gesichtsregion wird eine Smile-Cascade ausgeführt. Wird mindestens ein Lächeln erkannt, wird der Status auf \glqq Smiling\grqq\ gesetzt. Ansonsten bleibt der Status \glqq Neutral\grqq.
+Die Implementierung unterscheidet nur zwischen den Zuständen \glqq Neutral\grqq\ und \glqq Smiling\grqq. Dazu abonniert der Mood-Detector den Kamerastream \texttt{/webcam/image\_raw}, wandelt die \ac{ros}-Bildnachricht mit \texttt{cv\_bridge} in ein OpenCV-Bild um und erstellt daraus ein Graustufenbild. Anschließend wird zunächst mit einer Face-Cascade nach Gesichtern gesucht. Für jede erkannte Gesichtsregion wird eine Smile-Cascade ausgeführt. Wird mindestens ein Lächeln erkannt, wird der Status auf \glqq Smiling\grqq\ gesetzt. Ansonsten bleibt der Status \glqq Neutral\grqq.
 
 \begin{lstlisting}[style=algoBericht,caption={Kernlogik der Emotionserkennung mit Haar-Cascades}]
 gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)

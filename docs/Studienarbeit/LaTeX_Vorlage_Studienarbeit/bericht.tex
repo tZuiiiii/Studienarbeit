@@ -32,6 +32,7 @@
 \usepackage{tabularx} % in der Präambel
 \usepackage{amsmath}
 \usepackage{cleveref}
+\usepackage{xurl}
 \counterwithout{footnote}{chapter}  % Entfernt die Abhängigkeit der Fußnotennummer vom Kapitel
 \counterwithout{figure}{chapter}
 \counterwithout{table}{chapter} % Tabellen nicht nach Kapitel zählen
@@ -110,7 +111,7 @@ Erfassung von Puls und Stimmung}
 
 \begin{document}
 
-\DeclareFieldFormat{howpublished}{\href{#1}{\url{#1}}}
+\DeclareFieldFormat{howpublished}{\url{#1}}
 
 %\DeclareFieldFormat{url}{\url{#1}}
 
