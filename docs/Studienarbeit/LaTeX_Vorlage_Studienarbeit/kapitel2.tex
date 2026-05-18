@@ -32,56 +32,57 @@ Gleichzeitig müssen bei der Verwendung eines Raspberry Pi die Grenzen eingebett
 
 \section{Kontaktlose Pulsfrequenzmessung mittels Videoanalyse}
 
-Die kontaktlose Erfassung des Pulses mittels Standard-Kamerasystemen basiert auf der Extraktion sehr kleiner Vitalsignale, die durch den Herzzyklus entstehen. Im Gegensatz zu klassischen Verfahren, die direkten Hautkontakt erfordern, nutzt die videobasierte Analyse zwei unterschiedliche physikalische Effekte: einerseits die Farbveränderung der Hautoberfläche durch den Blutfluss\footcitecustom[44700]{leeReviewRemoteHeart2023} und zum anderen die leichten Bewegungen des Körpers als Reaktion auf einen Herzschlag.\footcitecustom[1]{kimBallistocardiogramMechanismPotential2016}
+Die kontaktlose Erfassung des Pulses mittels Standard-Kamerasystemen basiert auf der Extraktion sehr kleiner Vitalsignale, die durch den Herzzyklus entstehen. Im Gegensatz zu klassischen Verfahren, die direkten Hautkontakt erfordern, nutzt die videobasierte Analyse zwei unterschiedliche physikalische Effekte: einerseits die Farbveränderung der Hautoberfläche durch den Blutfluss\footcitecustomenglisch[44700]{leeReviewRemoteHeart2023} und zum anderen die leichten Bewegungen des Körpers als Reaktion auf einen Herzschlag.\footcitecustomenglisch[1]{kimBallistocardiogramMechanismPotential2016}
 
-Im Folgenden werden zunächst die beiden Messprinzipien, die \ac{rppg} und die \ac{vbcg}, erläutert. Ergänzend wird die \ac{evm} beschrieben, da sie kein eigenständiges Messprinzip darstellt, sondern als Signalverarbeitungsmethode zur Verstärkung kleiner Farb- oder Bewegungsänderungen in Videos eingesetzt werden kann.\footcitecustom[1]{wuEulerianVideoMagnification}
+Im Folgenden werden zunächst die beiden Messprinzipien, die \ac{rppg} und die \ac{vbcg}, erläutert. Ergänzend wird die \ac{evm} beschrieben, da sie kein eigenständiges Messprinzip darstellt, sondern als Signalverarbeitungsmethode zur Verstärkung kleiner Farb- oder Bewegungsänderungen in Videos eingesetzt werden kann.\footcitecustomenglisch[1]{wuEulerianVideoMagnification}
 
 \subsection{\acl{rppg} (\acs{rppg})}
 \label{subsec:rppg}
 
-\ac{rppg} ist ein kontaktloses Verfahren zur Überwachung kardiovaskulärer Aktivitäten, wie beispielsweise dem Puls.\footcitecustom[2]{wangAlgorithmicPrinciplesRemote2017} Für dieses Verfahren können handelsübliche RGB-Kameras verwendet werden, wobei normales Umgebungslicht in der Regel als Lichtquelle ausreicht.
+\ac{rppg} ist ein kontaktloses Verfahren zur Überwachung kardiovaskulärer Aktivitäten, wie beispielsweise dem Puls.\footcitecustomenglisch[2]{wangAlgorithmicPrinciplesRemote2017} Für dieses Verfahren können handelsübliche RGB-Kameras verwendet werden, wobei normales Umgebungslicht in der Regel als Lichtquelle ausreicht.
 
 \subsubsection{Physiologische und optische Grundlagen}
 
-Beim \ac{rppg}-Verfahren werden die optischen Eigenschaften des menschlichen Blutes genutzt. Der farbgebende und sauerstofftransportierende Bestandteil des Blutes, das sogenannte Hämoglobin, wirkt im Gewebe wie ein optischer Filter.\footcitecustom[2]{wangAlgorithmicPrinciplesRemote2017} Dieser Blutfarbstoff absorbiert grünes und gelbes Licht besonders stark, während rotes Licht stärker reflektiert wird.\footcitecustom[21440]{verkruysseRemotePlethysmographicImaging2008}
+Beim \ac{rppg}-Verfahren werden die optischen Eigenschaften des menschlichen Blutes genutzt. Der farbgebende und sauerstofftransportierende Bestandteil des Blutes, das sogenannte Hämoglobin, wirkt im Gewebe wie ein optischer Filter.\footcitecustomebenda[2]{wangAlgorithmicPrinciplesRemote2017} Dieser Blutfarbstoff absorbiert grünes und gelbes Licht besonders stark, während rotes Licht stärker reflektiert wird.\footcitecustomenglisch[21440]{verkruysseRemotePlethysmographicImaging2008}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.55\textwidth]{Images/skin_reflection_model.png}
-    \caption{Optisches Hautreflexionsmodell bei \ac{rppg}. Die Kamera erfasst eine Mischung aus spekulärer Reflexion, diffuser Reflexion und pulssynchronen Farbänderungen. \cite[2]{wangAlgorithmicPrinciplesRemote2017}}
+    \caption{Optisches Hautreflexionsmodell bei \ac{rppg}.\protect\footnotemark}
     \label{fig:skin_reflection_model}
 \end{figure}
+\footnotetext{\found[2]{wangAlgorithmicPrinciplesRemote2017}}
 
-Mit jedem Herzschlag verändert sich das Blutvolumen und damit auch die optische Absorption in den Blutgefäßen der oberen Hautschicht. Da Blut Licht stärker absorbiert als das umliegende Gewebe, führt diese pulssynchrone Volumenänderung zu geringen Änderungen der reflektierten Lichtintensität. Diese Intensitätsschwankungen sind für das menschliche Auge kaum wahrnehmbar, können jedoch von einer Kamera erfasst und anschließend als plethysmographisches Pulssignal, also als optisch gemessene Darstellung der pulssynchronen Blutvolumenänderung, extrahiert werden.\footcitecustom[44700]{leeReviewRemoteHeart2023} Besonders deutlich treten diese Signalanteile im grünen Farbkanal hervor, da dieser mit einem Absorptionsmaximum von Hämoglobin zusammenhängt und in den Untersuchungen von Verkruysse et al. das stärkste plethysmographische Signal lieferte.\footcitecustom[21434]{verkruysseRemotePlethysmographicImaging2008}
+Mit jedem Herzschlag verändert sich das Blutvolumen und damit auch die optische Absorption in den Blutgefäßen der oberen Hautschicht. Da Blut Licht stärker absorbiert als das umliegende Gewebe, führt diese pulssynchrone Volumenänderung zu geringen Änderungen der reflektierten Lichtintensität. Diese Intensitätsschwankungen sind für das menschliche Auge kaum wahrnehmbar, können jedoch von einer Kamera erfasst und anschließend als plethysmographisches Pulssignal, also als optisch gemessene Darstellung der pulssynchronen Blutvolumenänderung, extrahiert werden.\footcitecustomenglisch[44700]{leeReviewRemoteHeart2023} Besonders deutlich treten diese Signalanteile im grünen Farbkanal hervor, da dieser mit einem Absorptionsmaximum von Hämoglobin zusammenhängt und in den Untersuchungen von Verkruysse et al. das stärkste plethysmographische Signal lieferte.\footcitecustomenglisch[21434]{verkruysseRemotePlethysmographicImaging2008}
 
 Obwohl der grüne Farbkanal in der Regel das stärkste plethysmographische Signal liefert, enthalten auch der rote und der blaue Farbkanal pulssynchrone Informationen. Diese zusätzlichen Farbkanäle sind insbesondere für algorithmische Verfahren relevant, da sie komplementäre Informationen über Hautreflexion, Beleuchtungseinflüsse und Bewegungsartefakte bereitstellen.\footcitecustomebenda[21434]{verkruysseRemotePlethysmographicImaging2008}
 
-Der Grund hierfür liegt in der unterschiedlichen Zusammensetzung der gemessenen RGB-Signale: Neben den pulssynchronen Farbänderungen enthalten sie auch nicht-physiologische Signalanteile, etwa durch Beleuchtungsschwankungen, Reflexionen oder Bewegungen zwischen Haut, Lichtquelle und Kamera. Während solche Störungen häufig mehrere Farbkanäle gleichzeitig beeinflussen, besitzt das eigentliche Pulssignal aufgrund der wellenlängenabhängigen Lichtabsorption eine charakteristische Verteilung über die RGB-Kanäle. Moderne \ac{rppg}-Algorithmen nutzen diese Unterschiede, indem sie die Farbkanäle mathematisch kombinieren. Dadurch können gemeinsame Störanteile reduziert und das pulssynchrone Signal stabiler extrahiert werden.\footcitecustom[1-3]{wangAlgorithmicPrinciplesRemote2017}
+Der Grund hierfür liegt in der unterschiedlichen Zusammensetzung der gemessenen RGB-Signale: Neben den pulssynchronen Farbänderungen enthalten sie auch nicht-physiologische Signalanteile, etwa durch Beleuchtungsschwankungen, Reflexionen oder Bewegungen zwischen Haut, Lichtquelle und Kamera. Während solche Störungen häufig mehrere Farbkanäle gleichzeitig beeinflussen, besitzt das eigentliche Pulssignal aufgrund der wellenlängenabhängigen Lichtabsorption eine charakteristische Verteilung über die RGB-Kanäle. Moderne \ac{rppg}-Algorithmen nutzen diese Unterschiede, indem sie die Farbkanäle mathematisch kombinieren. Dadurch können gemeinsame Störanteile reduziert und das pulssynchrone Signal stabiler extrahiert werden.\footcitecustomenglisch[1-3]{wangAlgorithmicPrinciplesRemote2017}
 
 \subsubsection{Algorithmische Signalverarbeitung}
 
 Um aus den kaum sichtbaren Farbveränderungen der Hautoberfläche einen konkreten Messwert zu ermitteln, durchläuft das Videomaterial eine mehrstufige algorithmische Verarbeitungspipeline. Diese lässt sich in die folgenden Schritte unterteilen:
 
 \paragraph{1. \ac{roi} und Tracking}
-Im ersten Schritt muss die Hautregion, in der die Messung stattfinden soll, im Video bestimmt werden. Da nicht das gesamte Bild relevante Informationen enthält, wird eine sogenannte \ac{roi} definiert. In klassischen \ac{rppg}-Verfahren kommt hierfür häufig der Viola-Jones-Algorithmus zur Gesichtserkennung zum Einsatz.\footcitecustom[44705]{leeReviewRemoteHeart2023} Um zu verhindern, dass bei leichten Kopfbewegungen in jedem Frame eine rechenintensive Neuerkennung des Gesichts durchgeführt werden muss und um Bewegungsartefakte zu minimieren, wird die \ac{roi} häufig mit Feature-Tracking-Algorithmen, wie dem \ac{klt}-Tracker, über die Zeit verfolgt.\footcitecustomebenda[44705]{leeReviewRemoteHeart2023}
+Im ersten Schritt muss die Hautregion, in der die Messung stattfinden soll, im Video bestimmt werden. Da nicht das gesamte Bild relevante Informationen enthält, wird eine sogenannte \ac{roi} definiert. In klassischen \ac{rppg}-Verfahren kommt hierfür häufig der Viola-Jones-Algorithmus zur Gesichtserkennung zum Einsatz.\footcitecustomenglisch[44705]{leeReviewRemoteHeart2023} Um zu verhindern, dass bei leichten Kopfbewegungen in jedem Frame eine rechenintensive Neuerkennung des Gesichts durchgeführt werden muss und um Bewegungsartefakte zu minimieren, wird die \ac{roi} häufig mit Feature-Tracking-Algorithmen, wie dem \ac{klt}-Tracker, über die Zeit verfolgt.\footcitecustomebenda[44705]{leeReviewRemoteHeart2023}
 
 \paragraph{2. Räumliche Mittelwertbildung (Spatial Pooling)}
-Da das pulssynchrone optische Signal sehr schwach ist und häufig im Kamerarauschen untergeht, werden die RGB-Pixelwerte innerhalb der \ac{roi} für jeden einzelnen Videoframe räumlich gemittelt. Durch diese Mittelwertbildung wird das Sensorrauschen reduziert und es entstehen drei eindimensionale Rohsignale für den roten, grünen und blauen Farbkanal über die Zeit.\footcitecustom[2]{wangAlgorithmicPrinciplesRemote2017}
+Da das pulssynchrone optische Signal sehr schwach ist und häufig im Kamerarauschen untergeht, werden die RGB-Pixelwerte innerhalb der \ac{roi} für jeden einzelnen Videoframe räumlich gemittelt. Durch diese Mittelwertbildung wird das Sensorrauschen reduziert und es entstehen drei eindimensionale Rohsignale für den roten, grünen und blauen Farbkanal über die Zeit.\footcitecustomenglisch[2]{wangAlgorithmicPrinciplesRemote2017}
 
 \paragraph{3. Zeitliche Filterung (Temporal Filtering)}
-Die extrahierten RGB-Rohsignale enthalten neben dem Pulssignal auch störende Signalanteile. Diese können beispielsweise durch langsame Haltungsänderungen, Bewegungen oder das Flackern künstlicher Lichtquellen entstehen. Durch die Anwendung eines zeitlichen Bandpassfilters werden Signalanteile außerhalb des menschlichen Pulsbereichs reduziert. In der Regel wird hierfür ein Frequenzbereich von etwa 0,75 bis 4 Hz gewählt, was ungefähr einem Pulsbereich von 45 bis 240 Schlägen pro Minute entspricht.\footcitecustom[44707]{leeReviewRemoteHeart2023} Zur weiteren Signaloptimierung werden häufig zusätzlich Detrending, Normalisierung und Glättung eingesetzt. Dabei entfernt Detrending langsame Signalverschiebungen, die Normalisierung bringt die Farbkanäle auf ein vergleichbares Skalenniveau und die Glättung reduziert kurzzeitige zufällige Schwankungen im Signal.\footcitecustomebenda[44707]{leeReviewRemoteHeart2023}
+Die extrahierten RGB-Rohsignale enthalten neben dem Pulssignal auch störende Signalanteile. Diese können beispielsweise durch langsame Haltungsänderungen, Bewegungen oder das Flackern künstlicher Lichtquellen entstehen. Durch die Anwendung eines zeitlichen Bandpassfilters werden Signalanteile außerhalb des menschlichen Pulsbereichs reduziert. In der Regel wird hierfür ein Frequenzbereich von etwa 0,75 bis 4 Hz gewählt, was ungefähr einem Pulsbereich von 45 bis 240 Schlägen pro Minute entspricht.\footcitecustomenglisch[44707]{leeReviewRemoteHeart2023} Zur weiteren Signaloptimierung werden häufig zusätzlich Detrending, Normalisierung und Glättung eingesetzt. Dabei entfernt Detrending langsame Signalverschiebungen, die Normalisierung bringt die Farbkanäle auf ein vergleichbares Skalenniveau und die Glättung reduziert kurzzeitige zufällige Schwankungen im Signal.\footcitecustomebenda[44707]{leeReviewRemoteHeart2023}
 
 \paragraph{4. Signal-Extraktion (Color Space Projection)}
-Der kritischste Schritt der \ac{rppg}-Pipeline ist die Trennung des eigentlichen Pulssignals von überlagernden Störungen, wie beispielsweise Spiegelungen oder Intensitätsschwankungen durch Bewegungen.\footcitecustom[2]{wangAlgorithmicPrinciplesRemote2017} Um zu verstehen, wie Algorithmen diese Trennung vornehmen, wird das optische Hautreflexionsmodell betrachtet. Das von der Kamera nach der räumlichen Mittelwertbildung (Spatial Pooling) erfasste RGB-Signal $C(t)$ lässt sich als lineare Mischung aus verschiedenen Komponenten approximieren:\footcitecustomebenda[2]{wangAlgorithmicPrinciplesRemote2017}
+Der kritischste Schritt der \ac{rppg}-Pipeline ist die Trennung des eigentlichen Pulssignals von überlagernden Störungen, wie beispielsweise Spiegelungen oder Intensitätsschwankungen durch Bewegungen.\footcitecustomenglisch[2]{wangAlgorithmicPrinciplesRemote2017} Um zu verstehen, wie Algorithmen diese Trennung vornehmen, wird das optische Hautreflexionsmodell betrachtet. Das von der Kamera nach der räumlichen Mittelwertbildung (Spatial Pooling) erfasste RGB-Signal $C(t)$ lässt sich als lineare Mischung aus verschiedenen Komponenten approximieren:\footcitecustomebenda[2]{wangAlgorithmicPrinciplesRemote2017}
 
 \begin{equation}
     C(t) \approx \mathbf{u}_c \cdot I_0 \cdot c_0 + \mathbf{u}_c \cdot I_0 \cdot c_0 \cdot i(t) + \mathbf{u}_s \cdot I_0 \cdot s(t) + \mathbf{u}_p \cdot I_0 \cdot p(t)
 \label{eq:Mittelwertbildung}
 \end{equation}
 
-Hierbei steht $\mathbf{u}_c \cdot I_0 \cdot c_0$ für die stationäre Hautreflexion, also den konstanten Hautton. Die zeitlich veränderlichen Störkomponenten setzen sich aus den relativen Intensitätsschwankungen $i(t)$ und den Reflexionen $s(t)$ zusammen. Das gesuchte Nutzsignal, also die durch das pulsierende Blutvolumen verursachte Farbänderung, wird durch $p(t)$ dargestellt, wobei der Vektor $\mathbf{u}_p$ die relative Stärke des Pulses in den jeweiligen Farbkanälen angibt.\footcitecustom[2]{wangAlgorithmicPrinciplesRemote2017}
+Hierbei steht $\mathbf{u}_c \cdot I_0 \cdot c_0$ für die stationäre Hautreflexion, also den konstanten Hautton. Die zeitlich veränderlichen Störkomponenten setzen sich aus den relativen Intensitätsschwankungen $i(t)$ und den Reflexionen $s(t)$ zusammen. Das gesuchte Nutzsignal, also die durch das pulsierende Blutvolumen verursachte Farbänderung, wird durch $p(t)$ dargestellt, wobei der Vektor $\mathbf{u}_p$ die relative Stärke des Pulses in den jeweiligen Farbkanälen angibt.\footcitecustomenglisch[2]{wangAlgorithmicPrinciplesRemote2017}
 
-Aus dem Modell wird deutlich, dass das von der Kamera erfasste RGB-Signal nicht direkt dem gesuchten Pulssignal entspricht, sondern aus mehreren überlagerten Anteilen besteht. Für die \ac{rppg}-Signalverarbeitung ergibt sich daraus die Aufgabe, die pulssynchrone Komponente $p(t)$ möglichst robust von Beleuchtungs-, Reflexions- und Bewegungsanteilen zu trennen.\footcitecustom[2]{wangAlgorithmicPrinciplesRemote2017} In der Literatur lassen sich hierfür insbesondere zwei grundlegende Verfahrensrichtungen unterscheiden:
+Aus dem Modell wird deutlich, dass das von der Kamera erfasste RGB-Signal nicht direkt dem gesuchten Pulssignal entspricht, sondern aus mehreren überlagerten Anteilen besteht. Für die \ac{rppg}-Signalverarbeitung ergibt sich daraus die Aufgabe, die pulssynchrone Komponente $p(t)$ möglichst robust von Beleuchtungs-, Reflexions- und Bewegungsanteilen zu trennen.\footcitecustomebenda[2]{wangAlgorithmicPrinciplesRemote2017} In der Literatur lassen sich hierfür insbesondere zwei grundlegende Verfahren unterscheiden:
 
 \begin{itemize}
     \item \textbf{\ac{bss}:} Frühe \ac{rppg}-Ansätze nutzten Verfahren der \ac{bss}, beispielsweise die \ac{pca} oder die \ac{ica}, um das gemessene RGB-Signal statistisch in mehrere Signalanteile zu zerlegen. Der allgemeine Prozess dieser Methoden lässt sich durch folgende Gleichung beschreiben:
@@ -90,11 +91,11 @@ Aus dem Modell wird deutlich, dass das von der Kamera erfasste RGB-Signal nicht 
         Y(t) = W \cdot C(t)
     \end{equation}
 
-    Dabei beschreibt $C(t)$ das beobachtete RGB-Signal der Kamera, während $Y(t)$ die daraus berechneten Quellsignale enthält. Diese Komponenten können sowohl pulssynchrone Signalanteile als auch Störanteile umfassen. Die Matrix $W$ wird als Entmischungsmatrix bezeichnet und bestimmt, wie die RGB-Signale kombiniert werden. \ac{pca} und \ac{ica} unterscheiden sich vor allem darin, nach welchem Kriterium diese Matrix bestimmt wird. Während \ac{pca} auf der Kovarianz der RGB-Signale basiert und unkorrelierte Komponenten erzeugt, geht \ac{ica} von statistisch unabhängigen und nicht gaußförmig verteilten Quellsignalen aus.\footcitecustom[3]{wangAlgorithmicPrinciplesRemote2017}
+    Dabei beschreibt $C(t)$ das beobachtete RGB-Signal der Kamera, während $Y(t)$ die daraus berechneten Quellsignale enthält. Diese Komponenten können sowohl pulssynchrone Signalanteile als auch Störanteile umfassen. Die Matrix $W$ wird als Entmischungsmatrix bezeichnet und bestimmt, wie die RGB-Signale kombiniert werden. \ac{pca} und \ac{ica} unterscheiden sich vor allem darin, nach welchem Kriterium diese Matrix bestimmt wird. Während \ac{pca} auf der Kovarianz der RGB-Signale basiert und unkorrelierte Komponenten erzeugt, geht \ac{ica} von statistisch unabhängigen und nicht gaußförmig verteilten Quellsignalen aus.\footcitecustomebenda[3]{wangAlgorithmicPrinciplesRemote2017}
     
-    Ein Nachteil dieser Verfahren ist, dass sie \glqq blind\grqq\ arbeiten und somit kein Vorwissen über die Reflexionseigenschaften der Haut nutzen. Dadurch können sie besonders bei periodischen Bewegungen an ihre Grenzen stoßen, da solche Bewegungsartefakte ebenfalls periodische Signalanteile erzeugen und damit schwer vom eigentlichen Pulssignal zu unterscheiden sind.\footcitecustom[3]{wangAlgorithmicPrinciplesRemote2017}
+    Ein Nachteil dieser Verfahren ist, dass sie \glqq blind\grqq\ arbeiten und somit kein Vorwissen über die Reflexionseigenschaften der Haut nutzen. Dadurch können sie besonders bei periodischen Bewegungen an ihre Grenzen stoßen, da solche Bewegungsartefakte ebenfalls periodische Signalanteile erzeugen und damit schwer vom eigentlichen Pulssignal zu unterscheiden sind.\footcitecustomenglisch[3]{wangAlgorithmicPrinciplesRemote2017}
     
-    \item \textbf{Modellbasierte Verfahren:} Modellbasierte Verfahren nutzen gezielt Annahmen über die optischen und physiologischen Eigenschaften der Haut und des Blutes. Der \ac{chrom}-Algorithmus arbeitet mit Chrominanzsignalen, also Farbsignalen, bei denen die reine Helligkeitsinformation weitgehend ausgeblendet wird.\footcitecustom[4]{wangAlgorithmicPrinciplesRemote2017} Ein weiterer modellbasierter Ansatz ist das \ac{pos}-Verfahren. Dabei werden die zeitlich normalisierten RGB-Signale ($R_n, G_n, B_n$) auf eine Ebene projiziert, die orthogonal zum Hautfarbvektor im normalisierten RGB-Raum liegt. Auf diese Weise sollen gemeinsame Intensitätsschwankungen abgeschwächt werden, während pulssynchrone Farbänderungen stärker hervortreten.
+    \item \textbf{Modellbasierte Verfahren:} Modellbasierte Verfahren nutzen gezielt Annahmen über die optischen und physiologischen Eigenschaften der Haut und des Blutes. Der \ac{chrom}-Algorithmus arbeitet mit Chrominanzsignalen, also Farbsignalen, bei denen die reine Helligkeitsinformation weitgehend ausgeblendet wird.\footcitecustomebenda[4]{wangAlgorithmicPrinciplesRemote2017} Ein weiterer modellbasierter Ansatz ist das \ac{pos}-Verfahren. Dabei werden die zeitlich normalisierten RGB-Signale ($R_n, G_n, B_n$) auf eine Ebene projiziert, die orthogonal zum Hautfarbvektor im normalisierten RGB-Raum liegt. Auf diese Weise sollen gemeinsame Intensitätsschwankungen abgeschwächt werden, während pulssynchrone Farbänderungen stärker hervortreten.
     
     Diese Projektion erzeugt zwei Zwischensignale $S_1(t)$ und $S_2(t)$, die aus den zeitlich normalisierten Farbkanälen gebildet werden:
 
@@ -106,7 +107,7 @@ Aus dem Modell wird deutlich, dass das von der Kamera erfasste RGB-Signal nicht 
     S_2(t) = G_n(t) + B_n(t) - 2R_n(t)
     \end{equation}
 
-    Die beiden Signale werden anschließend durch das sogenannte Alpha-Tuning zu einem geschätzten Pulssignal $\hat{p}(t)$ kombiniert. Dabei wird $S_2(t)$ mit dem Faktor $\alpha$ skaliert, wobei $\alpha$ aus dem Verhältnis der Standardabweichungen beider Zwischensignale berechnet wird:\footcitecustom[6-7]{wangAlgorithmicPrinciplesRemote2017}
+    Die beiden Signale werden anschließend durch das sogenannte Alpha-Tuning zu einem geschätzten Pulssignal $\hat{p}(t)$ kombiniert. Dabei wird $S_2(t)$ mit dem Faktor $\alpha$ skaliert, wobei $\alpha$ aus dem Verhältnis der Standardabweichungen beider Zwischensignale berechnet wird:\footcitecustomenglisch[6-7]{wangAlgorithmicPrinciplesRemote2017}
 
     \begin{equation}
     \hat{p}(t) = S_1(t) + \alpha \cdot S_2(t) \quad \text{mit} \quad \alpha = \frac{\sigma(S_1)}{\sigma(S_2)}
@@ -117,7 +118,7 @@ Aus dem Modell wird deutlich, dass das von der Kamera erfasste RGB-Signal nicht 
 
 Das aus der Signalextraktion gewonnene eindimensionale Zeitsignal wird abschließend genutzt, um die Pulsfrequenz zu bestimmen. Dies geschieht entweder im Zeitbereich durch Peak-Detection oder im Frequenzbereich mithilfe einer \ac{fft}. Bei der Peak-Detection werden lokale Maxima des Signals erkannt und als einzelne Herzschläge interpretiert. Die \ac{fft} zerlegt das Zeitsignal dagegen in seine Frequenzanteile, sodass die dominante periodische Komponente des Signals bestimmt werden kann. Diese dominante Frequenz entspricht der geschätzten Pulsfrequenz.
 
-Bei der Analyse im Frequenzbereich wird das extrahierte \ac{rppg}-Signal vom Zeitbereich in den Frequenzbereich überführt. Häufig wird hierfür das Welch-Verfahren genutzt, um die spektrale Leistungsdichte (\ac{psd}) des Signals zu schätzen. Die Frequenz $f_{rPPG}$, bei der die \ac{psd} ihr Maximum innerhalb des menschlichen Pulsbereichs erreicht, wird als dominante Pulsfrequenz interpretiert. Der finale Messwert in Schlägen pro Minute ergibt sich anschließend durch Multiplikation dieser Frequenz mit 60:\footcitecustom[44704]{leeReviewRemoteHeart2023}
+Bei der Analyse im Frequenzbereich wird das extrahierte \ac{rppg}-Signal vom Zeitbereich in den Frequenzbereich überführt. Häufig wird hierfür das Welch-Verfahren genutzt, um die spektrale Leistungsdichte (\ac{psd}) des Signals zu schätzen. Die Frequenz $f_{rPPG}$, bei der die \ac{psd} ihr Maximum innerhalb des menschlichen Pulsbereichs erreicht, wird als dominante Pulsfrequenz interpretiert. Der finale Messwert in Schlägen pro Minute ergibt sich anschließend durch Multiplikation dieser Frequenz mit 60:\footcitecustomenglisch[44704]{leeReviewRemoteHeart2023}
 
 \begin{equation}
 HR_{estimated} = 60 \cdot f_{rPPG}
@@ -126,7 +127,7 @@ HR_{estimated} = 60 \cdot f_{rPPG}
 \subsection{\acl{evm} (\acs{evm})}
 \label{subsec:evm}
 
-Während die zuvor beschriebene \ac{rppg}-Pipeline (\cref{subsec:rppg}) darauf abzielt, aus den Farbveränderungen eines Videos ein eindimensionales Pulssignal zu extrahieren, dient die \ac{evm} primär der Verstärkung kleiner zeitlicher Veränderungen in Videosequenzen. \ac{evm} ist damit kein eigenständiges Verfahren zur Berechnung der Pulsfrequenz, sondern eine Signalverarbeitungsmethode, mit der sehr kleine Farb- oder Bewegungsänderungen sichtbar gemacht oder für eine nachgelagerte Analyse hervorgehoben werden können.\footcitecustom[1-3]{wuEulerianVideoMagnification}
+Während die zuvor beschriebene \ac{rppg}-Pipeline (\cref{subsec:rppg}) darauf abzielt, aus den Farbveränderungen eines Videos ein eindimensionales Pulssignal zu extrahieren, dient die \ac{evm} primär der Verstärkung kleiner zeitlicher Veränderungen in Videosequenzen. \ac{evm} ist damit kein eigenständiges Verfahren zur Berechnung der Pulsfrequenz, sondern eine Signalverarbeitungsmethode, mit der sehr kleine Farb- oder Bewegungsänderungen sichtbar gemacht oder für eine nachgelagerte Analyse hervorgehoben werden können.\footcitecustomenglisch[1-3]{wuEulerianVideoMagnification}
 
 \subsubsection{Die \acs{evm}-Verarbeitungspipeline}
 
@@ -145,7 +146,7 @@ Das zeitlich gefilterte Signal wird mit einem Verstärkungsfaktor $\alpha$ multi
 Abschließend werden die verstärkten Signalanteile wieder zum ursprünglichen Bildsignal addiert und die Pyramide rekonstruiert. Daraus entsteht das finale Ausgabevideo, in dem die zuvor subtilen Veränderungen sichtbar hervortreten.
 
 \subsubsection{Mathematische Begründung durch die Taylor-Reihe}
-Um zu erklären, unter welchen Annahmen eine zeitliche Filterung und Verstärkung von Pixelintensitäten näherungsweise einer räumlichen Bewegungsverstärkung entspricht, nutzt die \ac{evm} eine Taylor-Reihenentwicklung erster Ordnung.\footcitecustom[3]{wuEulerianVideoMagnification}
+Um zu erklären, unter welchen Annahmen eine zeitliche Filterung und Verstärkung von Pixelintensitäten näherungsweise einer räumlichen Bewegungsverstärkung entspricht, nutzt die \ac{evm} eine Taylor-Reihenentwicklung erster Ordnung.\footcitecustomenglisch[3]{wuEulerianVideoMagnification}
 
 Betrachtet man ein eindimensionales Bildsignal $I(x, t)$ an der Position $x$ zur Zeit $t$, das einer kleinen translatorischen Verschiebung $\delta(t)$ unterliegt, lässt sich dies als $I(x, t) = f(x + \delta(t))$ ausdrücken. Eine Näherung durch die Taylor-Reihe ergibt:
 \begin{equation}
@@ -167,45 +168,45 @@ Unter der Annahme, dass die Taylor-Näherung auch für die größere Verschiebun
 \tilde{I}(x, t) \approx f(x + (1 + \alpha)\delta(t))
 \end{equation}
 
-Diese Herleitung zeigt den Kerngedanken der \ac{evm} unter den genannten Annahmen: Durch die zeitliche Filterung und Verstärkung von Pixelintensitäten können kleine Hautfarbänderungen durch den Blutfluss sowie kleine Bewegungen näherungsweise verstärkt werden. Die Gültigkeit dieser Interpretation ist jedoch auf kleine Verschiebungen, geeignete räumliche Frequenzbereiche und begrenzte Verstärkungsfaktoren beschränkt.\footcitecustom[3-4]{wuEulerianVideoMagnification}
+Diese Herleitung zeigt den Kerngedanken der \ac{evm} unter den genannten Annahmen: Durch die zeitliche Filterung und Verstärkung von Pixelintensitäten können kleine Hautfarbänderungen durch den Blutfluss sowie kleine Bewegungen näherungsweise verstärkt werden. Die Gültigkeit dieser Interpretation ist jedoch auf kleine Verschiebungen, geeignete räumliche Frequenzbereiche und begrenzte Verstärkungsfaktoren beschränkt.\footcitecustomenglisch[3-4]{wuEulerianVideoMagnification}
 
 \subsubsection{Grenzen der Verstärkung}
 
-Die Herleitung der \ac{evm} mittels der Taylor-Reihe basiert auf der Prämisse, dass es sich um kleine translatorische Verschiebungen handelt. Für Signale mit hohen räumlichen Frequenzen, z. B. scharfe Kanten im Bild, oder bei der Wahl eines zu großen Verstärkungsfaktors $\alpha$ verliert die Näherung erster Ordnung ihre Gültigkeit.\footcitecustom[3]{wuEulerianVideoMagnification}
+Die Herleitung der \ac{evm} mittels der Taylor-Reihe basiert auf der Prämisse, dass es sich um kleine translatorische Verschiebungen handelt. Für Signale mit hohen räumlichen Frequenzen, z. B. scharfe Kanten im Bild, oder bei der Wahl eines zu großen Verstärkungsfaktors $\alpha$ verliert die Näherung erster Ordnung ihre Gültigkeit.\footcitecustomebenda[3]{wuEulerianVideoMagnification}
 
-Um die mathematischen Grenzen der Verstärkung zu definieren, betrachten Wu et al. ein räumliches Kosinussignal $f(x) = \cos(\omega x)$ mit der räumlichen Frequenz $\omega$\footcitecustom{wuEulerianVideoMagnification}. Damit die Taylor-Näherung für das verstärkte Signal intakt bleibt, wird abgeleitet, dass die Kleinwinkelnäherung erfüllt sein muss. Daraus ergibt sich folgende Bedingung für den maximalen Verstärkungsfaktor in Abhängigkeit von der räumlichen Wellenlänge $\lambda = \frac{2\pi}{\omega}$ der Bewegung:\footcitecustom[4]{wuEulerianVideoMagnification}
+Um die mathematischen Grenzen der Verstärkung zu definieren, betrachten Wu et al. ein räumliches Kosinussignal $f(x) = \cos(\omega x)$ mit der räumlichen Frequenz $\omega$\footcitecustomebenda[4]{wuEulerianVideoMagnification}. Damit die Taylor-Näherung für das verstärkte Signal intakt bleibt, wird abgeleitet, dass die Kleinwinkelnäherung erfüllt sein muss. Daraus ergibt sich folgende Bedingung für den maximalen Verstärkungsfaktor in Abhängigkeit von der räumlichen Wellenlänge $\lambda = \frac{2\pi}{\omega}$ der Bewegung:\footcitecustomebenda[4]{wuEulerianVideoMagnification}
 
 \begin{equation}
 (1 + \alpha)\delta(t) < \frac{\lambda}{8}
 \end{equation}
 
-Diese Gleichung stellt eine wesentliche Einschränkung für die praktische Anwendung der \ac{evm} dar: Bei hohen räumlichen Frequenzen, also kleinen Wellenlängen $\lambda$, muss der Verstärkungsfaktor $\alpha$ reduziert werden, um sichtbare Artefakte im Ausgabevideo zu vermeiden. Dadurch wird auch die räumliche Zerlegung der \ac{evm}-Pipeline begründet, da unterschiedliche Frequenzbänder unterschiedlich stark verstärkt werden können.\footcitecustom[4]{wuEulerianVideoMagnification}
+Diese Gleichung stellt eine wesentliche Einschränkung für die praktische Anwendung der \ac{evm} dar: Bei hohen räumlichen Frequenzen, also kleinen Wellenlängen $\lambda$, muss der Verstärkungsfaktor $\alpha$ reduziert werden, um sichtbare Artefakte im Ausgabevideo zu vermeiden. Dadurch wird auch die räumliche Zerlegung der \ac{evm}-Pipeline begründet, da unterschiedliche Frequenzbänder unterschiedlich stark verstärkt werden können.\footcitecustomenglisch[4]{wuEulerianVideoMagnification}
 
 \subsection{\acl{vbcg} (\acs{vbcg})}
 \label{subsec:vbcg}
-Die \ac{vbcg} ist ein kamerabasiertes Verfahren zur kontaktlosen Erfassung pulssynchroner Mikrobewegungen des Körpers. Während die \ac{rppg} optische Farbänderungen der Haut auswertet, basiert die \ac{vbcg} auf mechanischen Bewegungen, die durch die Herzaktion und den Blutfluss im Körper entstehen.\footcitecustom[3430]{balakrishnanDetectingPulseHead2013}
+Die \ac{vbcg} ist ein kamerabasiertes Verfahren zur kontaktlosen Erfassung pulssynchroner Mikrobewegungen des Körpers. Während die \ac{rppg} optische Farbänderungen der Haut auswertet, basiert die \ac{vbcg} auf mechanischen Bewegungen, die durch die Herzaktion und den Blutfluss im Körper entstehen.\footcitecustomenglisch[3430]{balakrishnanDetectingPulseHead2013}
 
 \subsubsection{Physiologischer Mechanismus}
-Der ballistokardiographische Effekt beruht auf dem Rückstoßprinzip nach dem dritten Newtonschen Gesetz. Mit jedem Herzschlag wird Blut aus der linken Herzkammer in die Aorta ausgeworfen. Die dabei entstehenden Kräfte und Blutdruckgradienten führen zu sehr kleinen, periodischen Bewegungen des Körpers.\footcitecustom[1]{kimBallistocardiogramMechanismPotential2016} Da Blut über die Halsschlagadern in Richtung Kopf transportiert wird, treten auch am Kopf pulssynchrone Mikrobewegungen auf. Diese Bewegungen können bei geeigneten Aufnahmebedingungen aus dem Videomaterial extrahiert und zur Schätzung der Pulsfrequenz genutzt werden.\footcitecustom[3430]{balakrishnanDetectingPulseHead2013}
+Der ballistokardiographische Effekt beruht auf dem Rückstoßprinzip nach dem dritten Newtonschen Gesetz. Mit jedem Herzschlag wird Blut aus der linken Herzkammer in die Aorta ausgeworfen. Die dabei entstehenden Kräfte und Blutdruckgradienten führen zu sehr kleinen, periodischen Bewegungen des Körpers.\footcitecustomenglisch[1]{kimBallistocardiogramMechanismPotential2016} Da Blut über die Halsschlagadern in Richtung Kopf transportiert wird, treten auch am Kopf pulssynchrone Mikrobewegungen auf. Diese Bewegungen können bei geeigneten Aufnahmebedingungen aus dem Videomaterial extrahiert und zur Schätzung der Pulsfrequenz genutzt werden.\footcitecustomenglisch[3430]{balakrishnanDetectingPulseHead2013}
 
-Kim et al. modellieren die ballistokardiographische Kraft $F_{BCG}(t)$ als Folge von Blutdruckgradienten in der aufsteigenden und absteigenden Aorta:\footcitecustom[1]{kimBallistocardiogramMechanismPotential2016}
+Kim et al. modellieren die ballistokardiographische Kraft $F_{BCG}(t)$ als Folge von Blutdruckgradienten in der aufsteigenden und absteigenden Aorta:\footcitecustomenglisch[1]{kimBallistocardiogramMechanismPotential2016}
 
 \begin{equation}
 F_{BCG}(t) = A_D[P_1(t) - P_2(t)] - A_A[P_0(t) - P_1(t)]
 \end{equation}
 
-Hierbei beschreiben $A_A$ und $A_D$ die Querschnittsflächen der aufsteigenden und absteigenden Aorta. $P_0(t)$ bezeichnet den Blutdruck am Eingang der aufsteigenden Aorta, $P_1(t)$ den Blutdruck am Übergang beziehungsweise Ausgang der aufsteigenden Aorta und $P_2(t)$ den Blutdruck am Ausgang der absteigenden Aorta. Das Modell führt die Entstehung der \ac{bcg}-Wellen damit vor allem auf Druckgradienten in der aufsteigenden und absteigenden Aorta zurück.\footcitecustom[2]{kimBallistocardiogramMechanismPotential2016}
+Hierbei beschreiben $A_A$ und $A_D$ die Querschnittsflächen der aufsteigenden und absteigenden Aorta. $P_0(t)$ bezeichnet den Blutdruck am Eingang der aufsteigenden Aorta, $P_1(t)$ den Blutdruck am Übergang beziehungsweise Ausgang der aufsteigenden Aorta und $P_2(t)$ den Blutdruck am Ausgang der absteigenden Aorta. Das Modell führt die Entstehung der \ac{bcg}-Wellen damit vor allem auf Druckgradienten in der aufsteigenden und absteigenden Aorta zurück.\footcitecustomenglisch[2]{kimBallistocardiogramMechanismPotential2016}
 
-Die daraus resultierenden Bewegungen sind sehr klein. Balakrishnan et al. beschreiben, dass die unwillkürliche vertikale Kopfbewegung nur eine geringe Beschleunigung aufweist und im Millimeterbereich liegt.\footcitecustom[3431]{balakrishnanDetectingPulseHead2013} Obwohl diese Bewegung für das menschliche Auge kaum wahrnehmbar ist, kann sie aus Videomaterial extrahiert werden, sofern der Kopf ausreichend stabil erfasst wird.
+Die daraus resultierenden Bewegungen sind sehr klein. Balakrishnan et al. beschreiben, dass die unwillkürliche vertikale Kopfbewegung nur eine geringe Beschleunigung aufweist und im Millimeterbereich liegt.\footcitecustomenglisch[3431]{balakrishnanDetectingPulseHead2013} Obwohl diese Bewegung für das menschliche Auge kaum wahrnehmbar ist, kann sie aus Videomaterial extrahiert werden, sofern der Kopf ausreichend stabil erfasst wird.
 
 \subsubsection{Bildverarbeitungsansatz}
 
-Im Unterschied zur \ac{evm}, bei der zeitliche Änderungen an festen Bildpositionen verstärkt werden, wertet die \ac{vbcg} die Bewegung konkreter Bildmerkmale am Kopf aus. Dazu werden zunächst markante Punkte im Kopf- oder Gesichtsbereich lokalisiert und anschließend über mehrere Frames hinweg verfolgt. Aus den entstehenden Trajektorien wird ein zeitliches Bewegungssignal abgeleitet, das pulssynchrone Bewegungsanteile enthalten kann.\footcitecustom[3430]{balakrishnanDetectingPulseHead2013}
+Im Unterschied zur \ac{evm}, bei der zeitliche Änderungen an festen Bildpositionen verstärkt werden, wertet die \ac{vbcg} die Bewegung konkreter Bildmerkmale am Kopf aus. Dazu werden zunächst markante Punkte im Kopf- oder Gesichtsbereich lokalisiert und anschließend über mehrere Frames hinweg verfolgt. Aus den entstehenden Trajektorien wird ein zeitliches Bewegungssignal abgeleitet, das pulssynchrone Bewegungsanteile enthalten kann.\footcitecustomebenda[3430]{balakrishnanDetectingPulseHead2013}
 
 Für die Pulsmessung ist insbesondere die vertikale Bewegungskomponente relevant. Balakrishnan et al. beschreiben, dass horizontale Bewegungen stärker durch Gleichgewichts- und Haltungsschwankungen beeinflusst werden, während die vertikale Komponente besser geeignet ist, um pulssynchrone Kopfbewegungen zu erfassen.\footcitecustomebenda[3431]{balakrishnanDetectingPulseHead2013}
 
 \subsubsection{Die \acs{vbcg}-Verarbeitungspipeline}
-Die von Balakrishnan et al. vorgestellte Pipeline zur pulsbasierten Auswertung von Kopfbewegungen besteht aus mehreren Verarbeitungsschritten:\footcitecustom[3432-3433]{balakrishnanDetectingPulseHead2013}
+Die von Balakrishnan et al. vorgestellte Pipeline zur pulsbasierten Auswertung von Kopfbewegungen besteht aus mehreren Verarbeitungsschritten:\footcitecustomenglisch[3432-3433]{balakrishnanDetectingPulseHead2013}
 
 \paragraph{1. Feature Tracking} Zunächst wird der Kopf beziehungsweise das Gesicht im Video lokalisiert. Anschließend werden stabile Bildmerkmale detektiert und deren Positionen über die Zeit verfolgt, beispielsweise mit dem Lucas-Kanade-Tracker. Dadurch entstehen Trajektorien, welche die Bewegung der einzelnen Merkmale von Frame zu Frame beschreiben.\footcitecustomebenda[3432]{balakrishnanDetectingPulseHead2013}
 
@@ -217,7 +218,7 @@ Die von Balakrishnan et al. vorgestellte Pipeline zur pulsbasierten Auswertung v
 \Sigma_m \Phi_m = \Phi_m \Lambda_m
 \end{equation}
 
-Dabei enthält $\Lambda_m$ die zugehörigen Eigenwerte. Die ursprünglichen Zeitreihen werden anschließend auf die gefundenen Eigenvektoren $\phi_i$ projiziert, um eindimensionale Bewegungssignale $s_i(t)$ zu erhalten:\footcitecustom[3433]{balakrishnanDetectingPulseHead2013}
+Dabei enthält $\Lambda_m$ die zugehörigen Eigenwerte. Die ursprünglichen Zeitreihen werden anschließend auf die gefundenen Eigenvektoren $\phi_i$ projiziert, um eindimensionale Bewegungssignale $s_i(t)$ zu erhalten:\footcitecustomenglisch[3433]{balakrishnanDetectingPulseHead2013}
 
 \begin{equation}
 s_i(t) =
@@ -240,29 +241,30 @@ Ein Vorteil der \ac{vbcg} gegenüber der \ac{rppg} besteht darin, dass keine dir
 
 Neben der kontaktlosen Pulsfrequenzmessung lassen sich mit einer Kamera auch Gesichtsausdrücke auswerten, die Hinweise auf den emotionalen Zustand einer Person geben können. Ziel ist dabei, aus Kamerabildern Merkmale des aktuellen Gesichtsausdrucks abzuleiten.
 
-Grundsätzlich lassen sich mehrklassige Verfahren, bei denen mehrere Gesichtsausdrücke beziehungsweise Emotionsklassen erkannt werden, von einfachen binären Ansätzen unterscheiden. Bei binären Ansätzen wird lediglich ein bestimmtes Ausdrucksmerkmal erkannt, ohne dass mehrere Emotionen unterschieden werden. Ein Beispiel hierfür ist die Smile-Detection, bei der zwischen einem erkannten und einem nicht erkannten Lächeln unterschieden wird.\footcitecustom{rosebrockSmileDetectionOpenCV2021} Solche Ansätze können für ressourcenbeschränkte Echtzeitsysteme geeignet sein, da klassische Verfahren wie Haar-Cascades besonders schnell und einfach in Videostreams einsetzbar sind.\footcitecustom{rosebrockOpenCVHaarCascades2021}
+Grundsätzlich lassen sich mehrklassige Verfahren, bei denen mehrere Gesichtsausdrücke beziehungsweise Emotionsklassen erkannt werden, von einfachen binären Ansätzen unterscheiden. Bei binären Ansätzen wird lediglich ein bestimmtes Ausdrucksmerkmal erkannt, ohne dass mehrere Emotionen unterschieden werden. Ein Beispiel hierfür ist die Smile-Detection, bei der zwischen einem erkannten und einem nicht erkannten Lächeln unterschieden wird.\footcitecustomenglisch{rosebrockSmileDetectionOpenCV2021} Solche Ansätze können für ressourcenbeschränkte Echtzeitsysteme geeignet sein, da klassische Verfahren wie Haar-Cascades besonders schnell und einfach in Videostreams einsetzbar sind.\footcitecustomenglisch{rosebrockOpenCVHaarCascades2021}
 
 
 \subsection{Bildvorverarbeitung und Gesichtserkennung}
 
-Die technische Grundlage der Gesichtsanalyse bildet die Verarbeitung einzelner Kamerabilder. Das Farbbild der Kamera wird für die weitere Analyse in ein Graustufenbild umgewandelt. Eine solche Vorverarbeitung wird auch in der von OpenCV dokumentierten Cascade-Classifier-Pipeline zur Objekt- beziehungsweise Gesichtserkennung verwendet.\footcitecustom{opencvCascadeClassifier}
+Die technische Grundlage der Gesichtsanalyse bildet die Verarbeitung einzelner Kamerabilder. Das Farbbild der Kamera wird für die weitere Analyse in ein Graustufenbild umgewandelt. Eine solche Vorverarbeitung wird auch in der von OpenCV dokumentierten Cascade-Classifier-Pipeline zur Objekt- beziehungsweise Gesichtserkennung verwendet.\footcitecustomenglisch{opencvCascadeClassifier}
 
 Für Haar-Cascades ist diese Darstellung geeignet, da sie auf sogenannten Haar-like Features basieren. Dabei handelt es sich um rechteckige Merkmale, bei denen die Summe der Pixelwerte in hellen und dunklen Bereichen miteinander verglichen wird. Ein Feature ergibt sich dabei aus der Differenz zwischen der Pixelsumme unter dem weißen Rechteck und der Pixelsumme unter dem schwarzen Rechteck. Solche Merkmale können Kontrastunterschiede im Gesicht erfassen. Beispielsweise sind Augenregionen häufig dunkler als Nasen- oder Wangenbereiche.\footcitecustomebenda{opencvCascadeClassifier}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.55\textwidth]{Images/haar.png}
-    \caption[Haar-like Features]{Haar-like Features und ihre Anwendung auf Gesichtsbereiche. \cite{opencvCascadeClassifier}}
+    \caption[Haar-like Features]{Haar-like Features und ihre Anwendung auf Gesichtsbereiche. \protect\footnotemark}
     \label{fig:haar_features}
 \end{figure}
+\footnotetext{\found[]{opencvCascadeClassifier}}
 
-Aus den berechneten Haar-like Features wird durch ein trainiertes Klassifikationsmodell entschieden, ob ein Bildausschnitt ein Gesicht enthält oder nicht. Der Cascade-Classifier arbeitet dabei stufenweise. Bildbereiche, die bereits in frühen Stufen nicht zu einem Gesicht passen, werden verworfen. Nur vielversprechende Bereiche werden an weitere Stufen weitergegeben. Dadurch muss nicht jeder Bildausschnitt vollständig mit allen Merkmalen ausgewertet werden, was die Erkennung beschleunigt und den Einsatz in Videostreams ermöglicht.\footcitecustom{opencvCascadeClassifier}
+Aus den berechneten Haar-like Features wird durch ein trainiertes Klassifikationsmodell entschieden, ob ein Bildausschnitt ein Gesicht enthält oder nicht. Der Cascade-Classifier arbeitet dabei stufenweise. Bildbereiche, die bereits in frühen Stufen nicht zu einem Gesicht passen, werden verworfen. Nur vielversprechende Bereiche werden an weitere Stufen weitergegeben. Dadurch muss nicht jeder Bildausschnitt vollständig mit allen Merkmalen ausgewertet werden, was die Erkennung beschleunigt und den Einsatz in Videostreams ermöglicht.\footcitecustomenglisch{opencvCascadeClassifier}
 
 Wird ein Gesicht erkannt, kann der entsprechende Bildbereich als \ac{roi} extrahiert werden. Die nachfolgende Analyse wird dadurch auf den relevanten Gesichtsbereich beschränkt, statt das gesamte Kamerabild auszuwerten.
 
 \subsection{Smile-Detection als binäre Gesichtsausdruckserkennung}
 
-Auf Basis der extrahierten Gesichts-\ac{roi} kann anschließend eine Smile-Detection durchgeführt werden. In OpenCV-basierten Smile-Detection-Pipelines wird die Gesichts-\ac{roi} einem Klassifikator übergeben, der zwischen \glqq smiling\grqq\ und \glqq not smiling\grqq\ unterscheidet.\footcitecustom{rosebrockSmileDetectionOpenCV2021}
+Auf Basis der extrahierten Gesichts-\ac{roi} kann anschließend eine Smile-Detection durchgeführt werden. In OpenCV-basierten Smile-Detection-Pipelines wird die Gesichts-\ac{roi} einem Klassifikator übergeben, der zwischen \glqq smiling\grqq\ und \glqq not smiling\grqq\ unterscheidet.\footcitecustomenglisch{pyimagesearchsmile-detection-with-opencv-keras-and-tensorflow2021}
 
 Die Smile-Detection stellt damit eine binäre Form der Gesichtsausdruckserkennung dar. Sie reduziert die Analyse auf ein einzelnes sichtbares Ausdrucksmerkmal, nämlich das Vorhandensein eines Lächelns. Im Gegensatz zu mehrklassigen Verfahren, die mehrere Emotionsklassen wie Freude, Trauer, Wut oder Überraschung unterscheiden, liefert dieser Ansatz lediglich eine Aussage darüber, ob ein Lächeln erkannt wurde oder nicht.
 
